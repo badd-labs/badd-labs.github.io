@@ -16,7 +16,3 @@ Labs
 - Mining lab: [[TBA]()]
 - Blockchain application lab: [[TBA]()]
 
-Education tools
----
-
-- ChainGrader: [[TBA]()]
