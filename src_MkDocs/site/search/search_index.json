@@ -22,13 +22,13 @@
         }, 
         {
             "location": "/labs/lab3/", 
-            "text": "Lab Blockchain Transaction Storage and Mining\n\n\nIntroduction\n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [\nBlockchain storage lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "text": "Blockchain Tx Storage Lab\n\n\nIntroduction\n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [\nBlockchain storage lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
             "title": "Tx storage lab"
         }, 
         {
-            "location": "/labs/lab3/#lab-blockchain-transaction-storage-and-mining", 
+            "location": "/labs/lab3/#blockchain-tx-storage-lab", 
             "text": "", 
-            "title": "Lab Blockchain Transaction Storage and Mining"
+            "title": "Blockchain Tx Storage Lab"
         }, 
         {
             "location": "/labs/lab3/#introduction", 

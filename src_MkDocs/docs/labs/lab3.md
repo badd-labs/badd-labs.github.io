@@ -1,4 +1,4 @@
-Lab Blockchain Transaction Storage and Mining
+Blockchain Tx Storage Lab
 ===
 
 Introduction
