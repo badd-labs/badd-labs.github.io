@@ -9,7 +9,6 @@ With the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockch
 ![](../../img/bitcoin-miners-e1477665223385.jpg)
 
 Labs
-
 ---
 
 - Blockchain transaction storage lab: [[link](labs/lab3.md)]
