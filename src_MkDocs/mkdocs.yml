@@ -1,1 +1,6 @@
 site_name: Blockchain Labs
+pages:
+- [index.md, Home]
+- ['labs/lab3.md', 'Labs', 'Tx storage lab']
+theme: readthedocs
+~                           
