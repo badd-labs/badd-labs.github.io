@@ -1,7 +1,6 @@
 Welcome to the Blockchain Labs 
 ===
 
-
 Introduction
 ---
 

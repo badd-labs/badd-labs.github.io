@@ -1,4 +1,4 @@
-Lab: Blockchain Transaction Storage and Mining
+Lab Blockchain Transaction Storage and Mining
 ===
 
 Introduction
