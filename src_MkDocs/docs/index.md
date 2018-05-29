@@ -11,4 +11,12 @@ With the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockch
 Labs
 ---
 
-- Blockchain transaction storage lab: [[link](labs/lab3.md)]
+- Transaction-storage lab: [[link](labs/lab3.md)]
+- Smart-contract lab: [[TBA]()]
+- Mining lab: [[TBA]()]
+- Blockchain application lab: [[TBA]()]
+
+Education tools
+---
+
+- ChainGrader: [[TBA]()]
