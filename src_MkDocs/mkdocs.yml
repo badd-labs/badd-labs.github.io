@@ -4,5 +4,6 @@ pages:
 - Home: 'index.md'
 - Labs: 
     - 'Tx storage lab': 'labs/lab3.md'
+- About: 'about.md'
 
 #theme: readthedocs

@@ -39,6 +39,16 @@
             "location": "/labs/lab3/#files-that-are-needed", 
             "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
             "title": "Files that are needed"
+        }, 
+        {
+            "location": "/about/", 
+            "text": "Who are we\n\n\n\n\nFullstack security systems lab at Syracuse University: [\nwebsite\n]", 
+            "title": "About"
+        }, 
+        {
+            "location": "/about/#who-are-we", 
+            "text": "Fullstack security systems lab at Syracuse University: [ website ]", 
+            "title": "Who are we"
         }
     ]
 }
