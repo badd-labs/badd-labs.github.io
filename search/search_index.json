@@ -1,0 +1,34 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Welcome to the Blockchain Labs\n\n\nOverview\n\n\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining.\n\n\nLab Description: This module consists of four lab tasks: The first three labs explore the transactional and mining interface exposed by a Blockchain. The last two labs require designing client program to iterate and visualize the Blockchain transaction storage. The module is outlined below:\n\n\nLab Tasks\n\n\n\n\nFollow the below link to execute the lab:\n\n\nhttps://github.com/syracuse-fullstacksecurity/SUBlockchainLabs/tree/master/lab3.1\n\n\nRecommended Time\n\n\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "title": "Welcome to the Blockchain Labs"
+        }, 
+        {
+            "location": "/#welcome-to-the-blockchain-labs", 
+            "text": "", 
+            "title": "Welcome to the Blockchain Labs"
+        }, 
+        {
+            "location": "/#overview", 
+            "text": "With the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others.   The Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining.  Lab Description: This module consists of four lab tasks: The first three labs explore the transactional and mining interface exposed by a Blockchain. The last two labs require designing client program to iterate and visualize the Blockchain transaction storage. The module is outlined below:", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/#lab-tasks", 
+            "text": "Follow the below link to execute the lab:  https://github.com/syracuse-fullstacksecurity/SUBlockchainLabs/tree/master/lab3.1", 
+            "title": "Lab Tasks"
+        }, 
+        {
+            "location": "/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/#files-that-are-needed", 
+            "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
+            "title": "Files that are needed"
+        }
+    ]
+}
