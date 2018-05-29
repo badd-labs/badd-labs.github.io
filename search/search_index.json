@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\nLab: Blockchain Transaction Storage and Mining\n\n\n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [\nBlockchain storage lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLab: Blockchain Storage and Mining\n\n\n[\nlab3\n]", 
             "title": "Home"
         }, 
         {
@@ -16,17 +16,27 @@
             "title": "Introduction"
         }, 
         {
-            "location": "/#lab-blockchain-transaction-storage-and-mining", 
-            "text": "The Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [ Blockchain storage lab ].", 
-            "title": "Lab: Blockchain Transaction Storage and Mining"
+            "location": "/#lab-blockchain-storage-and-mining", 
+            "text": "[ lab3 ]", 
+            "title": "Lab: Blockchain Storage and Mining"
         }, 
         {
-            "location": "/#recommended-time", 
+            "location": "/labs/lab3/", 
+            "text": "===\n\n\nIntroduction\n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [\nBlockchain storage lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "title": "Tx storage lab"
+        }, 
+        {
+            "location": "/labs/lab3/#introduction", 
+            "text": "The Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [ Blockchain storage lab ].", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab3/#recommended-time", 
             "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
             "title": "Recommended Time"
         }, 
         {
-            "location": "/#files-that-are-needed", 
+            "location": "/labs/lab3/#files-that-are-needed", 
             "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
             "title": "Files that are needed"
         }
