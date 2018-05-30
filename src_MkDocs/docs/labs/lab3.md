@@ -15,5 +15,5 @@ Recommended Time
 Files that are needed
 ---
 
-* You will need the [[genesis.json](https://github.com/syracuse-fullstacksecurity/SUBlockchainLabs/blob/master/lab3.1/genesis.json)] file to execute this lab successfully.
+* You will need the [[genesis.json](https://raw.githubusercontent.com/BlockchainLabSU/SUBlockchainLabs/master/lab3.1/genesis.json)] file to execute this lab successfully.
 
