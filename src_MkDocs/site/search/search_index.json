@@ -71,6 +71,26 @@
             "title": "Pre-requisite"
         }, 
         {
+            "location": "/labs/lab4.1/", 
+            "text": "Smart-Contract Application Lab: Financial Derivatives on Blockchain\n\n\nIntroduction\n\n\nA common use of Smart contract is to support trusted financial derivatives. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of the use of Blockchain as a trusted intermediary for financial derivatives.\nThe module consists several exercises and the details are found in [\nBlockchain application lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week", 
+            "title": "Smart-contract lab"
+        }, 
+        {
+            "location": "/labs/lab4.1/#smart-contract-application-lab-financial-derivatives-on-blockchain", 
+            "text": "", 
+            "title": "Smart-Contract Application Lab: Financial Derivatives on Blockchain"
+        }, 
+        {
+            "location": "/labs/lab4.1/#introduction", 
+            "text": "A common use of Smart contract is to support trusted financial derivatives. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of the use of Blockchain as a trusted intermediary for financial derivatives.\nThe module consists several exercises and the details are found in [ Blockchain application lab ].", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.1/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
             "location": "/about/", 
             "text": "Who are we\n\n\n\n\nFullstack security systems lab at Syracuse University: [\nwebsite\n]", 
             "title": "About"
