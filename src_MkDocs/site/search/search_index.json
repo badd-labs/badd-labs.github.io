@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction-storage lab: [\nlink\n]\n\n\nSmart-contract lab: [\nTBA\n]\n\n\nMining lab: [\nTBA\n]\n\n\nBlockchain application lab: [\nTBA\n]", 
+            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction-storage lab: [\nlink\n]\n\n\nBlockchain application lab: logging file storage [\nlink\n]\n\n\nSmart-contract application lab: financial derivatives  [\nlink\n]", 
             "title": "Home"
         }, 
         {
@@ -17,33 +17,58 @@
         }, 
         {
             "location": "/#labs", 
-            "text": "Transaction-storage lab: [ link ]  Smart-contract lab: [ TBA ]  Mining lab: [ TBA ]  Blockchain application lab: [ TBA ]", 
+            "text": "Transaction-storage lab: [ link ]  Blockchain application lab: logging file storage [ link ]  Smart-contract application lab: financial derivatives  [ link ]", 
             "title": "Labs"
         }, 
         {
-            "location": "/labs/lab3/", 
+            "location": "/labs/lab3.1/", 
             "text": "Blockchain Tx Storage Lab\n\n\nIntroduction\n\n\nThe Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [\nBlockchain storage lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
-            "title": "Tx storage lab"
+            "title": "Transaction storage lab"
         }, 
         {
-            "location": "/labs/lab3/#blockchain-tx-storage-lab", 
+            "location": "/labs/lab3.1/#blockchain-tx-storage-lab", 
             "text": "", 
             "title": "Blockchain Tx Storage Lab"
         }, 
         {
-            "location": "/labs/lab3/#introduction", 
+            "location": "/labs/lab3.1/#introduction", 
             "text": "The Blockchain provides the storage of transaction history in cryptocurrency and gives us an interface of reading or writing transactions. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of Blockchain's  transactional interface. In addition, writing a transaction in Blockchain goes throug mining. This lab also introduces the basic concept of mining. The module consists several exercises and the details are found in  [ Blockchain storage lab ].", 
             "title": "Introduction"
         }, 
         {
-            "location": "/labs/lab3/#recommended-time", 
+            "location": "/labs/lab3.1/#recommended-time", 
             "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
             "title": "Recommended Time"
         }, 
         {
-            "location": "/labs/lab3/#files-that-are-needed", 
+            "location": "/labs/lab3.1/#files-that-are-needed", 
             "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
             "title": "Files that are needed"
+        }, 
+        {
+            "location": "/labs/lab3.3/", 
+            "text": "Blockchain Application Lab: Log Remote File Storage\n\n\nIntroduction\n\n\nA common (re)use of Blockchain is to store and audit the log of a remote application. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of the use of Blockchain as a audit log.\nThe module consists several exercises and the details are found in [\nBlockchain application lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nPre-requisite\n\n\n\n\n[\nBlockchain storage lab\n].", 
+            "title": "Blockchain logging lab"
+        }, 
+        {
+            "location": "/labs/lab3.3/#blockchain-application-lab-log-remote-file-storage", 
+            "text": "", 
+            "title": "Blockchain Application Lab: Log Remote File Storage"
+        }, 
+        {
+            "location": "/labs/lab3.3/#introduction", 
+            "text": "A common (re)use of Blockchain is to store and audit the log of a remote application. In this lab, the learning objective is for students to have a hands-on experience and in-depth understanding of the use of Blockchain as a audit log.\nThe module consists several exercises and the details are found in [ Blockchain application lab ].", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab3.3/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/labs/lab3.3/#pre-requisite", 
+            "text": "[ Blockchain storage lab ].", 
+            "title": "Pre-requisite"
         }, 
         {
             "location": "/about/", 
