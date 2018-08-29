@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction-storage lab: [\nlink\n]\n\n\nBlockchain application lab: logging file storage [\nlink\n]\n\n\nSmart-contract application lab: financial derivatives  [\nlink\n]", 
+            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction programming lab: [\nlink\n]\n\n\nBlockchain application lab: logging file storage [\nlink\n]\n\n\nSmart-contract programming lab [\nlink\n]", 
             "title": "Home"
         }, 
         {
@@ -17,7 +17,7 @@
         }, 
         {
             "location": "/#labs", 
-            "text": "Transaction-storage lab: [ link ]  Blockchain application lab: logging file storage [ link ]  Smart-contract application lab: financial derivatives  [ link ]", 
+            "text": "Transaction programming lab: [ link ]  Blockchain application lab: logging file storage [ link ]  Smart-contract programming lab [ link ]", 
             "title": "Labs"
         }, 
         {
