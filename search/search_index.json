@@ -91,6 +91,56 @@
             "title": "Recommended Time"
         }, 
         {
+            "location": "/labs/lab4.2/", 
+            "text": "Financial Derivative\n\n\nIntroduction\n\n\nThe goal of this programming lab is to demonstrate the use of smart contract programming in the Banking sector. In this lab, you will create a contract for Financial Derivative given the System Design for the contract and call the functions.  The module consists several exercises and the details are found in [\nFinancial Derivatives\n]\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "title": "Hedging lab"
+        }, 
+        {
+            "location": "/labs/lab4.2/#financial-derivative", 
+            "text": "", 
+            "title": "Financial Derivative"
+        }, 
+        {
+            "location": "/labs/lab4.2/#introduction", 
+            "text": "The goal of this programming lab is to demonstrate the use of smart contract programming in the Banking sector. In this lab, you will create a contract for Financial Derivative given the System Design for the contract and call the functions.  The module consists several exercises and the details are found in [ Financial Derivatives ]", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.2/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/labs/lab4.2/#files-that-are-needed", 
+            "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
+            "title": "Files that are needed"
+        }, 
+        {
+            "location": "/labs/lab4.34/", 
+            "text": "Supply Chain and Escrow Service\n\n\nIntroduction\n\n\nThe objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). Also, you will create a contract for part of the Supply chain transaction system given the System Design for the contract and call the functions on on-campus blockchain. The module consists several exercises and the details are found in [\nEscrow and supply chain\n]\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week\n\n\n\n\nFiles that are needed\n\n\n\n\nYou will need the [\ngenesis.json\n] file to execute this lab successfully.", 
+            "title": "Escrow and supply Blockchain labs"
+        }, 
+        {
+            "location": "/labs/lab4.34/#supply-chain-and-escrow-service", 
+            "text": "", 
+            "title": "Supply Chain and Escrow Service"
+        }, 
+        {
+            "location": "/labs/lab4.34/#introduction", 
+            "text": "The objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). Also, you will create a contract for part of the Supply chain transaction system given the System Design for the contract and call the functions on on-campus blockchain. The module consists several exercises and the details are found in [ Escrow and supply chain ]", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.34/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/labs/lab4.34/#files-that-are-needed", 
+            "text": "You will need the [ genesis.json ] file to execute this lab successfully.", 
+            "title": "Files that are needed"
+        }, 
+        {
             "location": "/about/", 
             "text": "Who are we\n\n\n\n\nFullstack security systems lab at Syracuse University: [\nwebsite\n]", 
             "title": "About"
