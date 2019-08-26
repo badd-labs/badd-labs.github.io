@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction programming lab: [\nlink\n]\n\n\nSmart-contract programming lab [\nlink\n]", 
+            "text": "Welcome to the Blockchain Labs\n\n\nIntroduction\n\n\nWith the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. \n\n\n\n\nLabs\n\n\n\n\nTransaction programming lab: [\nlink\n]\n\n\nSmart-contract programming lab [\nlink\n]\n\n\nBlockchain application lab: logging file storage [\nlink\n]\n\n\nCryptocurrency hedging lab [\nlink\n]\n\n\nEscrow and supply Blockchain labs [\nlink\n]", 
             "title": "Home"
         }, 
         {
@@ -17,7 +17,7 @@
         }, 
         {
             "location": "/#labs", 
-            "text": "Transaction programming lab: [ link ]  Smart-contract programming lab [ link ]", 
+            "text": "Transaction programming lab: [ link ]  Smart-contract programming lab [ link ]  Blockchain application lab: logging file storage [ link ]  Cryptocurrency hedging lab [ link ]  Escrow and supply Blockchain labs [ link ]", 
             "title": "Labs"
         }, 
         {
@@ -69,6 +69,66 @@
             "location": "/labs/lab3.3/#pre-requisite", 
             "text": "[ Blockchain storage lab ].", 
             "title": "Pre-requisite"
+        }, 
+        {
+            "location": "/labs/lab4.1/", 
+            "text": "Smart-Contract Programming Lab\n\n\nIntroduction\n\n\nSmart contract is an important programming interface of Blockchain. The objective of this lab is for students to have a hands-on experience and in-depth understanding of the smart contract programming. The lab module can be found in [\nSmart-contract programming lab\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n3 days", 
+            "title": "Smart-contract lab"
+        }, 
+        {
+            "location": "/labs/lab4.1/#smart-contract-programming-lab", 
+            "text": "", 
+            "title": "Smart-Contract Programming Lab"
+        }, 
+        {
+            "location": "/labs/lab4.1/#introduction", 
+            "text": "Smart contract is an important programming interface of Blockchain. The objective of this lab is for students to have a hands-on experience and in-depth understanding of the smart contract programming. The lab module can be found in [ Smart-contract programming lab ].", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.1/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  3 days", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/labs/lab4.2/", 
+            "text": "Financial Derivative\n\n\nIntroduction\n\n\nThe goal of this programming lab is to demonstrate the use of smart contract programming in the Banking sector. In this lab, you will create a contract for Financial Derivative given the System Design for the contract and call the functions.  The module consists several exercises and the details are found in [\nFinancial Derivatives\n]\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n1 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1 week", 
+            "title": "Hedging lab"
+        }, 
+        {
+            "location": "/labs/lab4.2/#financial-derivative", 
+            "text": "", 
+            "title": "Financial Derivative"
+        }, 
+        {
+            "location": "/labs/lab4.2/#introduction", 
+            "text": "The goal of this programming lab is to demonstrate the use of smart contract programming in the Banking sector. In this lab, you will create a contract for Financial Derivative given the System Design for the contract and call the functions.  The module consists several exercises and the details are found in [ Financial Derivatives ]", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.2/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  1 hour  Unsupervised situation (e.g. take a home lab):  1 week", 
+            "title": "Recommended Time"
+        }, 
+        {
+            "location": "/labs/lab4.34/", 
+            "text": "Supply Chain and Escrow Service\n\n\nIntroduction\n\n\nThe objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [\nEscrow\n]\nand [\nsupply Blockchain\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n2 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1.5 week", 
+            "title": "Escrow and supply Blockchain labs"
+        }, 
+        {
+            "location": "/labs/lab4.34/#supply-chain-and-escrow-service", 
+            "text": "", 
+            "title": "Supply Chain and Escrow Service"
+        }, 
+        {
+            "location": "/labs/lab4.34/#introduction", 
+            "text": "The objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [ Escrow ]\nand [ supply Blockchain ].", 
+            "title": "Introduction"
+        }, 
+        {
+            "location": "/labs/lab4.34/#recommended-time", 
+            "text": "Supervised situation (e.g. a closely-guided lab session):  2 hour  Unsupervised situation (e.g. take a home lab):  1.5 week", 
+            "title": "Recommended Time"
         }, 
         {
             "location": "/about/", 
