@@ -112,7 +112,7 @@
         }, 
         {
             "location": "/labs/lab4.34/", 
-            "text": "Supply Chain and Escrow Service\n\n\nIntroduction\n\n\nThe objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [[link(https://github.com/BlockchainLabSU/SUBlockchainLabs/tree/master/lab4-2019)].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n2 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1.5 week", 
+            "text": "Supply Chain and Escrow Service\n\n\nIntroduction\n\n\nThe objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [\nlink\n].\n\n\nRecommended Time\n\n\n\n\nSupervised situation (e.g. a closely-guided lab session): \n2 hour\n\n\nUnsupervised situation (e.g. take a home lab): \n1.5 week", 
             "title": "Escrow and supply Blockchain labs"
         }, 
         {
@@ -122,7 +122,7 @@
         }, 
         {
             "location": "/labs/lab4.34/#introduction", 
-            "text": "The objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [[link(https://github.com/BlockchainLabSU/SUBlockchainLabs/tree/master/lab4-2019)].", 
+            "text": "The objective of this lab is to understand the use of smart contract programming in Supply chain management. The lab will feature programming exercises for implementing the normal workflow of an escrow service (e.g., deposit and final payment) and the dispute resolution (i.e., returning payment to the buyer). \nAlso, you will create a contract for a supply-chain management system that runs on the on-campus blockchain. The module consists several exercises and the details are found in [ link ].", 
             "title": "Introduction"
         }, 
         {
