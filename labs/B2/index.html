@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab B2. DEX 2: AMM and pricing - Blockchain Labs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../B1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../B3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#lab-b2-dex-2-amm-and-pricing" class="nav-link">Lab B2: DEX 2: AMM and Pricing</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-token-transfer-same-with-b1" class="nav-link">Exercise 1. Execute token transfer (same with B1)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-impl-an-fixed-rate-amm-12" class="nav-link">Exercise 2. Impl. an fixed-rate AMM (1:2)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-impl-constant-product-amm" class="nav-link">Exercise 3. Impl. constant-product AMM</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-b2-dex-2-amm-and-pricing">Lab B2: DEX 2: AMM and Pricing</h1>
+<h2 id="introduction">Introduction</h2>
+<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader does not directly trade with other traders. Instead, they trade with a smart-contract intermediary. In practice, AMM gets more widely adopted than other DEX forms (e.g., order book). For instance, the most popular DEX services, including Uniswap, Sushiswap, Pancakeswap, etc., all follow AMM protocols. In this lab, you will implement an AMM smart contract.</p>
+<table>
+<thead>
+<tr>
+<th>Tasks</th>
+<th>Points</th>
+<th>CS student</th>
+<th>Finance student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>20</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>2</td>
+<td>30</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>3</td>
+<td>50</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-1-execute-token-transfer-same-with-b1">Exercise 1. Execute token transfer (same with B1)</h2>
+<p>The following smart contract implements a very simple token supporting the essential transfer function: <code>transfer(address sender, address recipient, uint256 amount)</code> </p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract MyToken {  
+  uint _totalSupply = 0; string _symbol;  
+  mapping(address =&gt; uint) balances;  
+  constructor(string memory symbol, uint256 initialSupply) {
+    _symbol = symbol;
+    _totalSupply = initialSupply;
+    balances[msg.sender] = _totalSupply;  
+  }
+
+  function transfer(address receiver, uint amount) public returns (bool) {    
+    require(amount &lt;= balances[msg.sender]);        
+    balances[msg.sender] = balances[msg.sender] - amount;    
+    balances[receiver] = balances[receiver] + amount;    
+    return true;  
+  }
+
+  function balanceOf(address account) public view returns(uint256){
+    return balances[account];
+  }}
+</code></pre>
+<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an TokenX instance. Demonstrate the process that the TokenX issuer transfers 10 TokenX to another account, say Alice, and display each account's balance before/after the transfer.</p>
+<h2 id="exercise-2-impl-an-fixed-rate-amm-12">Exercise 2. Impl. an fixed-rate AMM (1:2)</h2>
+<p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
+<p>In the figure above, trader Alice first transfers <code>dx</code> units of TokenX from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls TokenY's <code>transfer</code> function to transfer <code>dy</code> units of TokenY to Alice's account.</p>
+<p>In this exercise, you can consider that dy/dx = 2. Implement the AMM smart contract.</p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract AMM {
+  MyToken tokenX, tokenY;
+  // _tokenX and _tokenY are contract-addresses running MyToken SC
+  constructor(address _tokenX, address _tokenY){
+    tokenX = MyToken(_tokenX); tokenY = MyToken(_tokenY);
+  }
+
+  function swapXY(uint amountX) public payable {
+    // fill out the following with your code
+  } 
+}
+</code></pre>
+<ul>
+<li>Workflow to execuse your code:<ul>
+<li>Write and compile an <code>AMM</code> smart contract.</li>
+<li>Deploy <code>MyToken</code> smart contract twice, respectively to two contract addresses, say <code>_tokenX</code> and <code>_tokenY</code>.</li>
+<li>Deploy <code>AMM</code> smart contract with <code>_tokenX</code> and <code>_tokenY</code>.</li>
+<li>Execute the smart contracts in two steps: <ul>
+<li>1) call <code>_tokenX</code>'s <code>transfer</code> function</li>
+<li>2) call <code>AMM</code>'s <code>swapXY</code> function</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Hint: You need to make sure your account has enough tokens for both <code>_tokenX</code> and <code>_tokenY</code>.</li>
+</ul>
+<h2 id="exercise-3-impl-constant-product-amm">Exercise 3. Impl. constant-product AMM</h2>
+<p>Suppose the AMM account owns <code>x</code> units of TokenX and <code>y</code> units of TokenY. The AMM pool can use a function <code>f(x,y)</code> to calculate the exchange rate between TokenX and TokenY on the fly. Specifically, it enforces that function value is constant before and after each token swap, that is,</p>
+<p><code>f(x,y)=f(x+dx,y-dy)</code></p>
+<p>In this exercise, you are asked to implement constant-product AMM (adopted in the real-life Uniswap), where <code>f(x,y)=x*y</code>. Modify your AMM smart contract to support  <code>x*y=(x+dx)(y-dy)</code>.</p>
+<ul>
+<li>Hint: You may want to keep track of token balance <code>x</code> and <code>y</code> in the AMM smart contact by issuing <code>balanceOf</code> in each <code>swapXY</code> call.</li>
+</ul>
+<h2 id="deliverable">Deliverable</h2>
+<ul>
+<li>For all tasks, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

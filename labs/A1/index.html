@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab A1. Transaction exploration - Blockchain Labs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../.." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../A2/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#lab-a1-transaction-history-exploration" class="nav-link">Lab A1: Transaction History Exploration</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-manually-explore-three-transactions" class="nav-link">Exercise 1. Manually explore three transactions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-manually-explore-one-block" class="nav-link">Exercise 2. Manually explore one block</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-manually-explore-two-blocks" class="nav-link">Exercise 3. Manually explore two blocks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-4-automatically-explore-50-transactions-in-one-block" class="nav-link">Exercise 4. Automatically explore 50 transactions in one block</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-5-automatically-explore-all-transactions-in-one-block" class="nav-link">Exercise 5. Automatically explore all transactions in one block</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-6-automatically-explore-transactions-across-two-blocks" class="nav-link">Exercise 6. Automatically explore transactions across two blocks</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#faq" class="nav-link">FAQ</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-a1-transaction-history-exploration">Lab A1: Transaction History Exploration</h1>
+<h2 id="introduction">Introduction</h2>
+<p>Etherscan (https://etherscan.io/) provides a web service to explore Ethereum transactions and blocks. In this lab, you will retrieve and analyze Ethereum transaction history on etherscan by interacting with this website. Particularly, you will extract insights on transaction fees.</p>
+<table>
+<thead>
+<tr>
+<th>Exercises</th>
+<th>Points</th>
+<th>CS student</th>
+<th>Finance student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>10</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>2</td>
+<td>10</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>5</td>
+<td>30</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>6</td>
+<td>20</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-1-manually-explore-three-transactions">Exercise 1. Manually explore three transactions</h2>
+<p>Suppose the following Etherscan page shows details of a particular transaction (hash 0x84ae):</p>
+<p>https://etherscan.io/tx/0x84aee3793659afeebfb89b86e6a8ffd3b9f143b3719c9b358905a83dbd71cb79</p>
+<p>You are asked to report the average fees of three transactions, that is, transaction 0x84ae, its predecessor transaction and successor transaction. Transaction tx1 is the predecessor of tx2, if tx1 is ordered right before tx2 in the same block.</p>
+<p>Hint: You can find ordered transaction history related to block <code>15479087</code> on the following web page: https://etherscan.io/txs?block=15479087</p>
+<h2 id="exercise-2-manually-explore-one-block">Exercise 2. Manually explore one block</h2>
+<p>Find the transaction that transfers the highest Ether "value" in block <code>15479087</code>. Report the transaction hash. </p>
+<h2 id="exercise-3-manually-explore-two-blocks">Exercise 3. Manually explore two blocks</h2>
+<p>Find the last transaction in block <code>15479087</code> and the first transaction in block <code>15479088</code>. Report the average fees of these two transactions.</p>
+<ul>
+<li>Hint: Assume the first transaction in a block is listed as the first row on the first page under that block on etherscan.io. Likewise, the last transaction in a block is listed as the last row on the last page under that block on etherscan.io.</li>
+</ul>
+<h2 id="exercise-4-automatically-explore-50-transactions-in-one-block">Exercise 4. Automatically explore 50 transactions in one block</h2>
+<pre><code class="language-python">import requests
+from time import sleep
+from bs4 import BeautifulSoup
+
+def scrape_block(blocknumber, page):
+    # the URL of the web page that we want to get transaction data
+    api_url = &quot;https://etherscan.io/txs?block=&quot; + str(blocknumber) + &quot;&amp;p=&quot;+str(page)
+    # HTTP headers used to send a HTTP request
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0'}
+    # Pauses for 0.5 seconds before sending the next request
+    sleep(0.5)
+    # send the request to get data in the webpage
+    response = requests.get(api_url, headers=headers)
+    # get the transaction table from the response data we get
+    for row in BeautifulSoup(response.content, 'html.parser').select('table.table-hover tbody tr'):
+        # each row in the table is a transaction
+        attributes = map(lambda x: x.text, row.findAll('td'))
+        # extract transaction attributes
+        _begin, hash, method, block, timestamp1, age, from1, _arr, to1, value1, txnfee, burnfee = attributes
+        ######################## modify code below for each exercise #######################
+        print(&quot;transaction of ID:&quot;, hash, &quot;block:&quot;, block, &quot;from address&quot;, from1, &quot;toaddress&quot;, to1, &quot;transaction fee&quot;,txnfee)
+
+if __name__ == &quot;__main__&quot;:  # entrance to the main function
+    scrape_block(15479087, 1)
+</code></pre>
+<p>In this exercise, you will run a python code to crawl data from the etherscan website automatically. The example code above crawls the etherscan web page  (i.e., https://etherscan.io/txs?block=15479087) to read the first 50 transactions in block <code>15479087</code>.</p>
+<p>To run the python code, you will need a Python runtime and some libraries. If your computer does not support Python (yet), you can find installation instructions on
+https://www.python.org/downloads/ for both Windows and Mac machines. In addition, the Python libraries can be installed in a Python console: </p>
+<pre><code class="language-bash">&gt;&gt;&gt; pip3 install requests
+&gt;&gt;&gt; pip3 install beautifulsoup4
+</code></pre>
+<p>After installation, copy the above python code to a file and run the file in a python runtime (e.g., your favorite python IDE). After running the code, you can observe transaction attributes printed on the terminal or Python console.</p>
+<h2 id="exercise-5-automatically-explore-all-transactions-in-one-block">Exercise 5. Automatically explore all transactions in one block</h2>
+<p>In this exercise, you are required to report the average fee of all transactions in block <code>15479087</code>. You can modify the given code.</p>
+<ul>
+<li>Hint: transactions in block <code>15479087</code> are listed on three pages.</li>
+</ul>
+<h2 id="exercise-6-automatically-explore-transactions-across-two-blocks">Exercise 6. Automatically explore transactions across two blocks</h2>
+<p>In this exercise, you are required to report the average fees of 100 transactions, which are the first 50 transactions in block <code>15479087</code> and the first 50 transactions in block <code>15479088</code>. You can modify the given code.</p>
+<h2 id="deliverable">Deliverable</h2>
+<ol>
+<li>Report the transaction fee required for each exercise.</li>
+<li>For exercise 4, submit the screenshot that runs the crawler code on your computer.<ul>
+<li>If there are too many results that cannot fit into a single screen, you can randomly choose two screens and do two screenshots. </li>
+</ul>
+</li>
+<li>For exercise 5/6, submit your modified Python file and the screenshot that runs the code on your computer. The Python programs need to be stored in plaintext format and in separate files from your report. </li>
+</ol>
+<h2 id="faq">FAQ</h2>
+<ul>
+<li>Question: How to verify your code is correct?</li>
+<li>
+<p>Answer: Let's say your modified Python code needs to scan 100 transactions and calculate the average transaction fee. To verify your code is correct, you can change the number 100 in your program to a smaller one, say 3, and manually calculate the average fee of the 3 transactions. If the manual calculation result equals your program result, it shows that your program is likely to be correct.</p>
+</li>
+<li>
+<p>Question: Can I do lab exercises 4/5/6 without installing anything on my computer?</p>
+</li>
+<li>
+<p>Answer: Yes, it is possible. You could use Google's colab platform that supports running python code in a web browser:  https://colab.research.google.com/?utm_source=scs-index .</p>
+</li>
+<li>
+<p>Question: How to install a Python IDE?</p>
+</li>
+<li>Answer: It is not required to install an Python IDE (Python runtime is enough). But if you want, you can install the Pycharm for Python IDE (the community version) by following the instruction here: https://www.jetbrains.com/help/pycharm/installation-guide.html#toolbox. You will need to configure Python interpreter in Pycharm: https://www.jetbrains.com/help/pycharm/configuring-local-python-interpreters.html.</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

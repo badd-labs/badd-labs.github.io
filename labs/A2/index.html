@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Lab A2. Smart-contract programming - Blockchain Labs</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../A1/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../A3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#lab-a2-smart-contract-programming" class="nav-link">Lab A2: Smart-Contract Programming</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#solidity" class="nav-link">Solidity</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-1a-hello-world-contract-with-remix" class="nav-link">Exercise 1a: Hello-world Contract with Remix</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-1b-with-20-bonus-hello-world-contract-with-solc-and-on-campus-ethereum" class="nav-link">Exercise 1b (with 20% bonus): Hello-world Contract with Solc and On-Campus Ethereum</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-find-the-maximum" class="nav-link">Exercise 2: Find the Maximum</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#excercise-3f-for-finance-students-payment-relay-in-smart-contract" class="nav-link">Excercise 3F (for Finance students): Payment relay in smart contract</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-for-cs-students-rock-paper-scissors-game" class="nav-link">Exercise 3 (for CS students): Rock-paper-scissors game</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#grading-criterion" class="nav-link">Grading Criterion:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-a2-smart-contract-programming">Lab A2: Smart-Contract Programming</h1>
+<p>The learning objective of this lab is for students to acquire programming skills in smart contracts and to develop basic programs. The lab will consider an educational scenario of smart contract, that is, the rock-paper-scissors game. </p>
+<p><strong>Lab Description</strong>: This module consists of four lab exercises where the first two exercises (1a and 1b) are to set up programming environments. The last two exercises require you to design a contract program based on the given requirement. Exercise 1b is optional and gives bonus (with 20% extra points). All other exercises are mandatory. Exercise 1a, 2, and 3 are based on the web-based Remix IDE, and 1b is on the command-line-based <code>Solc</code>. </p>
+<h2 id="solidity">Solidity</h2>
+<p>Solidity is an object-oriented programming language for writing smart contracts mainly on Ethereum. In addition to our lecture on Solidity programming, there are other online tutorials [<a href="https://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html">here</a>].</p>
+<p>To write a Solidity program, you have to have an account payable, which is used as the constructor. Otherwise, you will not be able to make deposits/transfers in the contract. </p>
+<h2 id="exercise-1a-hello-world-contract-with-remix">Exercise 1a: Hello-world Contract with Remix</h2>
+<p>In Exercises 1, we will learn to compile and execute a given Solidity program. It is a hello-world program given as below. Function <code>greeter</code> takes a string argument and stores it in Variable <code>greeting</code>. Function <code>greet</code> take no argument and returns the value of Variable <code>greeting</code>.</p>
+<pre><code>pragma solidity ^ 0.4.25;
+contract hello { /* define variable greeting of the type string */  
+  string greeting;
+  function greeter(string _greeting) public {
+    greeting = _greeting;
+  } 
+  function greet() public constant returns(string) {
+    return greeting;
+  }
+} 
+</code></pre>
+<p>In this exercise, we will use Remix which is a web-based IDE for contract development. It supports the full programming life cycle including contract compilation, debugging, development, and execution. More details about the Remix IDE can be found in [<a href="https://remix.readthedocs.io/en/latest/">link</a>].</p>
+<p>1.1 Compile the code using <code>Start to Compile</code> button provided in the Remix IDE. Check for the errors (if any) and resolve them.</p>
+<p>1.2 Deploy the contract using <code>Deploy</code> button provided under <code>Run</code> tab. You can see the deployed contracts and functions deployed on the right-bottom corner. Provide the input for <code>greeter</code> function and click on "transact" button. You can see transaction being successful in the "Remix Transactions" section. </p>
+<p>1.3 Click on "greet" button/function, you can see the string value set for "greeting" using "greeter" function will be displayed. Submit the final screenshot of running this Solidity program.</p>
+<h2 id="exercise-1b-with-20-bonus-hello-world-contract-with-solc-and-on-campus-ethereum">Exercise 1b (with 20% bonus): Hello-world Contract with Solc and On-Campus Ethereum</h2>
+<p>In this exercise, we will use a command-line programming framework <code>solc</code> to compile and deploy the hello-world contract to Ethereum. We will use our on-campus Ethereum network (as in the previous labs). </p>
+<p>Follow the instructions [<a href="README_solc/">here</a>] to compile and execute the hello-world contract. Submit the screenshot of contract-execution results.</p>
+<h2 id="exercise-2-find-the-maximum">Exercise 2: Find the Maximum</h2>
+<p>In this exercise, you are asked to write a Solidity program to find the maximum of two values, x and y, and return that value.The Smart contact should have the following functionalities:</p>
+<ol>
+<li>A function that takes x and y as input</li>
+<li>Returns the maximum of x and y as output. Deploy the program and run the program in the Remix IDE [<a href="https://remix.ethereum.org/">link</a>]</li>
+</ol>
+<p>In exercise 1, if you took 1a option, you should do exercise 2 with Remix. If you took option 1b, then you can do exercise 2 with Solc. </p>
+<h2 id="excercise-3f-for-finance-students-payment-relay-in-smart-contract">Excercise 3F (for Finance students): Payment relay in smart contract</h2>
+<p>This exercise consists two steps.</p>
+<p>Step 3F1. You will need to compile and deploy the following smart contract in Remix. When running it, you need to call function <code>pay</code> with argument <code>0x0000000000000000000000000000000000000000</code>. Before you call the 'pay' function, click the 'showBalance' button to display the balance and take a screenshot. Then you should send a transaction to execute the 'pay' function, you need to specify the value to be <code>10</code> Ether (on the left panel of Remix IDE, there is a 'value' field, in the blank below, type 10 and select the unit to be 'ether', by default it is 'wei'), then click 'pay' button to execute the transaction. After that, click 'showBalance' button to show the balance again and take and submit your screenshot.</p>
+<pre><code>pragma solidity ^ 0.4.25;
+contract payrelay {
+
+  function pay(address receiver) public payable {
+    receiver.transfer(msg.value);
+  }
+
+  function showBalance() public view returns (uint256) {
+      return 0x0000000000000000000000000000000000000000.balance;
+  }
+
+}
+</code></pre>
+<p>Step 3F2. In the above step, you send <code>10</code> Ether to account <code>0x0000000000000000000000000000000000000000</code> through the smart contract <code>payrelay</code>. In this exercise, you are required to add a few lines of code in the above program to implement the following rule: The updated <code>payrelay</code> smart contract should only relay payment when the value is above <code>12</code> Ether.</p>
+<h2 id="exercise-3-for-cs-students-rock-paper-scissors-game">Exercise 3 (for CS students): Rock-paper-scissors game</h2>
+<p>Write a Smart contract to implement the Rock-Paper-Scissors game in solidity. You can use variables to keep track of the deposit and player values.The contract should have the following functionalities:</p>
+<ol>
+<li>There should be two players. Consider one specific address as the owner address (where both players will deposit their money).</li>
+<li>Each player deposits an initial amount of 5 Ethers into the owner account.</li>
+<li>Once both the players deposit the money, allow them to play. While depositing the money, make sure you keep track of who is depositing and make him/her the player1 or player2 accordingly.</li>
+<li>Write a function <code>play</code> which takes the string parameter (Choice of the player - Rock, paper, scissors) and consider their choice only if they have deposited successfully.</li>
+<li>Once both the players have input their choices, find the winner and transfer the money as below:<ul>
+<li>a. If player1 wins, send bid amount ie, 10 Ethers to player1.</li>
+<li>b. If player2 wins, send bid amount ie, 10 Ethers to player2.</li>
+<li>c. If both the players win, divide the bid amount and send to players equally. Once the game is finished, <code>Account</code> values (on the right-top corner of the IDE) of the designated player addresses should be updated. Make sure the player is depositing exactly 5 Ethers else the transaction should be rejected. While depositing the amount (5 Ethers in our case), <code>Value</code> on the right-top corner must be equivalent to 5 Ethers, in-order for the Remix to send the transaction successfully.</li>
+</ul>
+</li>
+</ol>
+<h2 id="deliverable">Deliverable</h2>
+<ul>
+<li>For all exercises, you should show the screenshot of you executing the program successfully. For instance, in Exercise 1, your screenshort should show the execution of a sequence such as <code>greeter("X")</code> and <code>greet()</code> which prints the value of <code>X</code>.</li>
+<li>In Exercise 2,3, you should also submit the solidity program you wrote.</li>
+</ul>
+<h2 id="grading-criterion">Grading Criterion:</h2>
+<ul>
+<li>Exercise 1a: 30 points</li>
+<li>Exercise 1b: 20 points (bonus)</li>
+<li>Exercise 2: 30 points</li>
+<li>Exercise 3: 40 points</li>
+</ul>
+<p>For exercise 1a, 1b, 2, if you did not submit the screenshot of successful executions of your program, you will get 5 points deducted, and 10 points deducted for exercise 3.
+In addition, in exercise 3, you have to demostrate your program executed successfully for cases of one winner and two winners. Missing one case will result in 5 points deduction. 
+For exercise 3F,  you have to demostrate your program executed successfully for cases of paying more than 12 Ether, and paying less than 12 Ether. Missing one case will result in 5 points deduction.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

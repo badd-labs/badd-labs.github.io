@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Lab 6: Auctions - Blockchain Labs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#lab-6-auctions" class="nav-link">Lab 6: Auctions</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#excercise-1" class="nav-link">Excercise 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#excersice-2" class="nav-link">Excersice 2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-6-auctions">Lab 6: Auctions</h1>
+<h2 id="excercise-1">Excercise 1</h2>
+<p>In this exercise, you are expected to design an open auction smart contract <strong>openAuction</strong> using solidity programing language. In an open auction, every participant is able to see the highest bid in the current period. Your code should implement the following logic.</p>
+<ol>
+<li>
+<p>Your contract constructor function should specify how long the <em>bidding time</em> will be and who will be the <em>beneficiary</em>.</p>
+</li>
+<li>
+<p>A function <strong>submitBid()</strong> can accept bids from any pariticipants and accepts their deposits within the bidding time. After the bidding time elapsed, no one can submit bids. The function only accepts a bid that beats the current highest bid. Within the bidding time, each bidder can submit bids multiple times. </p>
+</li>
+<li>
+<p>A funcion <strong>auctionEnd()</strong> can be called after the bidding time which will select the bidder who submits the <strong>second highest</strong> bid as the winner. His deposit is transfered to the beneficiary.</p>
+</li>
+<li>
+<p>The other bidders losing the auction is able to call the <strong>withdraw()</strong> function to take back their deposits.</p>
+</li>
+</ol>
+<h2 id="excersice-2">Excersice 2</h2>
+<p>In this excercise, you are required to implement a blinded auction protocol and write a <strong>blindAuction</strong> smart contract. In a blinded auction, paritipants are not allowed to see other bidders' bids and the highest bid. There will be two time periods, the first one is called bidding period, within which each pariticipant can submit a hash string to represent their bids. The other is called reveal period, within which each pariticipant need to reveal their real bids (the preimage of submitted hash). The bidding period starts and ends strictly before the reveal period.</p>
+<p>Your contract should implement the following logic.</p>
+<ol>
+<li>The contract deployer specifies the <em>bidding time</em>, <em>reveal time</em>, and <em>beneficiary</em>.</li>
+<li>The insterested bidders should hide their real bids by submitting a <em>hash</em> and transfer an arbitrary amount of value as the deposit. Specifically, the hash can be computed from a triplet of [fake (boolean), amount (int), secret(bytes32)]), each bidder needs to call this function multiple times to submit different hashes (computed from different triplets) to hide their real bids. </li>
+<li>The contract only accept bids during the bidding period, and after that no one can submit bids and the reveal timer ticker starts. </li>
+<li>During the reveal period, each bidder need to reveal each of their previous submitted hash by sending the raw triplets to the contract. The contract then check if the hash of each raw triplet equals to each previously submitted hash. If not, the contract do not allow the bidder to withdraw the corresponding deposits in that unmatched bid.</li>
+<li>After the reveal period, the <strong>second highest bidder</strong> will be the winner and his deposit will be transfered to the beneficiary.</li>
+<li>The other bidders losing the auction <em>withdraw</em> their deposits.</li>
+</ol>
+<p><strong>Hints</strong>:
+1. You can implemment a pure function to compute the hash string for any given triplets and then submit the hash as a blinded bid.
+2. The bidders' deposits should be sent to the contract during bidding period. No deposit will be allowed after bidding peroid.
+3. During the reveal period, if two bids have the same amount of deposit that equal to the highest bid, then who submits the bid later will be the winner. Similarly, if there are three or more bidders, then who submits the bid in the second earlist timestamp will be the winner.
+4. Similarly, during the reveal period, if the highest bid does not have two bidders but the second highest bid has, then who submits the second highest bid in the earlist timestamp will be the winner.</p>
+<p><strong>FAQ</strong>
+1. If there is no valid bid, what should the smart contract do? 
+   The auction will fail and there is no winner.
+2. If there is only one valid bid, what should the smart contract do?
+   The auction will fail and there is no winner.</p>
+<h2 id="deliverable">Deliverable</h2>
+<ol>
+<li>For all exercises, you should show the screenshot that you can execute your program successfully. For instance, in Exercise 1, your screenshort should show the execution of that different bidders submiting bids of different amounts, and the second highest bid wins the auction. In Exercise 2, your screenshort should show the execution of that different bidders submiting different hashes and revealing the preimage of the submitted hashes. Then the second highest bid wins the auction. </li>
+<li>You should also submit the solidity program you wrote.</li>
+</ol></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

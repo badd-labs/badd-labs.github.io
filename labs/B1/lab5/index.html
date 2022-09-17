@@ -4,26 +4,26 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="None">
         
         
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>Blockchain Labs</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Lab5 - Blockchain Labs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
 
-        <script src="js/jquery-1.10.2.min.js" defer></script>
-        <script src="js/bootstrap.min.js" defer></script>
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">Blockchain Labs</a>
+                <a class="navbar-brand" href="../../..">Blockchain Labs</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -33,44 +33,44 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
-                            <li class="navitem active">
-                                <a href="." class="nav-link">Home</a>
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Home</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="labs/A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+    <a href="../../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
 </li>
                                     
 <li>
-    <a href="labs/A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+    <a href="../../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
 </li>
                                     
 <li>
-    <a href="labs/A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+    <a href="../../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
 </li>
                                     
 <li>
-    <a href="labs/B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+    <a href="../" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
 </li>
                                     
 <li>
-    <a href="labs/B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+    <a href="../../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
 </li>
                                     
 <li>
-    <a href="labs/B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+    <a href="../../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
 </li>
                                     
 <li>
-    <a href="labs/B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+    <a href="../../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
 </li>
                                 </ul>
                             </li>
                             <li class="navitem">
-                                <a href="about/" class="nav-link">About</a>
+                                <a href="../../../about/" class="nav-link">About</a>
                             </li>
                         </ul>
 
@@ -80,16 +80,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" class="nav-link disabled">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="labs/A1/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -108,13 +98,21 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#welcome-to-the-blockchain-labs" class="nav-link">Welcome to the Blockchain Labs</a>
+            <li class="nav-item" data-level="1"><a href="#lab-5-price-oracle-and-liquidation" class="nav-link">Lab 5: Price Oracle and Liquidation</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+            <li class="nav-item" data-level="2"><a href="#task-1-borrow" class="nav-link">Task 1: Borrow</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#labs" class="nav-link">Labs</a>
+            <li class="nav-item" data-level="2"><a href="#task-2-price-feed" class="nav-link">Task 2: Price feed</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#task-3-liquidation" class="nav-link">Task 3: Liquidation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -125,20 +123,25 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="welcome-to-the-blockchain-labs">Welcome to the Blockchain Labs</h1>
-<h2 id="introduction">Introduction</h2>
-<p>With the popularity of cryptocurrencies (e.g., BitCoin, Ethereum, etc.), Blockchain, the backend technology that powers the cryptocurrencies, has raised to be a main-stream technique. It has the potential to disrupt many industries ranging from business, laws, finance, to many others. </p>
-<p><img alt="" src="../../img/bitcoin-miners-e1477665223385.jpg" /></p>
-<h2 id="labs">Labs</h2>
-<ul>
-<li>Transaction programming lab: [<a href="labs/lab3.1.md">link</a>]</li>
-<li>Smart-contract programming lab [<a href="labs/lab4.1.md">link</a>]</li>
-<li>Escrow and supply Blockchain labs [<a href="labs/lab4.34.md">link</a>]</li>
-</ul>
-<!--
-- Blockchain application lab: logging file storage [[link](labs/lab3.3.md)]
-- Cryptocurrency hedging lab [[link](labs/lab4.2.md)]
---></div>
+<h1 id="lab-5-price-oracle-and-liquidation">Lab 5: Price Oracle and Liquidation</h1>
+<p>A lending pool service allows borrowers to borrow one asset and collateralize another asset. To ensure that the value of the collateral matches that of the asset borrowed, the lending pool relies on a liquidation mechanism. In this lab, you will implement a simple lending pool and a liquidation mechanism between ETH and an ERC20 token. The liquidation requires reading from an off-chain oracle the price ticks of the current exchange rates between the token and ETH.</p>
+<p><img alt="Contract design diagram" src="../lab-pricefeeds.jpg" /></p>
+<p>More specifically, the figure depicts common workflows in a lending pool service. This workflow has two smart contracts and three EOAs: a borrower EOA, an oracle EOA, and a liquidator EOA. The two smart contracts are the tToken smart contracts and the lending-pool smart contract (LP). There are three workflows in this system; 1) the borrower borrowing tToken by collateral of ETH, 2) the price oracle updates the current price on the LP smart contract, and triggers liquidation, 3) the liquidator deposit tToken to claim the ETH collateral at a lower exchange rate. </p>
+<p>In this lab, you will implement the three workflows in an overall functional system.</p>
+<h2 id="task-1-borrow">Task 1: Borrow</h2>
+<p>Write smart contracts LP and tToken to support the following workflow: </p>
+<p>Initially, the LP smart contract has more than 10X tTokens. On Day One, the borrower calls the "borrow" function in the LP smart contract. Suppose through this function call (also a transaction), the borrower sends X ETH to the LP, and the X ETH is worth 4X tToken (that is, the ETH-tToken exchange rate on Day One is 4:1). The LP allows to lend at most 2X tToken to the borrower. This workflow is shown by Step 1) in the figure.</p>
+<h2 id="task-2-price-feed">Task 2: Price feed</h2>
+<p>Add a "feedPriceTick" function to your LP from Task 1, so that it supports the following workflow: </p>
+<p>The Oracle EOA can call the "feedPriceTick" with value T to set the current exchange rate between tToken and ETH. After the exchange rate is updated, the feedPriceTick function may calculate the current value of the ETH collateral in tToken. If it finds the ETH's worth is less than 3X tTokens, it sets the liquidation flag. This workflow is shown by Step 2) in the figure.</p>
+<h2 id="task-3-liquidation">Task 3: Liquidation</h2>
+<p>Add a "liquidate" function to your LP from Task 2, so that it supports the following workflow: </p>
+<p>A liquidator EOA transfers 2X tTokens to LP's account. This can be done by having the EOA call the tToken's "transfer" function (this is Step 3a in the figure). Then, the EOA calls the LP's "liquidate" function, which first checks the liquidation flag, and if true, proceeds to transfer X ETH to the liquidator's EOA account (Step 3b in the figure).</p>
+<h2 id="deliverable">Deliverable</h2>
+<ol>
+<li>For all tasks, you should show the screenshot that you have executed the described workflow successfully.</li>
+<li>Submit your solidity program.</li>
+</ol></div>
             </div>
         </div>
 
@@ -147,11 +150,11 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = ".",
+            var base_url = "../../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js" defer></script>
-        <script src="search/main.js" defer></script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -216,8 +219,3 @@
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.2.3
-Build Date UTC : 2022-09-17 19:30:40.805663+00:00
--->

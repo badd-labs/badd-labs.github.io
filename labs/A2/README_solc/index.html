@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>README solc - Blockchain Labs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../../B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#lab-l2-41exercise-1b-hello-world-on-solc-and-ethereum" class="nav-link">Lab L2-4.1/Exercise 1b: Hello-world on Solc and Ethereum</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="lab-l2-41exercise-1b-hello-world-on-solc-and-ethereum">Lab L2-4.1/Exercise 1b: Hello-world on Solc and Ethereum</h2>
+<p>Start your Ethereum VM in VirtualBox and open a terminal there.</p>
+<ol>
+<li>Install <code>Solc</code> </li>
+</ol>
+<p>Method 1a. Installing all versions of <code>solc</code> and use version <code>0.4.25</code>:</p>
+<pre><code>sudo python3 -m pip install py-solc
+sudo python3 -m solc.install v0.4.25
+sudo chmod 777 ~/.py-solc/solc-v0.4.25/bin/solc
+sudo mv ~/.py-solc/solc-v0.4.25/bin/solc /usr/bin/solc
+solc --version
+</code></pre>
+<p>Method 1b. </p>
+<pre><code>sudo add-apt-repository ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install solc
+</code></pre>
+<p>You will find <code>solc</code> under the path <code>/usr/bin</code>.</p>
+<p>For <strong>MacOs</strong>, please find the install instruction at: https://docs.soliditylang.org/en/v0.8.9/installing-solidity.html#macos-packages.</p>
+<ol>
+<li>Set up the Ethereum client for this lab. We will reuse your client data (e.g., accounts and balances) created in the previous lab, and connect to the same Ethereum network.</li>
+</ol>
+<pre><code>cd ~
+cp -r lab1 lab2
+cd lab2
+</code></pre>
+<ol>
+<li>Create a smart-contract file. Copy the text of the above hello-world program and save it in a file <code>~/lab2/hello.sol</code>. <ul>
+<li>You can use a text editor of your preference to do this, such as <code>vim</code>, <code>emacs</code>, <code>gedit</code>.</li>
+</ul>
+</li>
+<li>Compile the contract file using <code>solc</code> in the command below. You may also try <code>soljs</code> as the compiler.</li>
+</ol>
+<pre><code>solc -o . --bin --abi hello.sol
+</code></pre>
+<p><strong>Note</strong>: If your <code>solc</code> compiler version is after 0.5.0, you may need to use the following <strong>hello.sol</strong> source code.</p>
+<pre><code class="language-bash">pragma solidity ^ 0.5.0;
+contract hello { /* define variable greeting of the type string */  
+  string greeting;
+  function greeter(string memory _greeting) public {
+    greeting = _greeting;
+  } 
+  function greet() public view returns(string memory) {
+    return greeting;
+  }
+}
+</code></pre>
+<ul>
+<li>After compilation, there should be two files generated: <code>hello.abi</code> and <code>hello.bin</code>. 
+        - File <code>hello.bin</code> stores the compiled "binary" code. This is the code directly executed by miners.
+        - File <code>hello.abi</code> defines the interface through which the compiled code interacts with the execution platform (or EVM). Like ABI, it defines how the binary code in <code>.bin</code> should be interpreted in EVM.</li>
+</ul>
+<p><strong><em>hello.abi (original)</em></strong></p>
+<pre><code>[{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;greet&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;_greeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;name&quot;:&quot;greeter&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;}]
+</code></pre>
+<p><strong><em>hello.bin (original)</em></strong></p>
+<pre><code>608060405234801561001057600080fd5b506102d7806100206000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063cfae321714610051578063faf27bca146100e1575b600080fd5b34801561005d57600080fd5b5061006661014a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100a657808201518184015260208101905061008b565b50505050905090810190601f1680156100d35780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100ed57600080fd5b50610148600480360381019080803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506101ec565b005b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101e25780601f106101b7576101008083540402835291602001916101e2565b820191906000526020600020905b8154815290600101906020018083116101c557829003601f168201915b5050505050905090565b8060009080519060200190610202929190610206565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024757805160ff1916838001178555610275565b82800160010185558215610275579182015b82811115610274578251825591602001919060010190610259565b5b5090506102829190610286565b5090565b6102a891905b808211156102a457600081600090555060010161028c565b5090565b905600a165627a7a72305820a06cc690f3e38c276b8c4e70ec8a61437d1c71e3779bdfbd2f8d12bc3601f20a0029
+</code></pre>
+<ol>
+<li>To deploy the two compiled files, we need to first edit them as below.</li>
+</ol>
+<p><strong><em>hello.abi (modified)</em></strong></p>
+<pre><code>var helloContract = eth.contract([{&quot;constant&quot;:true,&quot;inputs&quot;:[],&quot;name&quot;:&quot;greet&quot;,&quot;outputs&quot;:[{&quot;name&quot;:&quot;&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;view&quot;,&quot;type&quot;:&quot;function&quot;},{&quot;constant&quot;:false,&quot;inputs&quot;:[{&quot;name&quot;:&quot;_greeting&quot;,&quot;type&quot;:&quot;string&quot;}],&quot;name&quot;:&quot;greeter&quot;,&quot;outputs&quot;:[],&quot;payable&quot;:false,&quot;stateMutability&quot;:&quot;nonpayable&quot;,&quot;type&quot;:&quot;function&quot;}])
+</code></pre>
+<p><strong><em>hello.bin (modified)</em></strong></p>
+<pre><code>personal.unlockAccount(eth.accounts[0])
+var helloVar = helloContract.new({from:eth.accounts[0],
+data:&quot;0x608060405234801561001057600080fd5b506102d7806100206000396000f30060806040526004361061004c576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063cfae321714610051578063faf27bca146100e1575b600080fd5b34801561005d57600080fd5b5061006661014a565b6040518080602001828103825283818151815260200191508051906020019080838360005b838110156100a657808201518184015260208101905061008b565b50505050905090810190601f1680156100d35780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b3480156100ed57600080fd5b50610148600480360381019080803590602001908201803590602001908080601f01602080910402602001604051908101604052809392919081815260200183838082843782019150505050505091929192905050506101ec565b005b606060008054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156101e25780601f106101b7576101008083540402835291602001916101e2565b820191906000526020600020905b8154815290600101906020018083116101c557829003601f168201915b5050505050905090565b8060009080519060200190610202929190610206565b5050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061024757805160ff1916838001178555610275565b82800160010185558215610275579182015b82811115610274578251825591602001919060010190610259565b5b5090506102829190610286565b5090565b6102a891905b808211156102a457600081600090555060010161028c565b5090565b905600a165627a7a72305820a06cc690f3e38c276b8c4e70ec8a61437d1c71e3779bdfbd2f8d12bc3601f20a0029&quot;,gas:500000})
+</code></pre>
+<ol>
+<li>Deploy the smart contract by first connecting to the Ethereum network (these steps are the same as per the last lab)</li>
+</ol>
+<pre><code>$ geth --datadir bkc_data init ~/lab2/genesis.json # create a database that uses this genesis block
+$ geth --datadir bkc_data --rpc --networkid 89992018 --allow-insecure-unlock --bootnodes &quot;enode://a3b871242d7e40dc517514f6a995c2514cbe4907827275e3164ff43fb95d1d977d77e66da2e992c94a0843337fdfb86c9a02254e414db8ff0d6dbba15f32eb22@128.230.210.231:30301&quot; console 2&gt;console.log  
+</code></pre>
+<ol>
+<li>Load and run the script to deploy smart contract</li>
+</ol>
+<pre><code>&gt; loadScript(&quot;hello.abi&quot;)
+&gt; loadScript(&quot;hello.bin&quot;)
+</code></pre>
+<ol>
+<li>You will see the message below in console log file. For future use, take a note of both contract address and transaction hash value.</li>
+</ol>
+<pre><code>INFO [06-26|14:39:04] Submitted contract creation              fullhash=0x3a866d157afb43afaef5e33ef7ec61ab0dfe2edf36783f8a332ee8d622dadea9 contract=0x5dDd255aBa54b65595BB80dDd492Ea260bBA23a1
+</code></pre>
+<ol>
+<li>Check if the transaction is included by <code>eth.getTransaction</code>. If not, then you have to enable mining on your Geth node to include the contract creation transaction. Open a new terminal and run the following command.</li>
+</ol>
+<pre><code class="language-bash">cd lab2
+geth attach bkc_data/geth.ipc
+miner.start(1)
+</code></pre>
+<ol>
+<li>Execute the smart-contract program by running the following commands. They sequentially call two functions in the deployed contracts, <code>greeter</code> and <code>greet</code>. <strong>Note:</strong> in the below command, a <code>gas</code> amount of 700,000 is specified.</li>
+</ol>
+<pre><code>&gt; helloVar.greeter.sendTransaction(&quot;Hello&quot;,{from:eth.accounts[0],gas:700000}) 
+&quot;0xae7ef314af8923baf12d93d17cbfc62ba93dab325fbae94c0a5d9bec4578aa62&quot;
+&gt; helloVar.greet.call()
+&quot;Hello&quot;
+</code></pre>
+<p><strong>Deliverable</strong>: Finish the above commands to execute the hello-world contract. Submit the screenshot of contract-execution results.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>README old 1 - Blockchain Labs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">Blockchain Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../A1/" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#lab-4-escrow-services-and-applications" class="nav-link">Lab 4: Escrow Services and Applications</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#system-design" class="nav-link">System design</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#task-1-buyer-and-seller-agree-on-the-transaction-state" class="nav-link">Task 1: Buyer and seller agree on the transaction state</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#task-2-dispute-resolution" class="nav-link">Task 2: Dispute resolution</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#task-3-support-custom-tokens" class="nav-link">Task 3: Support custom tokens</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#bonus-task-20" class="nav-link">Bonus Task (20%)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#qa" class="nav-link">Q/A</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="lab-4-escrow-services-and-applications">Lab 4: Escrow Services and Applications</h1>
+<h2 id="introduction">Introduction</h2>
+<p>An escrow is a trusted service that manages counter-party risks and helps establish trust between untrusted seller and buyer. In real life, an escrow service is backed by banks and is useful in many financial and supply-chain scenarios (e.g., buying a house). In this lab, you are required to implement an escrow service on Ether and custom tokens.</p>
+<h2 id="system-design">System design</h2>
+<p>There are four parties involved in an escrow service: a buyer, a seller, the escrow service and an arbitrator. The protocol works as below: At the beginning, the buyer makes a security deposit to the escrow service. Then, it proceeds to execute the transaction between the buyer and seller. In the end, if both the seller and buyer agree on the successful execution of transaction, the escrow service will transfer the payment to the seller. There is also a chance that the buyer and seller have a dispute; in this case, the escrow service hold back from sending the payment to the seller and relies on a trusted party to arbitrate the transaction outcome. Depending on the outcome, it may refund the buyer or pay to the seller. In practice, a real-world arbitrator can be an insurance company. The workflow of escrow service is listed below:</p>
+<ol>
+<li>The buyer sends a security deposit to the escrow service. </li>
+<li>(Case 1): The transaction is successful and is agreed upon between the buyer and the seller. Signaled by both parties, the escrow service proceeds to send the deposit to the seller. </li>
+<li>(Case 2): The transaction fails and the failed state is agreed upon between the buyer and seller. Signaled by both parties, the escrow service proceeds to refund the buyer.</li>
+<li>(Case 3): There is a dispute about the state of transaction. For instance, the buyer may think the transaction finishes successfully but the seller may think the opposite. In this case, an off-chain trusted party is used to arbitrate the transaction state and will tell the escrow service of her decision. Depending on the result, the escrow service may refund the buyer or pay the seller.</li>
+<li>Note that in all cases, the escrow service should collect certain amount of security deposit for the service fee (e.g., 1% of the security deposit).</li>
+</ol>
+<p>Refer to [<a href="https://www.investopedia.com/terms/e/escrow.asp">link</a>] and [<a href="https://www.escrow.com/what-is-escrow">link</a>] for more details about the escrow services.</p>
+<p><img alt="Contract design diagram" src="../lab-escrow.jpg" /></p>
+<p>A natural design is to implement a smart contract to play the role of escrow service. Here, your escrow smart contract should manage, in addition to its own address, three external accounts (<strong>EOA</strong>): a seller, a buyer and an arbitrator. Each account is associated with balance in certain <strong>tokens</strong>. For simplest impl., you can hard-code the buyer/seller addresses, and use Ether as the default token. </p>
+<h2 id="task-1-buyer-and-seller-agree-on-the-transaction-state">Task 1: Buyer and seller agree on the transaction state</h2>
+<p>Impl. the smart escrow contract that supports the following functions:</p>
+<ul>
+<li><code>MakeDeposit()</code> which allows the buyer to send the payment/security deposit to the smart contract. The payment should be the price of product plus service fee (1%).</li>
+<li><code>ApproveTxSuccess()</code> which allows only the buyer or seller to send their approval and to signal the success of transaction. Only both parties approve, the contract sends the payment to the seller.</li>
+<li><code>ApproveTxFail()</code> which allows only the buyer or seller to send their approval and to signal the failure of transaction. Only both parties approve, the contract refunds the payment back to the buyer.</li>
+</ul>
+<h2 id="task-2-dispute-resolution">Task 2: Dispute resolution</h2>
+<p>Dispute occurs when the seller sends <code>ApproveTxFail()</code> and the buyer sends <code>ApproveTxSuccess()</code> (or vice versa). When this happens, the escrow contract enters the following time-lock logic: It will wait for the input of an off-chain arbitrator via function <code>Arbitrate()</code>. If such an input is not received for the 2 minutes, the contract will time-out and refund the deposit to the buyer.</p>
+<ul>
+<li>Implement Function <code>Timelock()</code>, such that the smart contract waits for 2 minutes (or 12 Ethereum blocks) for the event of <code>Arbitrate()</code> invocation. If the timeout is reached, it refunds. The function <code>Timelock()</code> can be called by <code>ApproveTxSuccess()</code>/<code>ApproveTxFail()</code> after a dispute state occurs and should do two things:<ul>
+<li>Record current time/block height (depends on how you're measuring the time)</li>
+<li>Change the transaction state to dispute (Transaction is marked as dispute)</li>
+</ul>
+</li>
+<li>Implement Function <code>Arbitrate()</code> which is supposed to be called by account arbitrator. The arbitrator decides the transaction state and the function takes action to refund the buyer (upon the transaction failure) and to pay for the seller (upon the transaction success).<ul>
+<li><code>Arbitrate()</code> method should check the difference between time/block heights in addition to the transaction state</li>
+</ul>
+</li>
+</ul>
+<h2 id="task-3-support-custom-tokens">Task 3: Support custom tokens</h2>
+<p>In this task, you are required to implement a simple token and use it to support the smart escrow contract.</p>
+<ul>
+<li>Implement a simple token contract <code>SimpleToken</code> that supports function <code>transfer(address sender, address recipient, uint256 amount)</code> </li>
+<li>Use the token to back the accounts of buyer and seller in the smart escrow contract.</li>
+</ul>
+<!--
+
+contract SimpleToken {
+    mapping (address => uint256) private _balances;
+    function transfer(address sender, address recipient, uint256 amount) internal {
+        if ( _balances[sender] - amount < 0) throw;
+        _balances[sender] -= amount;
+        _balances[recipient] += amount;
+    }
+}
+
+-->
+
+<h2 id="bonus-task-20">Bonus Task (20%)</h2>
+<p>Deploy and run the code of all previous tasks on our on-campus Blockchain. Include screenshots of the results in your report. You can use [<a href="https://github.com/BlockchainLabSU/SUBlockchainLabs/blob/master/lab2/README_solc.md">this tutorial</a>] as a reference of how to deploy smart contracts on the on-campus Blockchain.</p>
+<h2 id="deliverable">Deliverable</h2>
+<ul>
+<li>For all tasks, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
+</ul>
+<h2 id="qa">Q/A</h2>
+<ul>
+<li>How to implement timeout on smart contract?<ul>
+<li>Hint: You can rely on the off-chain arbitrator to trigger the timeout function and use <code>block.number</code> to check if the timeout is called appropriately.</li>
+</ul>
+</li>
+<li>How can the "broker"account send ether to either the seller account, or refund ether back to the buyer account?<ul>
+<li>Hint: You can use functions <code>address.transfer()</code> or <code>address.send()</code>. Such a function transfers ether from the broker-contract account to the <code>address</code>, which can be either seller or buyer account.</li>
+<li>Hint: To send ether to the broker contract, you can send a regular transaction from off-chain.</li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
