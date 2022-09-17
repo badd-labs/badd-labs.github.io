@@ -1,3 +1,3 @@
 all:
-	git add -A; git commit -am 'index file final version'
+	git add -A; git commit -am 'Labs updated in 2022'
 	git push
