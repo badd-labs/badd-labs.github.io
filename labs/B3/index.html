@@ -114,11 +114,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#task-1-attack-across-dexes" class="nav-link">Task 1. Attack across DEXes</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-arbitrage-attacks-on-amm-pools" class="nav-link">Exercise 1. Arbitrage attacks on AMM pools</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#task-2-arbitrage-mitigation-by-synchronized-swaps" class="nav-link">Task 2. Arbitrage Mitigation by Synchronized Swaps</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-arbitrage-mitigation-by-routing-swaps" class="nav-link">Exercise 2. Arbitrage mitigation by routing swaps</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -137,27 +137,58 @@
 <h2 id="introduction">Introduction</h2>
 <p>In traditional finance, arbitrage is defined as the purchase and sale of the same asset in different markets in order to profit from differences in exchange rate. The same attack applies to decentralized exchanges (DEXes), where an attacker trades with two DEX pools and exercise buy-low-sell-high strategy. </p>
 <p>In this lab you will pretend to be both the attacker and defender taking steps to exploit an arbitrage opportunity and to prevent it from happening.</p>
-<h2 id="task-1-attack-across-dexes">Task 1. Attack across DEXes</h2>
+<h2 id="exercise-1-arbitrage-attacks-on-amm-pools">Exercise 1. Arbitrage attacks on AMM pools</h2>
 <p>Let's assume there are two DEXes, Ottoswap and Cuseswap. Ottoswap was willing to trade 10 <code>TokenX</code> per <code>TokenY</code> and Cuseswap was willing to trade 300 <code>TokenX</code> per <code>TokenY</code>. Attacker Alice could buy 10 <code>TokenX</code> for 1 <code>TokenY</code> from Ottoswap and then trade 10 <code>TokenX</code> for 2 <code>TokenY</code> on Cuseswap yielding a 1 <code>TokenY</code> profit. </p>
 <p>While Alice can do the two trades in two separate transactions, Alice may  face the risk of failing one transaction and losing value. In practice, attackers commonly deploy a smart contract to send the two trade transactions atomically in order to guarantee the attack success and profitability. </p>
 <p><img alt="AMM design diagram" src="lab-amm-abitrage.jpg" /></p>
-<p>Your job is to create such an arbitrage smart contract that collects the arbitrage profit. The setting is shown in the above diagram including the two token contracts, <code>TokenX</code> and <code>TokenY</code>, and their exchange rates on the two DEXes (Ottoswap and Cuseswap). </p>
+<p>Your job is to create an arbitrage smart contract that collects the arbitrage profit. The setting is shown in the above diagram, including the two token contracts, <code>TokenX</code> and <code>TokenY</code>, and their exchange rates on the two DEXes (Ottoswap and Cuseswap). </p>
 <p>Your arbitrage smart contract should invoke Ottoswap's swap function to trade <code>TokenY</code> for <code>TokenX</code> and then invoke Cuseswap's swap function to trade <code>TokenX</code> for <code>TokenX</code>. Your arbitrage smart contract should print its initial balance and the balance in the end.</p>
-<h2 id="task-2-arbitrage-mitigation-by-synchronized-swaps">Task 2. Arbitrage Mitigation by Synchronized Swaps</h2>
-<p><img alt="AMM design diagram" src="lab-amm-abitrage-defense.jpg" /></p>
-<p>In this task you will take the second approach, trading across DEXes to ensure an arbitrage opportunity isn't created. Create a smart contract that routes transactions between Ottoswap and Cuseswap to ensure an exchange imbalance is never created.</p>
+<p>In this exercise, you will be given the code of a CP-AMM (constant product) smart contract and run your arbitrage smart contract against the AMM. You will need to show the profit extracted by the arbitrage.</p>
+<p>Instructions:</p>
 <ul>
-<li>Include pictures showing the <code>TokenX</code> and <code>TokenY</code> balances of Ottoswap and Cuseswap after your contract executes.</li>
-<li>Deploy <code>MyToken</code> smart contract twice to create instances of <code>TokenY</code> and <code>TokenX</code></li>
-<li>Deploy Ottoswap and Cuseswap </li>
-<li>Both Ottoswap and Cuseswap have reserves of 10 <code>TokenY</code> and 5 <code>TokenX</code> </li>
-<li>Fund Alice with 2 <code>TokenY</code></li>
-<li>Swap Alice's <code>TokenY</code> on both Ottoswap and Cuseswap simultaneously</li>
+<li>Deploy <code>MyToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>.</li>
+<li>Make sure <code>Cuseswap</code> initially has 15 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
+<li>Deploy your arbitrage SC.</li>
+<li>Call the arbitrage SC against the <code>CP-AMM</code>.</li>
+<li>In your lab report, include the profit extracted from the above call.</li>
+</ul>
+<h2 id="exercise-2-arbitrage-mitigation-by-routing-swaps">Exercise 2. Arbitrage mitigation by routing swaps</h2>
+<p><img alt="AMM design diagram" src="lab-amm-abitrage-defense.jpg" /></p>
+<p>A defense against arbitrage is the “routing” approach that re-router a user's swap request to multiple AMM pools and balances out the spending so that exchange rates across AMM pools remain the same.</p>
+<p>Suppose an original user request is to swap $dx$ units of <code>TokenX</code> for <code>TokenY</code>, and there are two AMM pools: the first pool of $x1$/$y1$ units of <code>TokenX</code>/<code>TokenY</code> and the second pool of $x2$/$y2$ units of <code>TokenX</code>/<code>TokenY</code>. To make sure the exchange rates remain the same, we can have:</p>
+<p>$$
+\begin{eqnarray}
+dx1+dx2&amp;=&amp;dx \
+x1/y1&amp;=&amp;x2/y2\
+x1<em>y1&amp;=&amp;(x1+dx1)(y1-dy1)\
+x2</em>y2&amp;=&amp;(x2+dx2)(y2-dy2)\
+(x1+dx1)/(y1-dy1)&amp;=&amp;(x2+dx2)/(y2-dy2)\
+\end{eqnarray}
+$$</p>
+<p>It derives: </p>
+<p>$$
+\begin{eqnarray}
+dx1&amp;=&amp;\frac{Z(x2+dx)-x1}{Z+1} \
+dx2&amp;=&amp;\frac{x1+dx-Z<em>x2}{Z+1} \
+Z&amp;=&amp;\sqrt{\frac{x1</em>y1}{x2*y2}} \
+\end{eqnarray}
+$$</p>
+<p>In this exercise, you will implement such a smart contract that split an original swap request of $x$ between Ottoswap and Cuseswap as dectated by $dx1$ and $dx2$ above. This ensures that an exchange-rate imbalance is never created. The figure shows the system architecture. </p>
+<ul>
+<li>Deploy <code>MyToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>. </li>
+<li>Make sure <code>Cuseswap</code> initially has 30 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
+<li>Deploy your router SC.</li>
+<li>Call the router SC to swap 4 <code>TokenX</code> for <code>TokenY</code>. </li>
+<li>In your lab report, include the execution screenshot that shows how much <code>TokenX</code>is involved in <code>Ottoswap</code> and how much in <code>Cuseswap</code>.</li>
 </ul>
 <h2 id="deliverable">Deliverable</h2>
 <ol>
 <li>
-<p>For all tasks, you should submit screenshots showing your contract executing the described workflow successfully.</p>
+<p>For all exercises, you should submit screenshots showing your contract executing the described workflow successfully.</p>
 </li>
 <li>
 <p>Submit your solidity smart contracts for each task. </p>

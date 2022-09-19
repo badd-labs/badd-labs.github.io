@@ -118,7 +118,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-impl-an-fixed-rate-amm-12" class="nav-link">Exercise 2. Impl. an fixed-rate AMM (1:2)</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-impl-an-fixed-rate-amm" class="nav-link">Exercise 2. Impl. an fixed-rate AMM</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -194,9 +194,9 @@ contract MyToken {
   }}
 </code></pre>
 <p>Your job in this exercise is to deploy the above smart contract in Remix, creating an TokenX instance. Demonstrate the process that the TokenX issuer transfers 10 TokenX to another account, say Alice, and display each account's balance before/after the transfer.</p>
-<h2 id="exercise-2-impl-an-fixed-rate-amm-12">Exercise 2. Impl. an fixed-rate AMM (1:2)</h2>
+<h2 id="exercise-2-impl-an-fixed-rate-amm">Exercise 2. Impl. an fixed-rate AMM</h2>
 <p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
-<p>In the figure above, trader Alice first transfers <code>dx</code> units of TokenX from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls TokenY's <code>transfer</code> function to transfer <code>dy</code> units of TokenY to Alice's account.</p>
+<p>In the figure above, trader Alice first transfers $x$ units of TokenX from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls TokenY's <code>transfer</code> function to transfer $dy$ units of TokenY to Alice's account.</p>
 <p>In this exercise, you can consider that dy/dx = 2. Implement the AMM smart contract.</p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
 contract AMM {
@@ -226,11 +226,11 @@ contract AMM {
 <li>Hint: You need to make sure your account has enough tokens for both <code>_tokenX</code> and <code>_tokenY</code>.</li>
 </ul>
 <h2 id="exercise-3-impl-constant-product-amm">Exercise 3. Impl. constant-product AMM</h2>
-<p>Suppose the AMM account owns <code>x</code> units of TokenX and <code>y</code> units of TokenY. The AMM pool can use a function <code>f(x,y)</code> to calculate the exchange rate between TokenX and TokenY on the fly. Specifically, it enforces that function value is constant before and after each token swap, that is,</p>
-<p><code>f(x,y)=f(x+dx,y-dy)</code></p>
-<p>In this exercise, you are asked to implement constant-product AMM (adopted in the real-life Uniswap), where <code>f(x,y)=x*y</code>. Modify your AMM smart contract to support  <code>x*y=(x+dx)(y-dy)</code>.</p>
+<p>Suppose the AMM account owns $x$ units of <code>TokenX</code> and $y$ units of <code>TokenY</code>. The AMM pool can use a function $f(x,y)$ to calculate the exchange rate between <code>TokenX</code> and <code>TokenY</code> on the fly. Specifically, it enforces that function value is constant before and after each token swap, that is,</p>
+<p>$$f(x,y)=f(x+dx,y-dy)$$</p>
+<p>In this exercise, you are asked to implement constant-product AMM (adopted in the real-life Uniswap), where $f(x,y)=x*y$. Modify your AMM smart contract to support the constant-product invariant $x*y=(x+dx)(y-dy)$.</p>
 <ul>
-<li>Hint: You may want to keep track of token balance <code>x</code> and <code>y</code> in the AMM smart contact by issuing <code>balanceOf</code> in each <code>swapXY</code> call.</li>
+<li>Hint: You may want to keep track of token balance $x$ and $y$ in the AMM smart contact by issuing <code>balanceOf</code> in each <code>swapXY</code> call.</li>
 </ul>
 <h2 id="deliverable">Deliverable</h2>
 <ul>

@@ -108,37 +108,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-a2-smart-contract-programming" class="nav-link">Lab A2: Smart-Contract Programming</a>
+            <li class="nav-item" data-level="1"><a href="#lab-a2-smart-contract-programming-ether-bank" class="nav-link">Lab A2: Smart-Contract Programming: Ether Bank</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#solidity" class="nav-link">Solidity</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1a-hello-world-contract-with-remix" class="nav-link">Exercise 1a: Hello-world Contract with Remix</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-the-hello-world-sc" class="nav-link">Exercise 1: Execute the hello-world SC</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1b-with-20-bonus-hello-world-contract-with-solc-and-on-campus-ethereum" class="nav-link">Exercise 1b (with 20% bonus): Hello-world Contract with Solc and On-Campus Ethereum</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-write-sc-to-output-max" class="nav-link">Exercise 2: Write SC to output max</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-find-the-maximum" class="nav-link">Exercise 2: Find the Maximum</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-execute-sc-for-single-account-ether-bank" class="nav-link">Exercise 3: Execute SC for single-account Ether bank</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#excercise-3f-for-finance-students-payment-relay-in-smart-contract" class="nav-link">Excercise 3F (for Finance students): Payment relay in smart contract</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-3-for-cs-students-rock-paper-scissors-game" class="nav-link">Exercise 3 (for CS students): Rock-paper-scissors game</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-4-write-sc-for-multi-account-ether-bank" class="nav-link">Exercise 4: Write SC for multi-account Ether bank</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#grading-criterion" class="nav-link">Grading Criterion:</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -149,14 +137,49 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-a2-smart-contract-programming">Lab A2: Smart-Contract Programming</h1>
-<p>The learning objective of this lab is for students to acquire programming skills in smart contracts and to develop basic programs. The lab will consider an educational scenario of smart contract, that is, the rock-paper-scissors game. </p>
-<p><strong>Lab Description</strong>: This module consists of four lab exercises where the first two exercises (1a and 1b) are to set up programming environments. The last two exercises require you to design a contract program based on the given requirement. Exercise 1b is optional and gives bonus (with 20% extra points). All other exercises are mandatory. Exercise 1a, 2, and 3 are based on the web-based Remix IDE, and 1b is on the command-line-based <code>Solc</code>. </p>
-<h2 id="solidity">Solidity</h2>
+<h1 id="lab-a2-smart-contract-programming-ether-bank">Lab A2: Smart-Contract Programming: Ether Bank</h1>
+<p>The learning objective is to be able to execute given solidity program and to develop solidity program under given requirements.</p>
 <p>Solidity is an object-oriented programming language for writing smart contracts mainly on Ethereum. In addition to our lecture on Solidity programming, there are other online tutorials [<a href="https://solidity.readthedocs.io/en/v0.4.24/introduction-to-smart-contracts.html">here</a>].</p>
-<p>To write a Solidity program, you have to have an account payable, which is used as the constructor. Otherwise, you will not be able to make deposits/transfers in the contract. </p>
-<h2 id="exercise-1a-hello-world-contract-with-remix">Exercise 1a: Hello-world Contract with Remix</h2>
-<p>In Exercises 1, we will learn to compile and execute a given Solidity program. It is a hello-world program given as below. Function <code>greeter</code> takes a string argument and stores it in Variable <code>greeting</code>. Function <code>greet</code> take no argument and returns the value of Variable <code>greeting</code>.</p>
+<p>You will use <code>remix</code>, a web-based IDE for solidity development, including writing, deploying and executing solidity programs. Detail about the Remix IDE can be found in [<a href="https://remix.readthedocs.io/en/latest/">link</a>].</p>
+<p>To write a Solidity program, you have to have an account payable, which is used as the constructor. Otherwise, you will not be able to make deposits/transfers. </p>
+<table>
+<thead>
+<tr>
+<th>Exercises</th>
+<th>Points</th>
+<th>CS student</th>
+<th>Finance student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>15</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>2</td>
+<td>25</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>3</td>
+<td>25</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>4</td>
+<td>35</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-1-execute-the-hello-world-sc">Exercise 1: Execute the hello-world SC</h2>
+<p>In Exercises 1, you will compile and execute a given Solidity program, listed below. Function <code>greeter</code> takes a string argument and stores it in Variable <code>greeting</code>. Function <code>greet</code> take no argument and returns the value of Variable <code>greeting</code>.</p>
 <pre><code>pragma solidity ^ 0.4.25;
 contract hello { /* define variable greeting of the type string */  
   string greeting;
@@ -168,63 +191,79 @@ contract hello { /* define variable greeting of the type string */
   }
 } 
 </code></pre>
-<p>In this exercise, we will use Remix which is a web-based IDE for contract development. It supports the full programming life cycle including contract compilation, debugging, development, and execution. More details about the Remix IDE can be found in [<a href="https://remix.readthedocs.io/en/latest/">link</a>].</p>
-<p>1.1 Compile the code using <code>Start to Compile</code> button provided in the Remix IDE. Check for the errors (if any) and resolve them.</p>
-<p>1.2 Deploy the contract using <code>Deploy</code> button provided under <code>Run</code> tab. You can see the deployed contracts and functions deployed on the right-bottom corner. Provide the input for <code>greeter</code> function and click on "transact" button. You can see transaction being successful in the "Remix Transactions" section. </p>
-<p>1.3 Click on "greet" button/function, you can see the string value set for "greeting" using "greeter" function will be displayed. Submit the final screenshot of running this Solidity program.</p>
-<h2 id="exercise-1b-with-20-bonus-hello-world-contract-with-solc-and-on-campus-ethereum">Exercise 1b (with 20% bonus): Hello-world Contract with Solc and On-Campus Ethereum</h2>
-<p>In this exercise, we will use a command-line programming framework <code>solc</code> to compile and deploy the hello-world contract to Ethereum. We will use our on-campus Ethereum network (as in the previous labs). </p>
-<p>Follow the instructions [<a href="README_solc/">here</a>] to compile and execute the hello-world contract. Submit the screenshot of contract-execution results.</p>
-<h2 id="exercise-2-find-the-maximum">Exercise 2: Find the Maximum</h2>
-<p>In this exercise, you are asked to write a Solidity program to find the maximum of two values, x and y, and return that value.The Smart contact should have the following functionalities:</p>
+<p>You can use Remix to compile, deploy and execute the above solidity code. </p>
+<ul>
+<li>Compile the code using <code>Start to Compile</code> button provided in the Remix IDE. Check for the errors (if any) and resolve them.</li>
+<li>Deploy the contract using <code>Deploy</code> button provided under <code>Run</code> tab. You can see the deployed contracts and functions deployed on the right-bottom corner. Provide the input for <code>greeter</code> function and click on "transact" button. You can see transaction being successful in the "Remix Transactions" section. </li>
+<li>Click on "greet" button/function, you can see the string value set for "greeting" using "greeter" function will be displayed. Submit the final screenshot of running this Solidity program.</li>
+</ul>
+<h2 id="exercise-2-write-sc-to-output-max">Exercise 2: Write SC to output max</h2>
+<p>In this exercise, you are asked to write a Solidity program to find the maximum of two values, x and y, and return that value. The Smart contact should have the following functionalities:</p>
 <ol>
-<li>A function that takes x and y as input</li>
-<li>Returns the maximum of x and y as output. Deploy the program and run the program in the Remix IDE [<a href="https://remix.ethereum.org/">link</a>]</li>
+<li>A function that takes integers <code>x</code> and <code>y</code> as input</li>
+<li>Returns the bigger integer between  <code>x</code> and <code>y</code> as output. Deploy and run the program in Remix [<a href="https://remix.ethereum.org/">link</a>]</li>
 </ol>
-<p>In exercise 1, if you took 1a option, you should do exercise 2 with Remix. If you took option 1b, then you can do exercise 2 with Solc. </p>
-<h2 id="excercise-3f-for-finance-students-payment-relay-in-smart-contract">Excercise 3F (for Finance students): Payment relay in smart contract</h2>
-<p>This exercise consists two steps.</p>
-<p>Step 3F1. You will need to compile and deploy the following smart contract in Remix. When running it, you need to call function <code>pay</code> with argument <code>0x0000000000000000000000000000000000000000</code>. Before you call the 'pay' function, click the 'showBalance' button to display the balance and take a screenshot. Then you should send a transaction to execute the 'pay' function, you need to specify the value to be <code>10</code> Ether (on the left panel of Remix IDE, there is a 'value' field, in the blank below, type 10 and select the unit to be 'ether', by default it is 'wei'), then click 'pay' button to execute the transaction. After that, click 'showBalance' button to show the balance again and take and submit your screenshot.</p>
-<pre><code>pragma solidity ^ 0.4.25;
-contract payrelay {
-
-  function pay(address receiver) public payable {
-    receiver.transfer(msg.value);
+<h2 id="exercise-3-execute-sc-for-single-account-ether-bank">Exercise 3: Execute SC for single-account Ether bank</h2>
+<pre><code>pragma solidity ^ 0.4.13;
+contract bank {
+  uint256 EtherBalance_Alice = 0;
+  function deposit() public payable {
+    EtherBalance_Alice = EtherBalance_Alice + msg.value;
   }
-
-  function showBalance() public view returns (uint256) {
-      return 0x0000000000000000000000000000000000000000.balance;
+  function withdraw(uint256 ethers) public payable {
+    msg.sender.transfer(ethers * 1000000000000000000);
+    EtherBalance_Alice = EtherBalance_Alice - ethers;
   }
-
-}
+  function relay(address Bob) public payable {
+     Bob.transfer(msg.value);
+  }
+  function getBalanceCA() public constant returns(uint256){
+    return EtherBalance_Alice;
+  }
+  function getBalanceEOA() public view returns(uint256) {
+    return 0x0000000000000000000000000000000000000000.balance;
+  }}
 </code></pre>
-<p>Step 3F2. In the above step, you send <code>10</code> Ether to account <code>0x0000000000000000000000000000000000000000</code> through the smart contract <code>payrelay</code>. In this exercise, you are required to add a few lines of code in the above program to implement the following rule: The updated <code>payrelay</code> smart contract should only relay payment when the value is above <code>12</code> Ether.</p>
-<h2 id="exercise-3-for-cs-students-rock-paper-scissors-game">Exercise 3 (for CS students): Rock-paper-scissors game</h2>
-<p>Write a Smart contract to implement the Rock-Paper-Scissors game in solidity. You can use variables to keep track of the deposit and player values.The contract should have the following functionalities:</p>
 <ol>
-<li>There should be two players. Consider one specific address as the owner address (where both players will deposit their money).</li>
-<li>Each player deposits an initial amount of 5 Ethers into the owner account.</li>
-<li>Once both the players deposit the money, allow them to play. While depositing the money, make sure you keep track of who is depositing and make him/her the player1 or player2 accordingly.</li>
-<li>Write a function <code>play</code> which takes the string parameter (Choice of the player - Rock, paper, scissors) and consider their choice only if they have deposited successfully.</li>
-<li>Once both the players have input their choices, find the winner and transfer the money as below:<ul>
-<li>a. If player1 wins, send bid amount ie, 10 Ethers to player1.</li>
-<li>b. If player2 wins, send bid amount ie, 10 Ethers to player2.</li>
-<li>c. If both the players win, divide the bid amount and send to players equally. Once the game is finished, <code>Account</code> values (on the right-top corner of the IDE) of the designated player addresses should be updated. Make sure the player is depositing exactly 5 Ethers else the transaction should be rejected. While depositing the amount (5 Ethers in our case), <code>Value</code> on the right-top corner must be equivalent to 5 Ethers, in-order for the Remix to send the transaction successfully.</li>
+<li>Compile and deploy the above smart contract in Remix. </li>
+<li>After deployment, click the 'getBalanceCA' button to show the balance and take a screenshot. </li>
+<li>Select an account, say <code>Alice</code>. Make <code>Alice</code> send a transaction to call the 'deposit' function with Ether value <code>10</code> (on the left panel in Remix, type <code>10</code> in the 'value' field and select the unit 'ether'; by default it is 'wei'; then , click 'pay' button to execute the transaction). </li>
+<li>Click 'getBalanceCA' button again to show the balance and take another screenshot.</li>
+<li>Select Alice to send a transaction to call the 'pay' function with argument <code>0x0000000000000000000000000000000000000000</code> and Ether value <code>20</code>. </li>
+<li>Click 'getBalanceEOA' button  to show the balance and take another screenshot.</li>
+</ol>
+<!--
+Modify the given SC program to implement the following rule: The updated `payrelay` smart contract should only relay payment when the value is above `12` Ether.
+-->
+
+<h2 id="exercise-4-write-sc-for-multi-account-ether-bank">Exercise 4: Write SC for multi-account Ether bank</h2>
+<p>Write a SC to build a bank storing multiple accounts, so that Alice can deposit to her account in the bank and Bob cannot withdraw from Alice’s account. You can modify the SC code in the previous exercise.</p>
+<!--
+
+Exercise 3: Rock-paper-scissors game
+---
+
+Write a Smart contract to implement the Rock-Paper-Scissors game in solidity. You can use variables to keep track of the deposit and player values.The contract should have the following functionalities:
+
+1. There should be two players. Consider one specific address as the owner address (where both players will deposit their money).
+2. Each player deposits an initial amount of 5 Ethers into the owner account.
+3. Once both the players deposit the money, allow them to play. While depositing the money, make sure you keep track of who is depositing and make him/her the player1 or player2 accordingly.
+4. Write a function `play` which takes the string parameter (Choice of the player - Rock, paper, scissors) and consider their choice only if they have deposited successfully.
+5. Once both the players have input their choices, find the winner and transfer the money as below:
+    - a. If player1 wins, send bid amount ie, 10 Ethers to player1.
+    - b. If player2 wins, send bid amount ie, 10 Ethers to player2.
+    - c. If both the players win, divide the bid amount and send to players equally. Once the game is finished, `Account` values (on the right-top corner of the IDE) of the designated player addresses should be updated. Make sure the player is depositing exactly 5 Ethers else the transaction should be rejected. While depositing the amount (5 Ethers in our case), `Value` on the right-top corner must be equivalent to 5 Ethers, in-order for the Remix to send the transaction successfully.
+-->
+
+<h2 id="deliverable">Deliverable</h2>
+<ol>
+<li>Report the transaction fee required for each exercise.</li>
+<li>For exercise 4, submit the screenshot that runs the crawler code on your computer.<ul>
+<li>If there are too many results that cannot fit into a single screen, you can randomly choose two screens and do two screenshots. </li>
 </ul>
 </li>
+<li>For exercise 5/6/7, submit your modified Python file and the screenshot that runs the code on your computer. The Python programs need to be stored in plaintext format and in separate files from your report. </li>
 </ol>
-<h2 id="deliverable">Deliverable</h2>
-<ul>
-<li>For all exercises, you should show the screenshot of you executing the program successfully. For instance, in Exercise 1, your screenshort should show the execution of a sequence such as <code>greeter("X")</code> and <code>greet()</code> which prints the value of <code>X</code>.</li>
-<li>In Exercise 2,3, you should also submit the solidity program you wrote.</li>
-</ul>
-<h2 id="grading-criterion">Grading Criterion:</h2>
-<ul>
-<li>Exercise 1a: 30 points</li>
-<li>Exercise 1b: 20 points (bonus)</li>
-<li>Exercise 2: 30 points</li>
-<li>Exercise 3: 40 points</li>
-</ul>
 <p>For exercise 1a, 1b, 2, if you did not submit the screenshot of successful executions of your program, you will get 5 points deducted, and 10 points deducted for exercise 3.
 In addition, in exercise 3, you have to demostrate your program executed successfully for cases of one winner and two winners. Missing one case will result in 5 points deduction. 
 For exercise 3F,  you have to demostrate your program executed successfully for cases of paying more than 12 Ether, and paying less than 12 Ether. Missing one case will result in 5 points deduction.</p></div>
