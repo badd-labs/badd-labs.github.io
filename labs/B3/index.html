@@ -138,7 +138,7 @@
 <p>In traditional finance, arbitrage is defined as the purchase and sale of the same asset in different markets in order to profit from differences in exchange rate. The same attack applies to decentralized exchanges (DEXes), where an attacker trades with two DEX pools and exercise buy-low-sell-high strategy. </p>
 <p>In this lab you will pretend to be both the attacker and defender taking steps to exploit an arbitrage opportunity and to prevent it from happening.</p>
 <h2 id="exercise-1-arbitrage-attacks-on-amm-pools">Exercise 1. Arbitrage attacks on AMM pools</h2>
-<p>Let's assume there are two DEXes, Ottoswap and Cuseswap. Ottoswap was willing to trade 10 <code>TokenX</code> per <code>TokenY</code> and Cuseswap was willing to trade 300 <code>TokenX</code> per <code>TokenY</code>. Attacker Alice could buy 10 <code>TokenX</code> for 1 <code>TokenY</code> from Ottoswap and then trade 10 <code>TokenX</code> for 2 <code>TokenY</code> on Cuseswap yielding a 1 <code>TokenY</code> profit. </p>
+<p>Let's assume there are two DEXes, Ottoswap and Cuseswap. Ottoswap was willing to trade 10 <code>TokenX</code> per <code>TokenY</code> and Cuseswap was willing to trade 5 <code>TokenX</code> per <code>TokenY</code>. Attacker Alice could buy 10 <code>TokenX</code> for 1 <code>TokenY</code> from Ottoswap and then trade 10 <code>TokenX</code> for 2 <code>TokenY</code> on Cuseswap yielding a 1 <code>TokenY</code> profit. </p>
 <p>While Alice can do the two trades in two separate transactions, Alice may  face the risk of failing one transaction and losing value. In practice, attackers commonly deploy a smart contract to send the two trade transactions atomically in order to guarantee the attack success and profitability. </p>
 <p><img alt="AMM design diagram" src="lab-amm-abitrage.jpg" /></p>
 <p>Your job is to create an arbitrage smart contract that collects the arbitrage profit. The setting is shown in the above diagram, including the two token contracts, <code>TokenX</code> and <code>TokenY</code>, and their exchange rates on the two DEXes (Ottoswap and Cuseswap). </p>
@@ -162,8 +162,8 @@
 \begin{eqnarray}
 dx1+dx2&amp;=&amp;dx \
 x1/y1&amp;=&amp;x2/y2\
-x1<em>y1&amp;=&amp;(x1+dx1)(y1-dy1)\
-x2</em>y2&amp;=&amp;(x2+dx2)(y2-dy2)\
+x1*y1&amp;=&amp;(x1+dx1)(y1-dy1)\
+x2*y2&amp;=&amp;(x2+dx2)(y2-dy2)\
 (x1+dx1)/(y1-dy1)&amp;=&amp;(x2+dx2)/(y2-dy2)\
 \end{eqnarray}
 $$</p>
