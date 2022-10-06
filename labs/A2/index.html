@@ -130,6 +130,10 @@
               <ul class="nav flex-column">
               </ul>
             </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-5-ether-bank-under-unknown-deposit_1" class="nav-link">Exercise 5': Ether bank under unknown deposit</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
               <ul class="nav flex-column">
               </ul>
@@ -337,6 +341,12 @@ contract bank_m {
 </tbody>
 </table>
 <h2 id="exercise-5-ether-bank-under-unknown-deposit">Exercise 5: Ether bank under unknown deposit</h2>
+<p>Extend your solution in Exercise 4 to realize the following functionality: </p>
+<ul>
+<li>When account <code>Charlie</code> transfers $z$ Ether to the bank, the bank does not accept the Ether transfer.</li>
+</ul>
+<p>Hint: You should consider two cases: 1) <code>Charlie</code> sends a basic Ethereum transaction that calls no function in <code>bank_m</code>. 2) <code>Charlie</code> sends a transaction to externally call the <code>deposit()</code> function in <code>bank_m</code> explicitly. </p>
+<h2 id="exercise-5-ether-bank-under-unknown-deposit_1">Exercise 5': Ether bank under unknown deposit</h2>
 <p>Extend your solution in Exercise 4 to realize the following functionality: </p>
 <ul>
 <li>When account <code>Charlie</code> transfers $z$ Ether to the bank, the bank keeps half (i.e., $\frac{z}{2}$ Ether) to itself and returns the other half to <code>Charlie</code>.</li>
