@@ -114,7 +114,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-write-sc-to-output-max" class="nav-link">Exercise 2: Write SC to output max</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-write-sc-to-output-bigger-number" class="nav-link">Exercise 2: Write SC to output bigger number</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -122,11 +122,19 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-4-write-sc-for-multi-account-ether-bank" class="nav-link">Exercise 4: Write SC for multi-account Ether bank</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-4-write-sc-for-2-account-ether-bank" class="nav-link">Exercise 4: Write SC for 2-account Ether bank</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-5-ether-bank-under-unknown-deposit" class="nav-link">Exercise 5: Ether bank under unknown deposit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#faq" class="nav-link">FAQ</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -162,7 +170,7 @@
 <td>2</td>
 <td>25</td>
 <td>Required</td>
-<td>Required</td>
+<td>Bonus</td>
 </tr>
 <tr>
 <td>3</td>
@@ -174,6 +182,12 @@
 <td>4</td>
 <td>35</td>
 <td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>5</td>
+<td>20</td>
+<td>Bonus</td>
 <td>Bonus</td>
 </tr>
 </tbody>
@@ -197,11 +211,11 @@ contract hello { /* define variable greeting of the type string */
 <li>Deploy the contract using <code>Deploy</code> button provided under <code>Run</code> tab. You can see the deployed contracts and functions deployed on the right-bottom corner. Provide the input for <code>greeter</code> function and click on "transact" button. You can see transaction being successful in the "Remix Transactions" section. </li>
 <li>Click on "greet" button/function, you can see the string value set for "greeting" using "greeter" function will be displayed. Submit the final screenshot of running this Solidity program.</li>
 </ul>
-<h2 id="exercise-2-write-sc-to-output-max">Exercise 2: Write SC to output max</h2>
-<p>In this exercise, you are asked to write a Solidity program to find the maximum of two values, x and y, and return that value. The Smart contact should have the following functionalities:</p>
+<h2 id="exercise-2-write-sc-to-output-bigger-number">Exercise 2: Write SC to output bigger number</h2>
+<p>In this exercise, you are asked to write a Solidity program to find the maximum of two values, $x$ and $y$, and return that value. The Smart contact should have the following functionalities:</p>
 <ol>
-<li>A function that takes integers <code>x</code> and <code>y</code> as input</li>
-<li>Returns the bigger integer between  <code>x</code> and <code>y</code> as output. Deploy and run the program in Remix [<a href="https://remix.ethereum.org/">link</a>]</li>
+<li>A function that takes integers $x$ and $y$ as input</li>
+<li>Returns the bigger integer between  $x$ and $y$ as output. Deploy and run the program in Remix [<a href="https://remix.ethereum.org/">link</a>]</li>
 </ol>
 <h2 id="exercise-3-execute-sc-for-single-account-ether-bank">Exercise 3: Execute SC for single-account Ether bank</h2>
 <pre><code>pragma solidity ^ 0.4.13;
@@ -229,15 +243,105 @@ contract bank {
 <li>After deployment, click the 'getBalanceCA' button to show the balance and take a screenshot. </li>
 <li>Select an account, say <code>Alice</code>. Make <code>Alice</code> send a transaction to call the 'deposit' function with Ether value <code>10</code> (on the left panel in Remix, type <code>10</code> in the 'value' field and select the unit 'ether'; by default it is 'wei'; then , click 'pay' button to execute the transaction). </li>
 <li>Click 'getBalanceCA' button again to show the balance and take another screenshot.</li>
-<li>Select Alice to send a transaction to call the 'pay' function with argument <code>0x0000000000000000000000000000000000000000</code> and Ether value <code>20</code>. </li>
+<li>Select Alice to send a transaction to call the 'relay' function with argument <code>0x0000000000000000000000000000000000000000</code> and Ether value <code>20</code>. </li>
 <li>Click 'getBalanceEOA' button  to show the balance and take another screenshot.</li>
 </ol>
 <!--
 Modify the given SC program to implement the following rule: The updated `payrelay` smart contract should only relay payment when the value is above `12` Ether.
 -->
 
-<h2 id="exercise-4-write-sc-for-multi-account-ether-bank">Exercise 4: Write SC for multi-account Ether bank</h2>
-<p>Write a SC to build a bank storing multiple accounts, so that Alice can deposit to her account in the bank and Bob cannot withdraw from Alice’s account. You can modify the SC code in the previous exercise.</p>
+<h2 id="exercise-4-write-sc-for-2-account-ether-bank">Exercise 4: Write SC for 2-account Ether bank</h2>
+<pre><code>pragma solidity ^ 0.4.13;
+contract bank_m {
+    constructor(address Alice, address Bob) public {}
+    function deposit() public payable {}
+    function withdraw(uint amount){}
+}
+</code></pre>
+<p>Extend the above SC using the same function signature to implement a two-account Ether bank. The correctness of your bank SC will be graded based on the following criteria:</p>
+<p>Suppose your <code>bank_m</code> SC is deployed to the blockchain with constructor parameters <code>(Alice, Bob)</code>, then account <code>Alice</code> deposits $a$ Ether, and <code>Bob</code> deposits $b$ Ether. Now consider Account $X$ attempts to withdraw $y$ Ether from the deployed <code>bank_m</code> SC. The withdraw only succeeds if and only if (<code>Alice</code>$==X\land{}y\leq{}a$) or (<code>Bob</code>$==X\land{}y\leq{}b$) . For instance, we may run the following test cases:</p>
+<table>
+<thead>
+<tr>
+<th>$a$</th>
+<th>$b$</th>
+<th>$X$</th>
+<th>$y$</th>
+<th>Expected withdrawal result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Alice</code></td>
+<td>2</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Alice</code></td>
+<td>4</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Alice</code></td>
+<td>6</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Bob</code></td>
+<td>2</td>
+<td>Success</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Bob</code></td>
+<td>4</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Bob</code></td>
+<td>6</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Charlie</code></td>
+<td>2</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Charlie</code></td>
+<td>4</td>
+<td>Fail</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td><code>Charlie</code></td>
+<td>6</td>
+<td>Fail</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-5-ether-bank-under-unknown-deposit">Exercise 5: Ether bank under unknown deposit</h2>
+<p>Extend your solution in Exercise 4 to realize the following functionality: </p>
+<ul>
+<li>When account <code>Charlie</code> transfers $z$ Ether to the bank, the bank keeps half (i.e., $\frac{z}{2}$ Ether) to itself and returns the other half to <code>Charlie</code>.</li>
+</ul>
+<p>Hint: You should consider two cases: 1) <code>Charlie</code> sends a basic Ethereum transaction that calls no function in <code>bank_m</code>. 2) <code>Charlie</code> sends a transaction to externally call the <code>deposit()</code> function in <code>bank_m</code> explicitly. </p>
 <!--
 
 Exercise 3: Rock-paper-scissors game
@@ -257,16 +361,27 @@ Write a Smart contract to implement the Rock-Paper-Scissors game in solidity. Yo
 
 <h2 id="deliverable">Deliverable</h2>
 <ol>
-<li>Report the transaction fee required for each exercise.</li>
-<li>For exercise 4, submit the screenshot that runs the crawler code on your computer.<ul>
+<li>For exercise 1/2/3/4/5, submit the screenshot that runs the crawler code on your computer.<ul>
 <li>If there are too many results that cannot fit into a single screen, you can randomly choose two screens and do two screenshots. </li>
 </ul>
 </li>
-<li>For exercise 5/6/7, submit your modified Python file and the screenshot that runs the code on your computer. The Python programs need to be stored in plaintext format and in separate files from your report. </li>
+<li>For exercise 2/4/5, submit your modified Solidity file and the screenshot that runs the code on your computer. The Solidity program need to be stored in a <code>.sol</code> file in plaintext format.</li>
 </ol>
-<p>For exercise 1a, 1b, 2, if you did not submit the screenshot of successful executions of your program, you will get 5 points deducted, and 10 points deducted for exercise 3.
-In addition, in exercise 3, you have to demostrate your program executed successfully for cases of one winner and two winners. Missing one case will result in 5 points deduction. 
-For exercise 3F,  you have to demostrate your program executed successfully for cases of paying more than 12 Ether, and paying less than 12 Ether. Missing one case will result in 5 points deduction.</p></div>
+<h2 id="faq">FAQ</h2>
+<ul>
+<li>Question: In Exercise 3, how to "select an account, say <code>Alice</code>?"<ul>
+<li>Answer: Remix provides a list of accounts with ether balance. You can choose a <em>fixed</em> account, say the second account in the account list, to be <code>Alice</code>. You should do this before you send a transaction to externall call a function in a deployed smart contract.</li>
+</ul>
+</li>
+<li>Question: In Exercise 4, how does "Fail" look like?<ul>
+<li>Answer: "Fail"/"Success" mean that Account $X$'s attempt to withdraw $y$ Ether fails/succeeds. A failed withdrawal by EOA $X$ should not increase his account balance at all.</li>
+</ul>
+</li>
+<li>Question: How does "constructor" work in Exercise 4?<ul>
+<li>Answer: A SC's contructor is invoked when the SC is to be deployed. If your constructor has parameters, you can configure the constructor parameter next to the "Deploy" button in Remix.</li>
+</ul>
+</li>
+</ul></div>
             </div>
         </div>
 
