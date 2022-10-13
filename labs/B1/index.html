@@ -118,11 +118,23 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-impl-an-fixed-rate-amm" class="nav-link">Exercise 2. Impl. an fixed-rate AMM</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-basic-amm-design-with-fixed-rate" class="nav-link">Exercise 2. Basic AMM Design with Fixed Rate</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-3-impl-constant-product-amm" class="nav-link">Exercise 3. Impl. constant-product AMM</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-constant-product-amm" class="nav-link">Exercise 3. Constant-product AMM</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-4-supporting-token-approvetransferfrom" class="nav-link">Exercise 4. Supporting Token Approve/transferFrom</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-5-security-against-pool-theft" class="nav-link">Exercise 5. Security against Pool Theft</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-6-security-against-trader-theft" class="nav-link">Exercise 6. Security against Trader Theft</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -194,8 +206,8 @@ contract BaddToken {
   }}
 </code></pre>
 <p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
-<h2 id="exercise-2-impl-an-fixed-rate-amm">Exercise 2. Impl. an fixed-rate AMM</h2>
-<p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
+<h2 id="exercise-2-basic-amm-design-with-fixed-rate">Exercise 2. Basic AMM Design with Fixed Rate</h2>
+<p><img alt="AMM design diagram" src="lab-amm.png" /></p>
 <p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
 <p>In this exercise, you can consider that $dy/dx = 2$. Implement the AMM smart contract.</p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
@@ -225,13 +237,53 @@ contract AMM {
 </li>
 <li>Hint: You need to make sure your account has enough tokens for both <code>_tokenX</code> and <code>_tokenY</code>.</li>
 </ul>
-<h2 id="exercise-3-impl-constant-product-amm">Exercise 3. Impl. constant-product AMM</h2>
+<h2 id="exercise-3-constant-product-amm">Exercise 3. Constant-product AMM</h2>
 <p>Suppose the AMM account owns $x$ units of <code>TokenX</code> and $y$ units of <code>TokenY</code>. The AMM pool can use a function $f(x,y)$ to calculate the exchange rate between <code>TokenX</code> and <code>TokenY</code> on the fly. Specifically, it enforces that function value is constant before and after each token swap, that is,</p>
 <p>$$f(x,y)=f(x+dx,y-dy)$$</p>
 <p>In this exercise, you are asked to implement constant-product AMM (adopted in the real-life Uniswap), where $f(x,y)=x*y$. Modify your AMM smart contract to support the constant-product invariant $x*y=(x+dx)(y-dy)$.</p>
 <ul>
 <li>Hint: You may want to keep track of token balance $x$ and $y$ in the AMM smart contact by issuing <code>balanceOf</code> in each <code>swapXY</code> call.</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Case</th>
+<th>tx1</th>
+<th>tx2</th>
+<th>Solution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal case</td>
+<td>Alice</td>
+<td>Alice</td>
+<td>Exercise 1-3</td>
+</tr>
+<tr>
+<td>Dangling swap</td>
+<td>Alice</td>
+<td>NULL</td>
+<td>Exercise 4 (<code>approve</code>/<code>transferFrom</code>)</td>
+</tr>
+<tr>
+<td>Theft from pool</td>
+<td>NULL</td>
+<td>Alice</td>
+<td>Exercise 5 (Track deposits)</td>
+</tr>
+<tr>
+<td>Theft from Bob</td>
+<td>Bob</td>
+<td>Alice</td>
+<td>Exercise 6</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-4-supporting-token-approvetransferfrom">Exercise 4. Supporting Token Approve/transferFrom</h2>
+<p><img alt="AMM design diagram" src="lab-amm-tff.png" /></p>
+<h2 id="exercise-5-security-against-pool-theft">Exercise 5. Security against Pool Theft</h2>
+<h2 id="exercise-6-security-against-trader-theft">Exercise 6. Security against Trader Theft</h2>
 <h2 id="deliverable">Deliverable</h2>
 <ul>
 <li>For all tasks, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
