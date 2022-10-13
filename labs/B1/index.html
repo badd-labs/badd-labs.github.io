@@ -196,7 +196,7 @@ contract BaddToken {
 <p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
 <h2 id="exercise-2-impl-an-fixed-rate-amm">Exercise 2. Impl. an fixed-rate AMM</h2>
 <p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
-<p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
+<p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
 <p>In this exercise, you can consider that $dy/dx = 2$. Implement the AMM smart contract.</p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
 contract AMM {
