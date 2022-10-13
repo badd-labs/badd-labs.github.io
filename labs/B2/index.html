@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b2-dex-2-amm-and-pricing" class="nav-link">Lab B2: DEX 2: AMM and Pricing</a>
+            <li class="nav-item" data-level="1"><a href="#lab-b2-amm-dex-and-pricing" class="nav-link">Lab B2: AMM DEX and Pricing</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
@@ -137,7 +137,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b2-dex-2-amm-and-pricing">Lab B2: DEX 2: AMM and Pricing</h1>
+<h1 id="lab-b2-amm-dex-and-pricing">Lab B2: AMM DEX and Pricing</h1>
 <h2 id="introduction">Introduction</h2>
 <p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader does not directly trade with other traders. Instead, they trade with a smart-contract intermediary. In practice, AMM gets more widely adopted than other DEX forms (e.g., order book). For instance, the most popular DEX services, including Uniswap, Sushiswap, Pancakeswap, etc., all follow AMM protocols. In this lab, you will implement an AMM smart contract.</p>
 <table>
@@ -193,10 +193,10 @@ contract MyToken {
     return balances[account];
   }}
 </code></pre>
-<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an TokenX instance. Demonstrate the process that the TokenX issuer transfers 10 TokenX to another account, say Alice, and display each account's balance before/after the transfer.</p>
+<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
 <h2 id="exercise-2-impl-an-fixed-rate-amm">Exercise 2. Impl. an fixed-rate AMM</h2>
 <p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
-<p>In the figure above, trader Alice first transfers $x$ units of TokenX from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls TokenY's <code>transfer</code> function to transfer $dy$ units of TokenY to Alice's account.</p>
+<p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
 <p>In this exercise, you can consider that dy/dx = 2. Implement the AMM smart contract.</p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
 contract AMM {
@@ -212,7 +212,7 @@ contract AMM {
 }
 </code></pre>
 <ul>
-<li>Workflow to execuse your code:<ul>
+<li>Workflow to execute your code:<ul>
 <li>Write and compile an <code>AMM</code> smart contract.</li>
 <li>Deploy <code>MyToken</code> smart contract twice, respectively to two contract addresses, say <code>_tokenX</code> and <code>_tokenY</code>.</li>
 <li>Deploy <code>AMM</code> smart contract with <code>_tokenX</code> and <code>_tokenY</code>.</li>

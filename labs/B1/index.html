@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b1-dex-1-swap-settlement" class="nav-link">Lab B1: DEX 1: Swap settlement</a>
+            <li class="nav-item" data-level="1"><a href="#lab-b1-order-book-dex-and-swap-settlement" class="nav-link">Lab B1: Order-book DEX and Swap Settlement</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
@@ -141,7 +141,7 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b1-dex-1-swap-settlement">Lab B1: DEX 1: Swap settlement</h1>
+<h1 id="lab-b1-order-book-dex-and-swap-settlement">Lab B1: Order-book DEX and Swap Settlement</h1>
 <h2 id="introduction">Introduction</h2>
 <p>DEX or decentralized exchange supports the swap of token ownership between different accounts. A swap is essentially two transfers, one from Alice to Bob and the other from Bob to Alice. A swap is supposed to be atomic, in the sense that either both transfers occur or no transfer occurs. In this lab, you are going to implement a DEX supporting atomic swap settlement.</p>
 <table>
@@ -183,7 +183,7 @@
 <h2 id="exercise-1-execute-token-transfer">Exercise 1. Execute token transfer</h2>
 <p>The following smart contract implements a very simple token supporting the essential transfer function: <code>transfer(address sender, address recipient, uint256 amount)</code> </p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
-contract MyToken {  
+contract BaddToken {  
   uint _totalSupply = 0; string _symbol;  
   mapping(address =&gt; uint) balances;  
   constructor(string memory symbol, uint256 initialSupply) {
@@ -203,28 +203,28 @@ contract MyToken {
     return balances[account];
   }}
 </code></pre>
-<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an TokenX instance. Demonstrate the process that the TokenX issuer transfers 10 TokenX to another account, say Alice, and display each account's balance before/after the transfer.</p>
+<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
 <h2 id="exercise-2-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa">Exercise 2. Execute atomic swap settlement in one transaction (by escrow EOA)</h2>
-<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token TokenX wants to trade her TokenXs for Bob's TokenYs. For simplicity, we assume the exchange rate between TokenX and TokenY is always 1:1 (i.e., one TokenX for one TokenY). A swap incurs a transfer from Alice to Bob in TokenX and another transfer from Bob to Alice in TokenY.</p>
-<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's TokenX and Bob's TokenY, the escrow then sends TokenX to Bob and TokenY to Alice, to settle the swap. </p>
-<p>There are different instanstiation of the escrow protocol. One is to materialize an escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
+<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token <code>TokenX</code> wants to trade her <code>TokenX</code>s for Bob's <code>TokenY</code>s. For simplicity, we assume the exchange rate between <code>TokenX</code> and <code>TokenY</code> is always 1:1 (i.e., one <code>TokenX</code> for one <code>TokenY</code>). A swap incurs a transfer from Alice to Bob in <code>TokenX</code> and another transfer from Bob to Alice in <code>TokenY</code>.</p>
+<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's <code>TokenX</code> and Bob's <code>TokenY</code>, the escrow then sends <code>TokenX</code> to Bob and <code>TokenY</code> to Alice, to settle the swap. </p>
+<p>The above escrow protocol can be instanciated differently. One design is to materialize the escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
 <p><img alt="Contract design diagram" src="lab-escrow3-EOA.jpg" /></p>
-<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as TokenX and then as TokenY). Run the above escrow-EOA protocol to complete the swap of Alice's TokenX and Bob's TokenY. </p>
+<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as <code>TokenX</code> and then as <code>TokenY</code>). Run the above escrow-EOA protocol to complete the swap of Alice's <code>TokenX</code> and Bob's <code>TokenY</code>. </p>
 <h2 id="exercise-3-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract">Exercise 3. Design atomic swap settlement in one transaction (by escrow smart contract)</h2>
-<p>Another approach is to impelment the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to tranfer TokenX to Bob and then to transfer TokenY to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
+<p>Another approach is to implement the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to transfer <code>TokenX</code> to Bob and then to transfer <code>TokenY</code> to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
 <p><img alt="Contract design diagram" src="lab-escrow3.jpg" /></p>
 <p>Your job is to:</p>
 <ol>
-<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as TokenX and TokenY instances) and the escrow smart contract.</li>
+<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as <code>TokenX</code> and <code>TokenY</code> instances) and the escrow smart contract.</li>
 <li>
-<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her TokenXs (his TokenYs) to the escrow. In this case, Alice (Bob) should be able to withdraw her TokenXs (his TokenYs) after a predifined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
+<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her <code>TokenX</code>s (his <code>TokenY</code>s) to the escrow. In this case, Alice (Bob) should be able to withdraw her <code>TokenX</code>s (his <code>TokenY</code>s) after a predefined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
 </li>
 <li>
 <p>Hint: To make smart contract <code>X</code> call smart contract <code>Y</code>'s function <code>foo</code>, you can pass to <code>X</code> <code>Y</code>'s contract address say <code>CA_Y</code> so that in <code>X</code> the following statement calls <code>CA_Y</code>'s function <code>foo</code>: <code>(Y)CA_Y.foo();</code> </p>
 </li>
 </ol>
 <h2 id="exercise-4-design-the-swap-between-token-and-ether">Exercise 4: Design the swap between token and Ether</h2>
-<p>Revise your escrow smart contract to support the swap between Ether and TokenX. For instance, Alice trades her TokenX for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one TokenX is exchangeable with one Ether.</p>
+<p>Revise your escrow smart contract to support the swap between Ether and <code>TokenX</code>. For instance, Alice trades her <code>TokenX</code> for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one <code>TokenX</code> is exchangeable with one Ether.</p>
 <p>Consider both cases of success and failed swaps.</p>
 <h2 id="deliverable">Deliverable</h2>
 <ul>
