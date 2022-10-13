@@ -108,7 +108,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b1-order-book-dex-and-swap-settlement" class="nav-link">Lab B1: Order-book DEX and Swap Settlement</a>
+            <li class="nav-item" data-level="1"><a href="#lab-b1-amm-dex" class="nav-link">Lab B1: AMM DEX</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
@@ -118,15 +118,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa" class="nav-link">Exercise 2. Execute atomic swap settlement in one transaction (by escrow EOA)</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-impl-an-fixed-rate-amm" class="nav-link">Exercise 2. Impl. an fixed-rate AMM</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-3-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract" class="nav-link">Exercise 3. Design atomic swap settlement in one transaction (by escrow smart contract)</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-4-design-the-swap-between-token-and-ether" class="nav-link">Exercise 4: Design the swap between token and Ether</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-impl-constant-product-amm" class="nav-link">Exercise 3. Impl. constant-product AMM</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -141,13 +137,14 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b1-order-book-dex-and-swap-settlement">Lab B1: Order-book DEX and Swap Settlement</h1>
+<h1 id="lab-b1-amm-dex">Lab B1: AMM DEX</h1>
 <h2 id="introduction">Introduction</h2>
-<p>DEX or decentralized exchange supports the swap of token ownership between different accounts. A swap is essentially two transfers, one from Alice to Bob and the other from Bob to Alice. A swap is supposed to be atomic, in the sense that either both transfers occur or no transfer occurs. In this lab, you are going to implement a DEX supporting atomic swap settlement.</p>
+<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader does not directly trade with other traders. Instead, they trade with a smart-contract intermediary. In practice, AMM gets more widely adopted than other DEX forms (e.g., order book). For instance, the most popular DEX services, including Uniswap, Sushiswap, Pancakeswap, etc., all follow AMM protocols. In this lab, you will implement an AMM smart contract.</p>
 <table>
 <thead>
 <tr>
-<th>Exercises</th>
+<th>Tasks</th>
+<th>Points</th>
 <th>CS student</th>
 <th>Finance student</th>
 </tr>
@@ -155,28 +152,21 @@
 <tbody>
 <tr>
 <td>1</td>
+<td>20</td>
 <td>Required</td>
-<td>Required</td>
+<td>Bonus</td>
 </tr>
 <tr>
 <td>2</td>
+<td>30</td>
 <td>Required</td>
-<td>Required</td>
+<td>Bonus</td>
 </tr>
 <tr>
 <td>3</td>
+<td>50</td>
 <td>Required</td>
-<td>Bonus (50%)</td>
-</tr>
-<tr>
-<td>4</td>
-<td>Required</td>
-<td>Bonus (50%)</td>
-</tr>
-<tr>
-<td>5</td>
-<td>Bonus (50%)</td>
-<td>Bonus (100%)</td>
+<td>Bonus</td>
 </tr>
 </tbody>
 </table>
@@ -204,31 +194,47 @@ contract BaddToken {
   }}
 </code></pre>
 <p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
-<h2 id="exercise-2-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa">Exercise 2. Execute atomic swap settlement in one transaction (by escrow EOA)</h2>
-<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token <code>TokenX</code> wants to trade her <code>TokenX</code>s for Bob's <code>TokenY</code>s. For simplicity, we assume the exchange rate between <code>TokenX</code> and <code>TokenY</code> is always 1:1 (i.e., one <code>TokenX</code> for one <code>TokenY</code>). A swap incurs a transfer from Alice to Bob in <code>TokenX</code> and another transfer from Bob to Alice in <code>TokenY</code>.</p>
-<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's <code>TokenX</code> and Bob's <code>TokenY</code>, the escrow then sends <code>TokenX</code> to Bob and <code>TokenY</code> to Alice, to settle the swap. </p>
-<p>The above escrow protocol can be instanciated differently. One design is to materialize the escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3-EOA.jpg" /></p>
-<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as <code>TokenX</code> and then as <code>TokenY</code>). Run the above escrow-EOA protocol to complete the swap of Alice's <code>TokenX</code> and Bob's <code>TokenY</code>. </p>
-<h2 id="exercise-3-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract">Exercise 3. Design atomic swap settlement in one transaction (by escrow smart contract)</h2>
-<p>Another approach is to implement the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to transfer <code>TokenX</code> to Bob and then to transfer <code>TokenY</code> to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3.jpg" /></p>
-<p>Your job is to:</p>
-<ol>
-<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as <code>TokenX</code> and <code>TokenY</code> instances) and the escrow smart contract.</li>
-<li>
-<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her <code>TokenX</code>s (his <code>TokenY</code>s) to the escrow. In this case, Alice (Bob) should be able to withdraw her <code>TokenX</code>s (his <code>TokenY</code>s) after a predefined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
+<h2 id="exercise-2-impl-an-fixed-rate-amm">Exercise 2. Impl. an fixed-rate AMM</h2>
+<p><img alt="AMM design diagram" src="lab-amm.jpg" /></p>
+<p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>trySwap(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
+<p>In this exercise, you can consider that $dy/dx = 2$. Implement the AMM smart contract.</p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract AMM {
+  BaddToken tokenX, tokenY;
+  // _tokenX and _tokenY are contract-addresses running BaddToken SC
+  constructor(address _tokenX, address _tokenY){
+    tokenX = BaddToken(_tokenX); tokenY = BaddToken(_tokenY);
+  }
+
+  function swapXY(uint amountX) public payable {
+    // fill out the following with your code
+  } 
+}
+</code></pre>
+<ul>
+<li>Workflow to execute your code:<ul>
+<li>Write and compile an <code>AMM</code> smart contract.</li>
+<li>Deploy <code>BaddToken</code> smart contract twice, respectively to two contract addresses, say <code>_tokenX</code> and <code>_tokenY</code>.</li>
+<li>Deploy <code>AMM</code> smart contract with <code>_tokenX</code> and <code>_tokenY</code>.</li>
+<li>Execute the smart contracts in two steps: <ul>
+<li>1) call <code>_tokenX</code>'s <code>transfer</code> function</li>
+<li>2) call <code>AMM</code>'s <code>swapXY</code> function</li>
+</ul>
 </li>
-<li>
-<p>Hint: To make smart contract <code>X</code> call smart contract <code>Y</code>'s function <code>foo</code>, you can pass to <code>X</code> <code>Y</code>'s contract address say <code>CA_Y</code> so that in <code>X</code> the following statement calls <code>CA_Y</code>'s function <code>foo</code>: <code>(Y)CA_Y.foo();</code> </p>
+</ul>
 </li>
-</ol>
-<h2 id="exercise-4-design-the-swap-between-token-and-ether">Exercise 4: Design the swap between token and Ether</h2>
-<p>Revise your escrow smart contract to support the swap between Ether and <code>TokenX</code>. For instance, Alice trades her <code>TokenX</code> for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one <code>TokenX</code> is exchangeable with one Ether.</p>
-<p>Consider both cases of success and failed swaps.</p>
+<li>Hint: You need to make sure your account has enough tokens for both <code>_tokenX</code> and <code>_tokenY</code>.</li>
+</ul>
+<h2 id="exercise-3-impl-constant-product-amm">Exercise 3. Impl. constant-product AMM</h2>
+<p>Suppose the AMM account owns $x$ units of <code>TokenX</code> and $y$ units of <code>TokenY</code>. The AMM pool can use a function $f(x,y)$ to calculate the exchange rate between <code>TokenX</code> and <code>TokenY</code> on the fly. Specifically, it enforces that function value is constant before and after each token swap, that is,</p>
+<p>$$f(x,y)=f(x+dx,y-dy)$$</p>
+<p>In this exercise, you are asked to implement constant-product AMM (adopted in the real-life Uniswap), where $f(x,y)=x*y$. Modify your AMM smart contract to support the constant-product invariant $x*y=(x+dx)(y-dy)$.</p>
+<ul>
+<li>Hint: You may want to keep track of token balance $x$ and $y$ in the AMM smart contact by issuing <code>balanceOf</code> in each <code>swapXY</code> call.</li>
+</ul>
 <h2 id="deliverable">Deliverable</h2>
 <ul>
-<li>For all exercises, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
+<li>For all tasks, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
 </ul></div>
             </div>
         </div>

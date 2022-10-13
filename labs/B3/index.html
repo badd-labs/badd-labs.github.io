@@ -108,17 +108,25 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b3-dex-security-arbitrage" class="nav-link">Lab B3: DEX security: Arbitrage</a>
+            <li class="nav-item" data-level="1"><a href="#lab-b1-order-book-dex-and-swap-settlement" class="nav-link">Lab B1: Order-book DEX and Swap Settlement</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1-arbitrage-attacks-on-amm-pools" class="nav-link">Exercise 1. Arbitrage attacks on AMM pools</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-token-transfer" class="nav-link">Exercise 1. Execute token transfer</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-arbitrage-mitigation-by-routing-swaps" class="nav-link">Exercise 2. Arbitrage mitigation by routing swaps</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa" class="nav-link">Exercise 2. Execute atomic swap settlement in one transaction (by escrow EOA)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract" class="nav-link">Exercise 3. Design atomic swap settlement in one transaction (by escrow smart contract)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-4-design-the-swap-between-token-and-ether" class="nav-link">Exercise 4: Design the swap between token and Ether</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -133,67 +141,95 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b3-dex-security-arbitrage">Lab B3: DEX security: Arbitrage</h1>
+<h1 id="lab-b1-order-book-dex-and-swap-settlement">Lab B1: Order-book DEX and Swap Settlement</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In traditional finance, arbitrage is defined as the purchase and sale of the same asset in different markets in order to profit from differences in exchange rate. The same attack applies to decentralized exchanges (DEXes), where an attacker trades with two DEX pools and exercise buy-low-sell-high strategy. </p>
-<p>In this lab you will pretend to be both the attacker and defender taking steps to exploit an arbitrage opportunity and to prevent it from happening.</p>
-<h2 id="exercise-1-arbitrage-attacks-on-amm-pools">Exercise 1. Arbitrage attacks on AMM pools</h2>
-<p>Let's assume there are two DEXes, Ottoswap and Cuseswap. Ottoswap was willing to trade 10 <code>TokenX</code> per <code>TokenY</code> and Cuseswap was willing to trade 5 <code>TokenX</code> per <code>TokenY</code>. Attacker Alice could buy 10 <code>TokenX</code> for 1 <code>TokenY</code> from Ottoswap and then trade 10 <code>TokenX</code> for 2 <code>TokenY</code> on Cuseswap yielding a 1 <code>TokenY</code> profit. </p>
-<p>While Alice can do the two trades in two separate transactions, Alice may  face the risk of failing one transaction and losing value. In practice, attackers commonly deploy a smart contract to send the two trade transactions atomically in order to guarantee the attack success and profitability. </p>
-<p><img alt="AMM design diagram" src="lab-amm-abitrage.jpg" /></p>
-<p>Your job is to create an arbitrage smart contract that collects the arbitrage profit. The setting is shown in the above diagram, including the two token contracts, <code>TokenX</code> and <code>TokenY</code>, and their exchange rates on the two DEXes (Ottoswap and Cuseswap). </p>
-<p>Your arbitrage smart contract should invoke Ottoswap's swap function to trade <code>TokenY</code> for <code>TokenX</code> and then invoke Cuseswap's swap function to trade <code>TokenX</code> for <code>TokenX</code>. Your arbitrage smart contract should print its initial balance and the balance in the end.</p>
-<p>In this exercise, you will be given the code of a CP-AMM (constant product) smart contract and run your arbitrage smart contract against the AMM. You will need to show the profit extracted by the arbitrage.</p>
-<p>Instructions:</p>
-<ul>
-<li>Deploy <code>MyToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>.</li>
-<li>Make sure <code>Cuseswap</code> initially has 15 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
-<li>Deploy your arbitrage SC.</li>
-<li>Call the arbitrage SC against the <code>CP-AMM</code>.</li>
-<li>In your lab report, include the profit extracted from the above call.</li>
-</ul>
-<h2 id="exercise-2-arbitrage-mitigation-by-routing-swaps">Exercise 2. Arbitrage mitigation by routing swaps</h2>
-<p><img alt="AMM design diagram" src="lab-amm-abitrage-defense.jpg" /></p>
-<p>A defense against arbitrage is the “routing” approach that re-router a user's swap request to multiple AMM pools and balances out the spending so that exchange rates across AMM pools remain the same.</p>
-<p>Suppose an original user request is to swap $dx$ units of <code>TokenX</code> for <code>TokenY</code>, and there are two AMM pools: the first pool of $x1$/$y1$ units of <code>TokenX</code>/<code>TokenY</code> and the second pool of $x2$/$y2$ units of <code>TokenX</code>/<code>TokenY</code>. To make sure the exchange rates remain the same, we can have:</p>
-<p>$$
-\begin{eqnarray}
-dx1+dx2&amp;=&amp;dx \
-x1/y1&amp;=&amp;x2/y2\
-x1*y1&amp;=&amp;(x1+dx1)(y1-dy1)\
-x2*y2&amp;=&amp;(x2+dx2)(y2-dy2)\
-(x1+dx1)/(y1-dy1)&amp;=&amp;(x2+dx2)/(y2-dy2)\
-\end{eqnarray}
-$$</p>
-<p>It derives: </p>
-<p>$$
-\begin{eqnarray}
-dx1&amp;=&amp;\frac{Z(x2+dx)-x1}{Z+1} \
-dx2&amp;=&amp;\frac{x1+dx-Z<em>x2}{Z+1} \
-Z&amp;=&amp;\sqrt{\frac{x1</em>y1}{x2*y2}} \
-\end{eqnarray}
-$$</p>
-<p>In this exercise, you will implement such a smart contract that split an original swap request of $x$ between Ottoswap and Cuseswap as dectated by $dx1$ and $dx2$ above. This ensures that an exchange-rate imbalance is never created. The figure shows the system architecture. </p>
-<ul>
-<li>Deploy <code>MyToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>. </li>
-<li>Make sure <code>Cuseswap</code> initially has 30 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
-<li>Deploy your router SC.</li>
-<li>Call the router SC to swap 4 <code>TokenX</code> for <code>TokenY</code>. </li>
-<li>In your lab report, include the execution screenshot that shows how much <code>TokenX</code>is involved in <code>Ottoswap</code> and how much in <code>Cuseswap</code>.</li>
-</ul>
-<h2 id="deliverable">Deliverable</h2>
+<p>DEX or decentralized exchange supports the swap of token ownership between different accounts. A swap is essentially two transfers, one from Alice to Bob and the other from Bob to Alice. A swap is supposed to be atomic, in the sense that either both transfers occur or no transfer occurs. In this lab, you are going to implement a DEX supporting atomic swap settlement.</p>
+<table>
+<thead>
+<tr>
+<th>Exercises</th>
+<th>CS student</th>
+<th>Finance student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Required</td>
+<td>Bonus (50%)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Required</td>
+<td>Bonus (50%)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Bonus (50%)</td>
+<td>Bonus (100%)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-1-execute-token-transfer">Exercise 1. Execute token transfer</h2>
+<p>The following smart contract implements a very simple token supporting the essential transfer function: <code>transfer(address sender, address recipient, uint256 amount)</code> </p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract BaddToken {  
+  uint _totalSupply = 0; string _symbol;  
+  mapping(address =&gt; uint) balances;  
+  constructor(string memory symbol, uint256 initialSupply) {
+    _symbol = symbol;
+    _totalSupply = initialSupply;
+    balances[msg.sender] = _totalSupply;  
+  }
+
+  function transfer(address receiver, uint amount) public returns (bool) {    
+    require(amount &lt;= balances[msg.sender]);        
+    balances[msg.sender] = balances[msg.sender] - amount;    
+    balances[receiver] = balances[receiver] + amount;    
+    return true;  
+  }
+
+  function balanceOf(address account) public view returns(uint256){
+    return balances[account];
+  }}
+</code></pre>
+<p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
+<h2 id="exercise-2-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa">Exercise 2. Execute atomic swap settlement in one transaction (by escrow EOA)</h2>
+<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token <code>TokenX</code> wants to trade her <code>TokenX</code>s for Bob's <code>TokenY</code>s. For simplicity, we assume the exchange rate between <code>TokenX</code> and <code>TokenY</code> is always 1:1 (i.e., one <code>TokenX</code> for one <code>TokenY</code>). A swap incurs a transfer from Alice to Bob in <code>TokenX</code> and another transfer from Bob to Alice in <code>TokenY</code>.</p>
+<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's <code>TokenX</code> and Bob's <code>TokenY</code>, the escrow then sends <code>TokenX</code> to Bob and <code>TokenY</code> to Alice, to settle the swap. </p>
+<p>The above escrow protocol can be instanciated differently. One design is to materialize the escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
+<p><img alt="Contract design diagram" src="lab-escrow3-EOA.jpg" /></p>
+<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as <code>TokenX</code> and then as <code>TokenY</code>). Run the above escrow-EOA protocol to complete the swap of Alice's <code>TokenX</code> and Bob's <code>TokenY</code>. </p>
+<h2 id="exercise-3-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract">Exercise 3. Design atomic swap settlement in one transaction (by escrow smart contract)</h2>
+<p>Another approach is to implement the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to transfer <code>TokenX</code> to Bob and then to transfer <code>TokenY</code> to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
+<p><img alt="Contract design diagram" src="lab-escrow3.jpg" /></p>
+<p>Your job is to:</p>
 <ol>
+<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as <code>TokenX</code> and <code>TokenY</code> instances) and the escrow smart contract.</li>
 <li>
-<p>For all exercises, you should submit screenshots showing your contract executing the described workflow successfully.</p>
+<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her <code>TokenX</code>s (his <code>TokenY</code>s) to the escrow. In this case, Alice (Bob) should be able to withdraw her <code>TokenX</code>s (his <code>TokenY</code>s) after a predefined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
 </li>
 <li>
-<p>Submit your solidity smart contracts for each task. </p>
+<p>Hint: To make smart contract <code>X</code> call smart contract <code>Y</code>'s function <code>foo</code>, you can pass to <code>X</code> <code>Y</code>'s contract address say <code>CA_Y</code> so that in <code>X</code> the following statement calls <code>CA_Y</code>'s function <code>foo</code>: <code>(Y)CA_Y.foo();</code> </p>
 </li>
-</ol></div>
+</ol>
+<h2 id="exercise-4-design-the-swap-between-token-and-ether">Exercise 4: Design the swap between token and Ether</h2>
+<p>Revise your escrow smart contract to support the swap between Ether and <code>TokenX</code>. For instance, Alice trades her <code>TokenX</code> for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one <code>TokenX</code> is exchangeable with one Ether.</p>
+<p>Consider both cases of success and failed swaps.</p>
+<h2 id="deliverable">Deliverable</h2>
+<ul>
+<li>For all exercises, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
+</ul></div>
             </div>
         </div>
 
