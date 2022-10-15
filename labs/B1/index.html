@@ -114,7 +114,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-token-transfer" class="nav-link">Exercise 1. Execute token transfer</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-erc20-token-transfer" class="nav-link">Exercise 1. Execute ERC20 token transfer</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-extend-baddtoken-with-approvetransferfrom" class="nav-link">Exercise 2. Extend BaddToken with approve/transferFrom</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -151,7 +155,9 @@
 
 <h1 id="lab-b1-amm-dex">Lab B1: AMM DEX</h1>
 <h2 id="introduction">Introduction</h2>
-<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader does not directly trade with other traders. Instead, they trade with a smart-contract intermediary. In practice, AMM gets more widely adopted than other DEX forms (e.g., order book). For instance, the most popular DEX services, including Uniswap, Sushiswap, Pancakeswap, etc., all follow AMM protocols. In this lab, you will implement an AMM smart contract.</p>
+<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader trades with a smart-contract intermediary called pool (which is unlike other DEX designs like orderbook).
+In practice, AMM is the most widely adopted DEX design and is the protocol followed by popular services including Uniswap, Sushiswap, Pancakeswap, etc.</p>
+<p>In this lab, you will being implement an AMM.</p>
 <table>
 <thead>
 <tr>
@@ -182,7 +188,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="exercise-1-execute-token-transfer">Exercise 1. Execute token transfer</h2>
+<h2 id="exercise-1-execute-erc20-token-transfer">Exercise 1. Execute ERC20 token transfer</h2>
 <p>The following smart contract implements a very simple token supporting the essential transfer function: <code>transfer(address sender, address recipient, uint256 amount)</code> </p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
 contract BaddToken {  
@@ -206,6 +212,12 @@ contract BaddToken {
   }}
 </code></pre>
 <p>Your job in this exercise is to deploy the above smart contract in Remix, creating an <code>TokenX</code> instance. Demonstrate the process that the <code>TokenX</code> issuer transfers 10 <code>TokenX</code> to another account, say Alice, and display each account's balance before/after the transfer.</p>
+<h2 id="exercise-2-extend-baddtoken-with-approvetransferfrom">Exercise 2. Extend <code>BaddToken</code> with approve/transferFrom</h2>
+<pre><code>function approve(address spender, uint256 amount) external returns (bool);
+function transferFrom(address from, address to, uint256 amount) external returns (bool);
+function allowance(address owner, address spender) external view returns (uint256);
+</code></pre>
+<p>Your job is to extend the <code>BaddToken</code> with the approve and transferFrom functions. Suppose owner Alice wants to transfer 1 <code>BaddToken</code> to another account Bob through an intermediary Charlie. Alice first calls <code>approve(Charlie, 1)</code> which gives Charlie allowance of 1 <code>BaddToken</code>. Then, Charlie calls function <code>transferFrom(Alice, Bob, 1)</code>. </p>
 <h2 id="exercise-2-basic-amm-design-with-fixed-rate">Exercise 2. Basic AMM Design with Fixed Rate</h2>
 <p><img alt="AMM design diagram" src="lab-amm.png" /></p>
 <p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
