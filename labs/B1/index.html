@@ -122,7 +122,7 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-basic-amm-design-with-fixed-rate" class="nav-link">Exercise 2. Basic AMM Design with Fixed Rate</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-amm-design-with-fixed-rate" class="nav-link">Exercise 3. AMM Design with Fixed Rate</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -155,7 +155,7 @@
 
 <h1 id="lab-b1-amm-dex">Lab B1: AMM DEX</h1>
 <h2 id="introduction">Introduction</h2>
-<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader trades with a smart-contract intermediary called pool (which is unlike other DEX designs like orderbook).
+<p>An automated market maker (AMM) is a decentralized-exchange (DEX) protocol. In an AMM, a trader trades with a smart-contract intermediary called pool (which is unlike other DEX designs like order book).
 In practice, AMM is the most widely adopted DEX design and is the protocol followed by popular services including Uniswap, Sushiswap, Pancakeswap, etc.</p>
 <p>In this lab, you will being implement an AMM.</p>
 <table>
@@ -217,8 +217,39 @@ contract BaddToken {
 function transferFrom(address from, address to, uint256 amount) external returns (bool);
 function allowance(address owner, address spender) external view returns (uint256);
 </code></pre>
-<p>Your job is to extend the <code>BaddToken</code> with the approve and transferFrom functions. Suppose owner Alice wants to transfer 1 <code>BaddToken</code> to another account Bob through an intermediary Charlie. Alice first calls <code>approve(Charlie, 1)</code> which gives Charlie allowance of 1 <code>BaddToken</code>. Then, Charlie calls function <code>transferFrom(Alice, Bob, 1)</code>. </p>
-<h2 id="exercise-2-basic-amm-design-with-fixed-rate">Exercise 2. Basic AMM Design with Fixed Rate</h2>
+<p>Your job is to extend the <code>BaddToken</code> with the approve and transferFrom functions defined as above. Suppose owner Alice wants to transfer 1 <code>BaddToken</code> to another account Bob through an intermediary Charlie. Alice first calls <code>approve(Charlie, 1)</code> which gives Charlie allowance of 1 <code>BaddToken</code>. Then, Charlie calls function <code>transferFrom(Alice, Bob, 1)</code>, through which Charlie's balance is credited by 1 <code>BaddToken</code> and Alice's balance is debited by 1 <code>BaddToken</code>.</p>
+<p>We use the following table to test/grade if your solution is correct. For instance, we may send a sequence of transaction against the instances of your <code>BaddToken</code>: <code>Alice.approve(Charlie, 1)</code>, <code>balanceOf(Alice)</code>, <code>allowance(Alice, Charlie)</code>, <code>balanceOf(Bob)</code>, <code>Charlie.transferFrom(Alice, Bob, 1)</code>, <code>balanceOf(Bob)</code>. And we expect a correct result being <code>1,1,0,1</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Calls</th>
+<th><code>balanceOf(Alice)</code></th>
+<th><code>balanceOf(Bob)</code></th>
+<th><code>allowance(Alice, Charlie)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init state</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>Alice.approve(Charlie, 1)</code></td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>Charlie.transferFrom(Alice, Bob, 1)</code></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-3-amm-design-with-fixed-rate">Exercise 3. AMM Design with Fixed Rate</h2>
 <p><img alt="AMM design diagram" src="lab-amm.png" /></p>
 <p>In the figure above, trader Alice first transfers $x$ units of <code>TokenX</code> from her account to an AMM pool's account. Then, she calls the AMM smart contract's function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the AMM smart contract internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice's account.</p>
 <p>In this exercise, you can consider that $dy/dx = 2$. Implement the AMM smart contract.</p>
