@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>README Zh - BADD Labs</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">BADD Labs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../" class="dropdown-item">Lab A1. Transaction exploration</a>
+</li>
+                                    
+<li>
+    <a href="../../A2/" class="dropdown-item">Lab A2. Smart-contract programming</a>
+</li>
+                                    
+<li>
+    <a href="../../A3/" class="dropdown-item">Lab A3. Blockchain mining</a>
+</li>
+                                    
+<li>
+    <a href="../../B1/" class="dropdown-item">Lab B1. DEX 1: Swap settlement</a>
+</li>
+                                    
+<li>
+    <a href="../../B2/" class="dropdown-item">Lab B2. DEX 2: AMM and pricing</a>
+</li>
+                                    
+<li>
+    <a href="../../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
+</li>
+                                    
+<li>
+    <a href="../../B4/README.md" class="dropdown-item">Lab B4. DEX security: Sandwich</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../../../about/" class="nav-link">About</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#a1" class="nav-link">实验A1</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_1" class="nav-link">介绍</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#1" class="nav-link">练习1. 手动查询三个交易</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#2" class="nav-link">练习2. 手动探索单个区块</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#3" class="nav-link">练习3. 手动探索两个区块</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#4" class="nav-link">练习 4. 自动探索区块中五十个交易</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#5" class="nav-link">练习 5. 自动探索区块内中所有交易</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#6" class="nav-link">练习 6. 自动探索两个区块间的交易</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#7" class="nav-link">练习 7（附加） 在一个区块中自动探索调用合约的交易</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="a1">实验A1</h1>
+<h2 id="_1">介绍</h2>
+<p>Etherscan (https://etherscan.io/) 是以太坊网络的区块链浏览器，可用于搜索交易、区块、钱包地址、智能合约以及其它链上数据。在实验中，你需要使该网站的信息来检索和分析etherscan上的以太坊交易历史记录。你将从中分析出关于交易费用的更深的理解。</p>
+<h2 id="1">练习1. 手动查询三个交易</h2>
+<p>假设以下 Etherscan 页面显示这个交易的详细信息（哈希 0x84ae）：
+https://etherscan.io/tx/0x84aee3793659afeebfb89b86e6a8ffd3b9f143b3719c9b358905a83dbd71cb79
+你需要计算三笔费用的的平均费用，是0x84ae，以及他的前一笔交易和他的后一笔交易。如果 tx1 在同一块中的 tx2 之前，交易 tx1 是 tx2 的前一笔交易。
+提示：您可以在以下网页上找到与区块15479087相关的交易历史顺序：https://etherscan.io/txs?block=15479087</p>
+<h2 id="2">练习2. 手动探索单个区块</h2>
+<p>在区块 15479087 中找到交易额度最高的交易。报告他的哈希值。</p>
+<h2 id="3">练习3. 手动探索两个区块</h2>
+<p>找到区块15479087中的最后一笔交易和区块15479088中的第一笔交易。计算这两个交易的平均费用。
+提示：假定一个区块中的第一笔交易是 etherscan.io 上该区块下第一页的第一行。 同样，一个区块中的最后一个交易是 etherscan.io 上该区块下最后一页的最后一行。</p>
+<h2 id="4">练习 4. 自动探索区块中五十个交易</h2>
+<pre><code>import requests
+from time import sleep
+from bs4 import BeautifulSoup
+
+def scrape_block(blocknumber, page):
+    # the URL of the web page that we want to get transaction data
+    api_url = &quot;https://etherscan.io/txs?block=&quot; + str(blocknumber) + &quot;&amp;p=&quot;+str(page)
+    # HTTP headers used to send a HTTP request
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:72.0) Gecko/20100101 Firefox/72.0'}
+    # Pauses for 0.5 seconds before sending the next request
+    sleep(0.5)
+    # send the request to get data in the webpage
+    response = requests.get(api_url, headers=headers)
+    # get the transaction table from the response data we get
+    for row in BeautifulSoup(response.content, 'html.parser').select('table.table-hover tbody tr'):
+        # each row in the table is a transaction
+        attributes = map(lambda x: x.text, row.findAll('td'))
+        # extract transaction attributes
+        _begin, hash, method, block, timestamp1, age, from1, _arr, to1, value1, txnfee, burnfee = attributes
+        ######################## modify code below for each exercise #######################
+        print(&quot;transaction of ID:&quot;, hash, &quot;block:&quot;, block, &quot;from address&quot;, from1, &quot;toaddress&quot;, to1, &quot;transaction fee&quot;,txnfee)
+
+if __name__ == &quot;__main__&quot;:  # entrance to the main function
+    scrape_block(15479087, 1)
+</code></pre>
+<p>在本练习中，您将运行 Python 代码以自动从 etherscan 网站抓取数据。 上面的示例代码爬取 etherscan 网页（即 https://etherscan.io/txs?block=15479087）以读取块 15479087 中的前 50 笔交易。
+要运行 Python 代码，您将需要 Python 运行时和一些库。 如果您的计算机不支持 Python，您可以在 https://www.python.org/downloads/上找到适用于 Windows 和 Mac 计算机的安装说明。 此外，Python 库可以在控制台中安装：</p>
+<pre><code>&gt;&gt;&gt; pip3 install requests
+&gt;&gt;&gt; pip3 install beautifulsoup4
+</code></pre>
+<p>安装后，将上述 python 代码复制到一个文件中，并在 python 运行时（例如，您最喜欢的 python IDE）中运行该文件。 运行代码后，您可以观察打印在终端或 Python 控制台上的属性。</p>
+<h2 id="5">练习 5. 自动探索区块内中所有交易</h2>
+<p>在本练习中，您需要探索区块 15479087 中所有交易的平均费用。您需要修改给定的代码。
+提示：区块 15479087 中的交易分三页列出。</p>
+<h2 id="6">练习 6. 自动探索两个区块间的交易</h2>
+<p>在本练习中，您需要报告 100 笔交易的平均费用，即区块 15479087 中的前 50 笔交易和区块 15479088 中的前 50 笔交易。您需要修改给定的代码。</p>
+<h2 id="7">练习 7（附加） 在一个区块中自动探索调用合约的交易</h2>
+<p>在本练习中，您需要报告块 15479087 中调用方法 transfer 的次数。 您需要修改给定的代码。</p>
+<ul>
+<li>常见问题：如何验证您的代码是否正确？<ul>
+<li>答：假设您修改后的 Python 代码需要扫描 100 笔交易并计算平均交易费用。要验证您的代码是否正确，您可以将程序中的数字 100 更改为较小的数字，例如 3，然后手动计算 3 笔交易的平均费用。如果手动计算结果等于你的程序结果，说明你的程序很可能是正确的。</li>
+</ul>
+</li>
+<li>问题：我可以在 4/5/6 做实验练习而不在我的电脑上安装任何东西吗？<ul>
+<li>答：是的，这是可能的。您可以使用支持在网络浏览器中运行 python 代码的谷歌 colab 平台：https://colab.research.google.com/?utm_source=scs-index</li>
+</ul>
+</li>
+<li>问题：如何安装 Python IDE？<ul>
+<li>答：不需要安装 Python IDE。但是，如果您愿意，您可以按照此处的说明安装 Pycharm for Python IDE：https://www.jetbrains.com/help/pycharm/installation-guide.html#toolbox。您需要在 Pycharm 中配置 Python 环境：https://www.jetbrains.com/help/pycharm/configuring-local-python-interpreters.html</li>
+</ul>
+</li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+        <script src="../../../javascripts/mathjax.js" defer></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" defer></script>
+        <script src="../../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
