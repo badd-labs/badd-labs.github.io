@@ -111,11 +111,32 @@
 <p>Suppose Alice calls <code>transfer</code> function in <code>TokenX</code> SC and then realizes <code>transfer</code> is unsupported in our AMM protocol. Alice may want to undo this misissued deposit (i.e., <code>transfer</code>). Extend your pool SC with function <code>undo_transfer</code>, so that Alice can call <code>undo_transfer</code> to request the refund of the mis-deposited tokens. </p>
 <p>Design the argument list of function <code>undo_transfer()</code> and implement the function in the Pool SC. </p>
 <p>We will grade your solution with the following test case:</p>
-<p>| Calls | <code>X.balanceOf(A)</code> | <code>X.balanceOf(P)</code> | 
-| --- | --- | --- | --- |
-| Init state  | 1 | 0 | 
-| <code>A.transfer(P,1)</code> | 0 | 1 |
-| <code>A.undo_transfer(...)</code> | 1 | 0 |</p>
+<table>
+<thead>
+<tr>
+<th>Calls</th>
+<th><code>X.balanceOf(A)</code></th>
+<th><code>X.balanceOf(P)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init state</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>A.transfer(P,1)</code></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>A.undo_transfer(...)</code></td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
 <p>Meanwhile, your <code>undo_transfer()</code> function should be secured against thief Bob. That is, Bob cannot extract value from Alice's mis-issued deposit (by <code>transfer</code>). In this regard, we will grade your solution with the following test case:</p>
 <table>
 <thead>
