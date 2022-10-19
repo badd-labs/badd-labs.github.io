@@ -98,7 +98,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#exercise-7-challenge-question-undo-transfer-upon-misissued-deposit" class="nav-link">Exercise 7 (Challenge question). Undo transfer upon Misissued Deposit</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-7-challenge-undo-transfer-upon-mis-issued-deposit" class="nav-link">Exercise 7 (Challenge). Undo transfer upon Mis-issued Deposit</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -107,8 +107,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="exercise-7-challenge-question-undo-transfer-upon-misissued-deposit">Exercise 7 (Challenge question). Undo <code>transfer</code> upon Misissued Deposit</h2>
-<p>Suppose Alice calls <code>transfer</code> function in <code>TokenX</code> SC and then realizes <code>transfer</code> is unsupported in our AMM protocol. Alice may want to undo this misissued deposit (i.e., <code>transfer</code>). Extend your pool SC with function <code>undo_transfer</code>, so that Alice can call <code>undo_transfer</code> to request the refund of the mis-deposited tokens. </p>
+<h2 id="exercise-7-challenge-undo-transfer-upon-mis-issued-deposit">Exercise 7 (Challenge). Undo <code>transfer</code> upon Mis-issued Deposit</h2>
+<p>Suppose Alice calls <code>transfer</code> function in <code>TokenX</code> SC and then realizes <code>transfer</code> is unsupported in our AMM protocol. Alice may want to undo this mis-issued deposit (i.e., <code>transfer</code>). Extend your pool SC with function <code>undo_transfer</code>, so that Alice can call <code>undo_transfer</code> to request the token refund from the mis-issued deposit. </p>
 <p>Design the argument list of function <code>undo_transfer()</code> and implement the function in the Pool SC. </p>
 <p>We will grade your solution with the following test case:</p>
 <table>
