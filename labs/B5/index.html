@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab B3. DEX security: Arbitrage - BADD Labs</title>
+        <title>Lab B5: Reentrancy Attacks and Defenses - BADD Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -36,7 +36,7 @@
                             <li class="navitem">
                                 <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -61,7 +61,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Lab B3. DEX security: Arbitrage</a>
+    <a href="../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
 </li>
                                     
 <li>
@@ -80,16 +80,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../B2/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../about/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -108,28 +98,33 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b3-order-book-dex-and-swap-settlement" class="nav-link">Lab B3: Order-book DEX and Swap Settlement</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-contract-with-fallback" class="nav-link">Exercise 1. Execute contract with fallback</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa" class="nav-link">Exercise 1. Execute atomic swap settlement in one transaction (by escrow EOA)</a>
+            
+            <li class="nav-item" data-level="2"><a href="#exercise-2-implement-a-reentrancy-attack-contract" class="nav-link">Exercise 2. Implement a Reentrancy Attack contract</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract" class="nav-link">Exercise 2. Design atomic swap settlement in one transaction (by escrow smart contract)</a>
+            
+            <li class="nav-item" data-level="2"><a href="#exercise-3-design-reentrancy-defense-with-implementation-in-secure-bank" class="nav-link">Exercise 3.  Design Reentrancy Defense with Implementation In Secure Bank</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-3-design-the-swap-between-token-and-ether" class="nav-link">Exercise 3: Design the swap between token and Ether</a>
+            
+            <li class="nav-item" data-level="2"><a href="#exercise-4-evasive-reentrancy-attack-to-bypass-locks" class="nav-link">Exercise 4. Evasive Reentrancy Attack to Bypass Locks</a>
               <ul class="nav flex-column">
               </ul>
             </li>
+            
+            <li class="nav-item" data-level="2"><a href="#exercise-5-fixing-reentrancy-attack-with-lock-evasion" class="nav-link">Exercise 5. Fixing Reentrancy Attack with Lock Evasion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
             <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
               <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -137,13 +132,13 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b3-order-book-dex-and-swap-settlement">Lab B3: Order-book DEX and Swap Settlement</h1>
-<h2 id="introduction">Introduction</h2>
-<p>DEX or decentralized exchange supports the swap of token ownership between different accounts. A swap is essentially two transfers, one from Alice to Bob and the other from Bob to Alice. A swap is supposed to be atomic, in the sense that either both transfers occur or no transfer occurs. In this lab, you are going to implement a DEX supporting atomic swap settlement.</p>
+<p># Lab B5: Reentrancy Attacks and Defenses</p>
+<p>In a reentrancy (RE) attack, a malicious contract A interacts with a victim bank contact B to deplete the money B stores on behalf of A and other users. In this task, you will be given a vulnerable bank contract B and be required to implement a reentrancy attack contract A (Exercise 2). You will also rewrite the bank contract to B’ such that B’ is secured against reentrancy attack A (Exercise 3). Fallback is a unique function in Solidity and is a key primitive to enable reentrancy attack. You will run a given fallback contract to understand this primitive (Exercise 1).</p>
 <table>
 <thead>
 <tr>
-<th>Exercises</th>
+<th>Tasks</th>
+<th>Points</th>
 <th>CS student</th>
 <th>Finance student</th>
 </tr>
@@ -151,46 +146,125 @@
 <tbody>
 <tr>
 <td>1</td>
+<td>10</td>
 <td>Required</td>
 <td>Required</td>
 </tr>
 <tr>
 <td>2</td>
+<td>40</td>
 <td>Required</td>
-<td>Required</td>
+<td>Bonus</td>
 </tr>
 <tr>
 <td>3</td>
+<td>30</td>
 <td>Required</td>
-<td>Required</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>4</td>
+<td>20</td>
+<td>Bonus</td>
+<td>Bonus</td>
+</tr>
+<tr>
+<td>5</td>
+<td>10</td>
+<td>Bonus</td>
+<td>Bonus</td>
 </tr>
 </tbody>
 </table>
-<h2 id="exercise-1-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa">Exercise 1. Execute atomic swap settlement in one transaction (by escrow EOA)</h2>
-<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token <code>TokenX</code> wants to trade her <code>TokenX</code>s for Bob's <code>TokenY</code>s. For simplicity, we assume the exchange rate between <code>TokenX</code> and <code>TokenY</code> is always 1:1 (i.e., one <code>TokenX</code> for one <code>TokenY</code>). A swap incurs a transfer from Alice to Bob in <code>TokenX</code> and another transfer from Bob to Alice in <code>TokenY</code>.</p>
-<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's <code>TokenX</code> and Bob's <code>TokenY</code>, the escrow then sends <code>TokenX</code> to Bob and <code>TokenY</code> to Alice, to settle the swap. </p>
-<p>The above escrow protocol can be instanciated differently. One design is to materialize the escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3-EOA.jpg" /></p>
-<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as <code>TokenX</code> and then as <code>TokenY</code>). Run the above escrow-EOA protocol to complete the swap of Alice's <code>TokenX</code> and Bob's <code>TokenY</code>. </p>
-<h2 id="exercise-2-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract">Exercise 2. Design atomic swap settlement in one transaction (by escrow smart contract)</h2>
-<p>Another approach is to implement the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to transfer <code>TokenX</code> to Bob and then to transfer <code>TokenY</code> to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3.jpg" /></p>
-<p>Your job is to:</p>
-<ol>
-<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as <code>TokenX</code> and <code>TokenY</code> instances) and the escrow smart contract.</li>
-<li>
-<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her <code>TokenX</code>s (his <code>TokenY</code>s) to the escrow. In this case, Alice (Bob) should be able to withdraw her <code>TokenX</code>s (his <code>TokenY</code>s) after a predefined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
+<h2 id="exercise-1-execute-contract-with-fallback">Exercise 1. Execute contract with fallback</h2>
+<pre><code>pragma solidity ^0.8.15;
+
+contract FallbackReceiver {
+  event Log(string func, uint gas);
+  fallback() external payable {
+    emit Log(&quot;fallback&quot;, gasleft());}
+
+  function getBalance() public view returns (uint) {
+    return address(this).balance;}}
+
+contract FallbackSender {
+  function call(address payable _to) public payable {
+    (bool sent, ) = _to.call{value: msg.value}(&quot;&quot;);
+    require(sent, &quot;Failed to send Ether&quot;);}}
+</code></pre>
+<ul>
+<li>Deploy and run the above two smart contracts in Remix. Suppose <code>FallbackReceiver</code> is deployed at address <code>R</code>. Then run <code>FallbackSender.call(R)</code> and report the execution screenshot.</li>
+</ul>
+<h2 id="exercise-2-implement-a-reentrancy-attack-contract">Exercise 2. Implement a Reentrancy Attack contract</h2>
+<pre><code>pragma solidity ^0.8.15;
+
+contract BankRE {
+  mapping(address =&gt; uint256) public balances;
+
+  function deposit() public payable {
+    balances[msg.sender] += msg.value;}
+
+  function withdraw() public {
+    require(balances[msg.sender] != 0);
+    (bool result, ) = msg.sender.call{value: balances[msg.sender]}(&quot;&quot;);
+    balances[msg.sender] = 0; }}
+</code></pre>
+<ul>
+<li>Implement an attack smart contract, <code>AttackerRE</code> and deploy it with the <code>BankRE</code> contract to mount a successful reentrancy attack to deplete the money in the <code>BankRE</code> contract. The attack is successful if attacker <code>AttackerRE</code> can deplete any <code>BankRE</code>'s Ether, as in the following test case:<ul>
+<li>Use an EOA account <code>C</code> to deposit Ether to <code>BankRE</code>, that is, <code>[C, BankRE].deposit()</code></li>
+<li>Deploy Contract <code>AttackerRE</code> to address <code>A</code> and initialize it with <code>BankRE</code>'s address.</li>
+<li>Mount the reentrancy attack by calling the <code>attack()</code> function in <code>AttackerRE</code>, that is, <code>[A, AttackerRE].attack()</code></li>
+</ul>
 </li>
-<li>
-<p>Hint: To make smart contract <code>X</code> call smart contract <code>Y</code>'s function <code>foo</code>, you can pass to <code>X</code> <code>Y</code>'s contract address say <code>CA_Y</code> so that in <code>X</code> the following statement calls <code>CA_Y</code>'s function <code>foo</code>: <code>(Y)CA_Y.foo();</code> </p>
-</li>
-</ol>
-<h2 id="exercise-3-design-the-swap-between-token-and-ether">Exercise 3: Design the swap between token and Ether</h2>
-<p>Revise your escrow smart contract to support the swap between Ether and <code>TokenX</code>. For instance, Alice trades her <code>TokenX</code> for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one <code>TokenX</code> is exchangeable with one Ether.</p>
-<p>Consider both cases of success and failed swaps.</p>
+</ul>
+<h2 id="exercise-3-design-reentrancy-defense-with-implementation-in-secure-bank">Exercise 3.  Design Reentrancy Defense with Implementation In Secure Bank</h2>
+<ul>
+<li>Design one or multiple defenses against reentrancy attacks in <code>BankRE</code> contract in Exercise 2.</li>
+<li>Implement your new defenses in a new bank contract, say <code>BankSafe</code>, so that running the reentrancy attack (as implemented by Exercise 2 in Contract <code>AttackerRE</code>) against <code>BankSafe</code> would fail.</li>
+</ul>
+<h2 id="exercise-4-evasive-reentrancy-attack-to-bypass-locks">Exercise 4. Evasive Reentrancy Attack to Bypass Locks</h2>
+<p>Locking the access to Ether-transfer instructions that may cause reentrance is a widely adopted defense strategy against reentrance attacks. The following smart contract implementing an Ether bank on a Pegged Token does use a lock to prevent the reentrance of the <code>burn()</code> function. However, the seemingly fixed contract is still vulnerable to the reentrancy attack in a general sense. Design attack contracts to attack the <code>EtherBankPeggedToken</code> smart contract so that 1) an attacker EOA can withdraw more than his account balance, and 2) an attacker EOA can deplete the Ether balance of the <code>EtherBankPeggedToken</code> contract, that is, the balance of all accounts in the contract.</p>
+<ul>
+<li>The re-entered function does not have to be the same as the function it first entered.</li>
+</ul>
+<pre><code>contract EtherBankPeggedToken {
+  mapping(address =&gt; uint256) balance;
+  mapping(address =&gt; bool) lock;
+  mapping(address =&gt; mapping(address =&gt; uint256)) allowance;
+
+modifier checkLock { // reentrancy locking
+  require(lock[msg.sender] == false); _; }
+
+function deposit() external payable {
+  balance[msg.sender] += msg.value;
+}
+
+function approve(address other, uint256 amnt) external { 
+  allowance[msg.sender][other] += amnt; }
+
+function transferFrom(address from, uint256 amnt) external checkLock {
+  require(balance[from] &gt;= amnt);
+  require(allowance[from][msg.sender] &gt;= amnt);
+  balance[from] -= amnt;
+  allowance[from][msg.sender] -= amnt;
+  balance[msg.sender] += amnt; }
+
+function burn() external checkLock {
+  // set lock
+  lock[msg.sender] = true;
+  msg.sender.call{value: balance[msg.sender]}(&quot;&quot;);
+  // release lock
+  lock[msg.sender] = false;
+  balance[msg.sender] = 0; }
+}
+</code></pre>
+<h2 id="exercise-5-fixing-reentrancy-attack-with-lock-evasion">Exercise 5. Fixing Reentrancy Attack with Lock Evasion</h2>
+<ul>
+<li>Design one or multiple defenses against reentrancy attacks to fix the bugs in the <code>EtherBankPeggedToken</code> contract in Exercise 4.</li>
+</ul>
 <h2 id="deliverable">Deliverable</h2>
 <ul>
-<li>For all exercises, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
+<li>Submit your Solidity code and the screenshot that runs the code on your computer for all exercises. The Solidity code needs to be stored in a <code>.sol</code> file in the plaintext format.</li>
 </ul></div>
             </div>
         </div>

@@ -265,14 +265,16 @@ function allowance(address owner, address spender) external view returns (uint25
 </tr>
 </tbody>
 </table>
+<p>Hint: You can use nested mapping to store the allowance information.</p>
 <h2 id="exercise-3-amm-design-with-fixed-rate">Exercise 3. AMM Design with Fixed Rate</h2>
 <p><img alt="AMM design diagram" src="lab-amm-tff.png" /></p>
 <p>The figure above shows the workflow of the fixed-rate AMM you are going to build. Initially, two token contract accounts i.e., <code>TokenX</code> and <code>TokenY</code> are created by deploying the extended <code>BaddToken</code> you built in Exercise 2.</p>
-<p>In Step 1, trader Alice approves $x$ units of <code>TokenX</code> from her account (EOA) to the AMM <code>Pool</code>'s contract account (CA). In Step 2, Alice calls the <code>Pool</code>'s function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the <code>Pool</code> internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice (Step 3). The <code>Pool</code> also internally calls <code>TokenX</code>'s <code>transferFrom</code> function to transfer Alice's $dx$ units of <code>TokenX</code> to Bob,  spending the allowance (Step 4).</p>
+<p>In Step 1, trader Alice approves $x$ units of <code>TokenX</code> from her account (EOA) to the AMM <code>Pool</code>'s contract account (CA). In Step 2, Alice calls the <code>Pool</code>'s function <code>swapXY(dx)</code>. Upon receiving Alice's transaction, the <code>Pool</code> internally calls <code>TokenY</code>'s <code>transfer</code> function to transfer $dy$ units of <code>TokenY</code> to Alice (Step 3). The <code>Pool</code> also internally calls <code>TokenX</code>'s <code>transferFrom</code> function to transfer Alice's $dx$ units of <code>TokenX</code> to the <code>Pool</code>,  spending the allowance (Step 4).</p>
 <p>In this exercise, you can consider that $dy/dx = 2$. Implement the AMM smart contract using the following interface.</p>
 <pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
-contract AMM {
-  BaddToken tokenX, tokenY;
+contract AMMPool {
+  BaddToken tokenX;
+  BaddToken tokenY;
   // _tokenX and _tokenY are contract-addresses running BaddToken SC
   constructor(address _tokenX, address _tokenY){
     tokenX = BaddToken(_tokenX); tokenY = BaddToken(_tokenY);
@@ -285,9 +287,9 @@ contract AMM {
 </code></pre>
 <p>You can follow the workflow to execute your code.</p>
 <ul>
-<li>Write and compile a <code>Pool</code> smart contract.</li>
+<li>Implement the above <code>AMMPool</code> smart contract by filling the function bodies.</li>
 <li>Deploy <code>BaddToken</code> smart contract twice, respectively to two contract addresses, say <code>TokenX</code> and <code>TokenY</code>.</li>
-<li>Deploy <code>Pool</code> smart contract with <code>TokenX</code> and <code>TokenY</code>.</li>
+<li>Deploy <code>AMMPool</code> smart contract to create the <code>Pool</code> account.</li>
 <li>
 <p>Execute the smart contracts in two steps: </p>
 <ol>
@@ -298,6 +300,7 @@ contract AMM {
 <li>
 <p>Hint: You need to ensure your account has enough tokens for both <code>TokenX</code> and <code>TokenY</code>. </p>
 </li>
+<li>Hint 2: If a SC needs to reference itself, you can use <code>address(this)</code>.</li>
 </ul>
 <p>We will test your pool SC using the following test cases. <code>P</code> is the Pool CA, <code>X</code> is <code>TokenX</code> and <code>Y</code> is <code>TokenY</code>.</p>
 <table>
@@ -381,7 +384,7 @@ contract AMM {
 <th><code>X.balanceOf(A)</code></th>
 <th><code>X.balanceOf(B)</code></th>
 <th><code>X.balanceOf(P)</code></th>
-<th><code>X.allowance(B,P)</code></th>
+<th><code>X.allowance(A,P)</code></th>
 <th><code>Y.balanceOf(A)</code></th>
 <th><code>Y.balanceOf(B)</code></th>
 <th><code>Y.balanceOf(P)</code></th>
@@ -478,7 +481,7 @@ contract AMM {
 </table>
 <h2 id="exercise-6-undo-approve-upon-standalone-deposit">Exercise 6. Undo <code>approve</code> upon Standalone Deposit</h2>
 <p>In Exercise 5, consider an Alice who called <code>approve</code> function (the Deposit step) but did not call <code>swapXY</code> (the Withdrawal step). This is possibly due to that Alice changes her mind after the deposit and wants to undo it.</p>
-<p>Extend your pool SC from the previous exercises to support undo <code>approve</code> and to revert a trade-in-progress. You may want to implement a function in the AMM pool, say <code>undo_approve()</code>. After Step 1 and calling <code>refund()</code>, Alice will have her original balance in <code>TokenX</code> and zero allowance to the pool. That is (<code>P</code> is the Pool CA):</p>
+<p>Extend your pool SC from the previous exercises to support undo <code>approve</code> and to revert a trade-in-progress. You may want to implement a function in the AMM pool, say <code>undo_approve()</code>. After Step 1 and calling <code>undo_approve()</code>, Alice will have her original balance in <code>TokenX</code> and zero allowance to the pool. That is (<code>P</code> is the Pool CA):</p>
 <table>
 <thead>
 <tr>
@@ -509,47 +512,6 @@ contract AMM {
 </tr>
 </tbody>
 </table>
-<!--
-
-The exercises so far (from 1 to 4) consider the normal scenarios. Starting from this exercise, we will consider a series of abnormal or security-oriented cases where Alice deviates from the normal cases, as shown in the following table.
-
-| Case | tx1 | tx2 | Solution |
-| --- | --- | --- | --- |
-|  Normal case | Alice | Alice | Exercise 1-4 |
-|  Standalone deposit  | Alice | NULL | Exercise 5 |
-|  Standalone withdrawal (Pool theft) | NULL | Alice | Exercise 6 |
-|  Unmatched swap (Trader theft) | Bob  | Alice | Exercise 7 |
-
-
-Exercise 6. Security Hardening against Pool Theft
----
-
-Consider Alice who called `swapXY` (the Withdrawal step) but did not call `approve` (the Deposit step). In practice, this behavior can be due to Alice being an adversarial user who wants to steal tokens from the pool.
-
-Extend your pool SC from the previous exercises to defend the pool against theft. Specifically, a standalone call to the `swapXY` without `approve` does not transfer any tokens. That is (`P` is the Pool CA):
-
-
-| Calls | `X.balanceOf(A)` | `X.balanceOf(P)` | `X.allowance(A,P)` | `Y.balanceOf(A)` | `Y.balanceOf(P)` |
-| --- | --- | --- | --- | ---- | --- |
-| Init state  | 1 | 0 | 0 | 0 | 2 |
-| `A.swapXY(1)` | 1 | 0 | 0 | 0 | 2 |
-
-To do so, you may want to make the pool SC track all swaps in progress (i.e., the swap that did deposit but did not finish withdrawal), so that an attempt to withdraw when there are no other ongoing swaps will be declined. 
-
-Hint: Your pool SC can make a copy of the token balance so that an ongoing swap will appear as a difference between the balance in the token SC and the copy of the balance in the pool SC.
-
-
-Exercise 7 (Bonus). Security Hardening against Trader Theft
----
-
-A sophisticated attacker can try to insert a withdrawal call (`swapXY`) in between a benign user’s deposit and withdrawal to steal his tokens. For example, consider that an attacker Alice who observes that benign user Bob’s deposit (`approve`) issues the call of `swapXY` to withdraw Bob’s token. 
-
-Design a defense against the above theft attack and implement it in your pool SC.
-
-Hint: Consider delegating EOA traders' actions to a separate smart contract (i.e., the router SC design in Uniswap V2).
-
--->
-
 <h2 id="deliverable">Deliverable</h2>
 <ul>
 <li>For all tasks, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>

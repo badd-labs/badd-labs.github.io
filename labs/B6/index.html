@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Lab B3. DEX security: Arbitrage - BADD Labs</title>
+        <title>Index - BADD Labs</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/font-awesome.min.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -36,7 +36,7 @@
                             <li class="navitem">
                                 <a href="../.." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labs <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -61,7 +61,7 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active">Lab B3. DEX security: Arbitrage</a>
+    <a href="../B3/" class="dropdown-item">Lab B3. DEX security: Arbitrage</a>
 </li>
                                     
 <li>
@@ -80,16 +80,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../B2/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../about/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -108,25 +98,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#lab-b3-order-book-dex-and-swap-settlement" class="nav-link">Lab B3: Order-book DEX and Swap Settlement</a>
+            <li class="nav-item" data-level="1"><a href="#lab-b6-zero-knowledge-proofs-and-their-blockchain-applications" class="nav-link">Lab B6: Zero-Knowledge Proofs and their Blockchain Applications</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#introduction" class="nav-link">Introduction</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa" class="nav-link">Exercise 1. Execute atomic swap settlement in one transaction (by escrow EOA)</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-hello-world-zk-program-and-setup" class="nav-link">Exercise 1: Hello-world ZK program and Setup</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract" class="nav-link">Exercise 2. Design atomic swap settlement in one transaction (by escrow smart contract)</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-prove-your-age" class="nav-link">Exercise 2. Prove Your Age</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-3-design-the-swap-between-token-and-ether" class="nav-link">Exercise 3: Design the swap between token and Ether</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#deliverable" class="nav-link">Deliverable</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-3-prove-your-knowledge-of-hash-preimage" class="nav-link">Exercise 3. Prove Your Knowledge of Hash Preimage</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -137,61 +119,102 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="lab-b3-order-book-dex-and-swap-settlement">Lab B3: Order-book DEX and Swap Settlement</h1>
-<h2 id="introduction">Introduction</h2>
-<p>DEX or decentralized exchange supports the swap of token ownership between different accounts. A swap is essentially two transfers, one from Alice to Bob and the other from Bob to Alice. A swap is supposed to be atomic, in the sense that either both transfers occur or no transfer occurs. In this lab, you are going to implement a DEX supporting atomic swap settlement.</p>
-<table>
-<thead>
-<tr>
-<th>Exercises</th>
-<th>CS student</th>
-<th>Finance student</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>Required</td>
-<td>Required</td>
-</tr>
-<tr>
-<td>2</td>
-<td>Required</td>
-<td>Required</td>
-</tr>
-<tr>
-<td>3</td>
-<td>Required</td>
-<td>Required</td>
-</tr>
-</tbody>
-</table>
-<h2 id="exercise-1-execute-atomic-swap-settlement-in-one-transaction-by-escrow-eoa">Exercise 1. Execute atomic swap settlement in one transaction (by escrow EOA)</h2>
-<p>An atomic swap occurs between two accounts in two tokens. Suppose Alice of token <code>TokenX</code> wants to trade her <code>TokenX</code>s for Bob's <code>TokenY</code>s. For simplicity, we assume the exchange rate between <code>TokenX</code> and <code>TokenY</code> is always 1:1 (i.e., one <code>TokenX</code> for one <code>TokenY</code>). A swap incurs a transfer from Alice to Bob in <code>TokenX</code> and another transfer from Bob to Alice in <code>TokenY</code>.</p>
-<p>A simple swap protocol is to do the two transfers in one transaction. This requires Alice and Bob (two EOAs) first transfer tokens to a trusted third-party account, that is, the escrow. After the escrow receives both Alice's <code>TokenX</code> and Bob's <code>TokenY</code>, the escrow then sends <code>TokenX</code> to Bob and <code>TokenY</code> to Alice, to settle the swap. </p>
-<p>The above escrow protocol can be instanciated differently. One design is to materialize the escrow as an EOA. In this case, the escrow EOA is trusted to send the two transfer calls, atomically. The following figure illustrates the escrow-EOA protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3-EOA.jpg" /></p>
-<p>Your job in this exercise is to deploy your token smart contracts, from Exercise 1, twice (first as <code>TokenX</code> and then as <code>TokenY</code>). Run the above escrow-EOA protocol to complete the swap of Alice's <code>TokenX</code> and Bob's <code>TokenY</code>. </p>
-<h2 id="exercise-2-design-atomic-swap-settlement-in-one-transaction-by-escrow-smart-contract">Exercise 2. Design atomic swap settlement in one transaction (by escrow smart contract)</h2>
-<p>Another approach is to implement the escrow in a smart contract. In this case, after Alice and Bob transfer their tokens to the escrow smart contract (in Step 1 &amp; 2), they then notify the escrow smart contract. After receiving both Alice and Bob's notification, the escrow smart contract sends two transfers, atomically, that is, first to transfer <code>TokenX</code> to Bob and then to transfer <code>TokenY</code> to Alice. The following figure illustrates the escrow-smart-contract protocol.</p>
-<p><img alt="Contract design diagram" src="lab-escrow3.jpg" /></p>
-<p>Your job is to:</p>
-<ol>
-<li>Implement the escrow smart contract described as above. Then run an atomic swap by deploying the token smart contracts (twice respectively as <code>TokenX</code> and <code>TokenY</code> instances) and the escrow smart contract.</li>
-<li>
-<p>Design the failure handling protocol by extending the above escrow smart contract. One failure case is that Alice (or Bob) did not transfer her <code>TokenX</code>s (his <code>TokenY</code>s) to the escrow. In this case, Alice (Bob) should be able to withdraw her <code>TokenX</code>s (his <code>TokenY</code>s) after a predefined timeout, say <em>t</em> blocks. Use <code>block.number</code> to access the current block height in solidity.</p>
-</li>
-<li>
-<p>Hint: To make smart contract <code>X</code> call smart contract <code>Y</code>'s function <code>foo</code>, you can pass to <code>X</code> <code>Y</code>'s contract address say <code>CA_Y</code> so that in <code>X</code> the following statement calls <code>CA_Y</code>'s function <code>foo</code>: <code>(Y)CA_Y.foo();</code> </p>
-</li>
-</ol>
-<h2 id="exercise-3-design-the-swap-between-token-and-ether">Exercise 3: Design the swap between token and Ether</h2>
-<p>Revise your escrow smart contract to support the swap between Ether and <code>TokenX</code>. For instance, Alice trades her <code>TokenX</code> for Bob's Ether. Design the protocol as above and implement it in the escrow smart contract. Here, you can assume one <code>TokenX</code> is exchangeable with one Ether.</p>
-<p>Consider both cases of success and failed swaps.</p>
-<h2 id="deliverable">Deliverable</h2>
+<h1 id="lab-b6-zero-knowledge-proofs-and-their-blockchain-applications">Lab B6: Zero-Knowledge Proofs and their Blockchain Applications</h1>
+<p>Zero-knowledge proofs (ZK-proofs) is a useful cryptographic tool that can enable privacy-preserving and secure applications on blockchains. 
+In a ZK-proof protocol, one party (the prover) proves to another party (the verifier) that a certain statement is true without revealing any information about the statement itself except for its validity. For instance, such a statement can be “Prover Alice knows a secret key SK that maps to a public key PK“. ZK-proof would convince the verifier that the prover Alice knows SK yet without disclosing SK itself to the verifier.</p>
+<p><img alt="Contract design diagram" src="lab-zkproof.png" /></p>
+<p>ZK-proof can be naturally integrated with a blockchain in domain applications. The figure above illustrates the common system model of a ZK-proof based blockchain application. A trusted third party (TTP) first generates a pair of keys: proving.key and verification.key. 
+In Step 1, he sends proving.key to the Prover. 
+In Step 2, he sends to the blockchain a smart contract <code>verifier.sol</code> that encodes the verification key.
+In Step 3, the Prover generates the proof using proving.key. She sends the proof to the verifier by invoking <code>verifier.sol</code> with the proof.
+In Step 4, the verification result, such as valid statement, is publicly observed by the domain application. If it is verified, the domain application can proceed and conduct the next step.</p>
+<p>The ZK-proof based protocol can be used to safeguard a variety of blockchain applications, such as user authentication, preserving user privacy, etc.
+In this lab, we will program a series of privacy-sensitive statements and run ZK-proof provided by zokrates .</p>
+<h2 id="exercise-1-hello-world-zk-program-and-setup">Exercise 1: Hello-world ZK program and Setup</h2>
+<p>Install [<a href="https://zokrates.github.io/gettingstarted.html">ZoKrates</a>] from source:</p>
+<pre><code class="language-bash">git clone https://github.com/ZoKrates/ZoKrates
+cd ZoKrates
+export ZOKRATES_STDLIB=$PWD/zokrates_stdlib/stdlib
+cargo build -p zokrates_cli --release
+cd target/release
+</code></pre>
+<p>Alternatively, if you are on MacOS or Linux:</p>
+<pre><code class="language-bash">curl -LSfs get.zokrat.es | sh
+</code></pre>
+<p>Create a file <code>root.zok</code> by copying the following content:</p>
+<pre><code>def main(private field X, field Y) {
+    assert(X * X == Y);
+    return;
+}
+</code></pre>
+<p>Run the following commands in a terminal. Here, we consider three parties, Alice the prover, Bob the verifier on blockchain, Charlie the trusted party to set up the platform.</p>
+<pre><code class="language-bash"># Charlie performs the following:
+# Step 1 &amp; 2.
+# compile
+zokrates compile -i root.zok
+# it generates a pair of keys: proving.key and verify.key in the current folder.
+zokrates setup
+# export a solidity verifier including verify.key
+zokrates export-verifier
+# deploy verifier.sol to blockchain (Bob), also sends proving.key to Alice
+
+
+# Step 3.
+# execute the program where 337 is X and 113569 is Y
+zokrates compute-witness -a 337 113569
+# generate a proof of computation (using proving.key)
+zokrates generate-proof
+# get proof.json from Alice, and embed proof.json in tx to be sent to blockchain.
+
+# Step 4. Contract verifier.sol is invoked by Alice's transaction; the execution result indicates if the proof is verified.
+</code></pre>
+<p>After executing <code>zokrates export-verifier</code>, you will find a <code>verifier.sol</code> generated, deploy it to Remix IDE.</p>
+<p>Inspect the <code>verifier.sol</code> file and send a transaction to verify the zokrates-generated proof in Remix.</p>
 <ul>
-<li>For all exercises, you should 1) submit your smart-contract code, and 2) show the screenshot of the program execution. </li>
-</ul></div>
+<li>Hints 1: add ZoKrates to PATH as suggested 
+    <code>bash
+    export PATH=$PATH:/YOUR DIR/.zokrates/bin</code></li>
+<li>Hint 2: You can find <code>a</code>, <code>b</code>, <code>c</code>, and input values required for <code>verifier.verifyTx()</code> in generated <code>proof.json</code> file, which follows the format below:
+    <code>python
+    proof: [[a[0],a[1]], [[b[0][0],b[0][1]],[b[1][0],b[1][1]]], [c[0],c[1]]]</code></li>
+</ul>
+<h2 id="exercise-2-prove-your-age">Exercise 2. Prove Your Age</h2>
+<p>Imagine an online liquor store selling wine and requiring proof of age from customers. Consider David, the liquor store, Alice, a customer, and Bob the blockchain. Alice generates zero-knowledge proof of her age verifiable on-chain. David observes the verification result from Bob on-chain and can proceed to sell the wine in Alice's cart.</p>
+<p>Complete the following program to implement the ZK proof-of-age. Then, test and run your ZK program in the setup from Exercise 1.</p>
+<pre><code>def main(private field age, field min_age) {
+    // implement your proof below
+    return;
+}
+</code></pre>
+<h2 id="exercise-3-prove-your-knowledge-of-hash-preimage">Exercise 3. Prove Your Knowledge of Hash Preimage</h2>
+<p>A more common way of using ZK-proof is to prove the knowledge of a hash preimage. That is, given hash $y=H(x)$, Alice tries to prove to Bob that she knows the preimage $x$ under the hash digest $y$, without revealing $x$ to Bob.</p>
+<p>Complete the following template program to implement the ZK-proof of knowledge of hash preimage.</p>
+<pre><code>import &quot;hashes/sha256/512bitPacked&quot; as sha256packed;
+
+def main(private field a, private field b, private field c, private field d) -&gt; field[2] {
+    field[2] h = sha256packed([a, b, c, d]);
+//implement your code below
+
+    return h;
+}
+</code></pre>
+<p>The first line imports the <code>sha256packed</code> function from the <code>ZoKrates</code> standard library.</p>
+<ul>
+<li>Hint: You can run the given program with the secret to find out the hash digest, and then use the digest to check.</li>
+</ul>
+<!--
+
+Deliverable
+---
+
+1. You should create separate folders for all exercises. 
+2. Submission should be a pdf file.
+3. For all exercises, you should submit the screenshots of what files remain in your folder; the screenshots of the terminal showing what commands are executed and their outputs; the screenshots of your contract executing inputs and results in Remix IDE.
+4. For all exercises, copy your code in `.zok` files and proofs in `proof.json` to the pdf submission.
+5. For Exercise 3, create two folders called `Alice` and `Bob` individually, follow the instructions and understand the scenario(difference in roles' duties), and submit the screenshots of what files remain in `Alice` and `Bob` folders.
+
+
+--></div>
             </div>
         </div>
 

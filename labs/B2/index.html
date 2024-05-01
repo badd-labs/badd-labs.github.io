@@ -114,11 +114,11 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-1-arbitrage-attacks-on-amm-pools" class="nav-link">Exercise 1. Arbitrage attacks on AMM pools</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-1-attacking-amm-by-arbitrage" class="nav-link">Exercise 1. Attacking AMM by arbitrage</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#exercise-2-arbitrage-mitigation-by-routing-swaps" class="nav-link">Exercise 2. Arbitrage mitigation by routing swaps</a>
+            <li class="nav-item" data-level="2"><a href="#exercise-2-defending-amm-against-arbitrage" class="nav-link">Exercise 2. Defending AMM against arbitrage</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -135,64 +135,207 @@
 
 <h1 id="lab-b2-dex-security-arbitrage">Lab B2: DEX security: Arbitrage</h1>
 <h2 id="introduction">Introduction</h2>
-<p>In traditional finance, arbitrage is defined as the purchase and sale of the same asset in different markets in order to profit from differences in exchange rate. The same attack applies to decentralized exchanges (DEXes), where an attacker trades with two DEX pools and exercise buy-low-sell-high strategy. </p>
-<p>In this lab you will pretend to be both the attacker and defender taking steps to exploit an arbitrage opportunity and to prevent it from happening.</p>
-<h2 id="exercise-1-arbitrage-attacks-on-amm-pools">Exercise 1. Arbitrage attacks on AMM pools</h2>
-<p>Let's assume there are two DEXes, Ottoswap and Cuseswap. Ottoswap was willing to trade 10 <code>TokenX</code> per <code>TokenY</code> and Cuseswap was willing to trade 5 <code>TokenX</code> per <code>TokenY</code>. Attacker Alice could buy 10 <code>TokenX</code> for 1 <code>TokenY</code> from Ottoswap and then trade 10 <code>TokenX</code> for 2 <code>TokenY</code> on Cuseswap yielding a 1 <code>TokenY</code> profit. </p>
-<p>While Alice can do the two trades in two separate transactions, Alice may  face the risk of failing one transaction and losing value. In practice, attackers commonly deploy a smart contract to send the two trade transactions atomically in order to guarantee the attack success and profitability. </p>
+<p>In traditional finance, arbitrage is a behavior to buy and sell the same asset in different markets in order to profit from different exchange rates. The same behavior applies to decentralized exchanges (DEXes), where a trader trades with two DEX pools and exercises buy-low-sell-high strategy. </p>
+<p>In this lab you will pretend to be both the trader hunting for the illicit profit and the DEX designer taking steps to defend DEX pools against arbitrage opportunities.</p>
+<table>
+<thead>
+<tr>
+<th>Tasks</th>
+<th>Points</th>
+<th>CS student</th>
+<th>Finance student</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>30</td>
+<td>Required</td>
+<td>Required</td>
+</tr>
+<tr>
+<td>2</td>
+<td>30</td>
+<td>Required</td>
+<td>Bonus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercise-1-attacking-amm-by-arbitrage">Exercise 1. Attacking AMM by arbitrage</h2>
+<p>Suppose there are two DEX pools, OttoSwap and CuseSwap, each of which maintains the same tokens, <code>TokenX</code> and <code>TokenY</code>. For instance, OttoSwap stores $3$ units of <code>TokenX</code> and $1$ units of <code>TokenY</code>. CuseSwap stores $1$ units of <code>TokenX</code> and $4$ units of <code>TokenY</code>.</p>
+<p>An adversary, Malloy, can conduct an arbitrage across the two pools to extract positive profit. For instance, Malloy can swap $1$ <code>TokenX</code> for $dy$ units of <code>TokenY</code> on CuseSwap. Through the constant product function, we can have $dy=2$. Malloy can then swap $2$ <code>TokenY</code> for $dx$ units of <code>TokenX</code> on OttoSwap. Again, through the constant product function, we can obtain $dx=2$. Thus, after these two swaps, Malloy can extract a profit of $dx-1=1$ unit of <code>TokenX</code>.</p>
+<p>In practice, while Malloy can carry out the two swap calls in two separate transactions, there is a risk of one transaction succeeding and the other failing. In that case, Malloy may miss the timing/opportunity of extracting positive profit. Thus, Malloy wants to run the two swaps in a delegated smart contract. The system architecture is depicted in the figure below.</p>
 <p><img alt="AMM design diagram" src="lab-amm-abitrage.jpg" /></p>
-<p>Your job is to create an arbitrage smart contract that collects the arbitrage profit. The setting is shown in the above diagram, including the two token contracts, <code>TokenX</code> and <code>TokenY</code>, and their exchange rates on the two DEXes (Ottoswap and Cuseswap). </p>
-<p>Your arbitrage smart contract should invoke Ottoswap's swap function to trade <code>TokenY</code> for <code>TokenX</code> and then invoke Cuseswap's swap function to trade <code>TokenX</code> for <code>TokenX</code>. Your arbitrage smart contract should print its initial balance and the balance in the end.</p>
-<p>In this exercise, you will be given the code of a CP-AMM (constant product) smart contract and run your arbitrage smart contract against the AMM. You will need to show the profit extracted by the arbitrage.</p>
-<p>Instructions:</p>
+<p>In this exercise, you are required to implement the delegated smart contract <code>ArbiAtomic</code> to support atomic arbitrage and  extract positive profit. Contract <code>ArbiAtomic</code> supports a series of functions as follows. Malloy calling function <code>arbitrageUVXY(uint amount)</code> will invoke Pool <code>PU</code>'s <code>swapXY(amount)</code> to do the first swap before invoking swap on the other Pool <code>PV</code>. </p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract ArbiAtomic {
+  AMMPool poolU; AMMPool poolV;
+  constructor(address _poolU, address _poolV){
+   poolU = AMMPool(_poolU); poolV = AMMPool(_poolV);
+  }
+
+  function arbitrageUVXY(uint dx) returns (uint) public payable {
+   // fill out the following with your code
+  } 
+}
+</code></pre>
+<p>You will be given the smart-contract code implementing a constant product AMM (<code>CPMM</code>) and a <code>BaddToken</code> supporting <code>approve/transferFrom</code>. 
+Note that in the above code snippet, we reuse the same interface of AMMPool as defined in Lab B1 [<a href="../B1/">link</a>].</p>
+<p>Your code will be tested using the test case and running the instructions below. Your code implemented inside <code>arbitrageUVXY()</code> function neds to return the profit, that is, the number of extract <code>TokenX</code> Malloy earn by arbitrage.</p>
 <ul>
 <li>Deploy <code>BaddToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>.</li>
-<li>Make sure <code>Cuseswap</code> initially has 15 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
-<li>Deploy your arbitrage SC.</li>
-<li>Call the arbitrage SC against the <code>CP-AMM</code>.</li>
-<li>In your lab report, include the profit extracted from the above call.</li>
+<li>Deploy the given <code>CPMM</code> SC twice to create instances of <code>PU</code> and <code>PV</code>; each instance is linked to both <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Make sure Pool <code>PV</code> initially has 1 <code>TokenX</code> and 4 <code>TokenY</code>, and Pool <code>PU</code> initially has 3 <code>TokenX</code> and 1 <code>TokenY</code>.</li>
+<li>Deploy your implemented <code>ArbiAtomic</code> SC against Pools <code>PU</code> and <code>PV</code>. The deployed SC is denoted by <code>AA</code>.</li>
+<li>Let an EOA <code>M</code> call <code>TokenX</code>'s function <code>transfer(AA,1)</code>.</li>
+<li>Let the EOA <code>M</code> call <code>AA</code>'s function <code>arbitrageUVXY(1)</code>.<ul>
+<li>Your code of function <code>arbitrageUVXY()</code> should return the value of $1$.</li>
 </ul>
-<h2 id="exercise-2-arbitrage-mitigation-by-routing-swaps">Exercise 2. Arbitrage mitigation by routing swaps</h2>
+</li>
+<li>The expected outcome regarding different accounts' balances is in the following test-case table.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Calls</th>
+<th><code>X.bal(M)</code></th>
+<th><code>Y.bal(M)</code></th>
+<th><code>X.bal(PU)</code></th>
+<th><code>Y.bal(PU)</code></th>
+<th><code>X.bal(PV)</code></th>
+<th><code>Y.bal(PV)</code></th>
+<th><code>X.bal(AA)</code></th>
+<th><code>Y.bal(AA)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init state</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[M,X].transfer(AA,1)</code></td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>[M,AA].arbitrageUVXY(1)</code></td>
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>In the above table, <code>[M,X].transfer(PV,1)</code> means EOA <code>M</code> externally calls <code>TokenX</code>'s function <code>transfer()</code> with arguments <code>PV</code> and <code>1</code>.</p>
+<h2 id="exercise-2-defending-amm-against-arbitrage">Exercise 2. Defending AMM against arbitrage</h2>
+<p>The cause of arbitrage is the price differences across multiple AMM pools. To mitigate arbitrage, one can “reroute” swap requests to reduce or eliminate the price differences.</p>
+<p>Consider the example with two pools where OttoSwap's pool <code>PU</code> has $xU$ / $yU$ units of <code>TokenX</code> / <code>TokenY</code>. CuseSwap's pool <code>PV</code> has $xV$ / $yV$ units of <code>TokenX</code> / <code>TokenY</code>. Initially, the exchange rates at the two pools are different.</p>
+<p>Suppose there is a normal swap request from benign user Alice. Alice wants to swap $dx$ units of <code>TokenX</code> for <code>TokenY</code>. Instead of routing Alice's request to just one pool, the re-routing mechanism splits $dx$ into two values $dxU$ and $dxV$. It then “re-route” $dxU$ to Pool <code>PU</code> and $dxV$ to the other Pool <code>PV</code>, such that the exchange rates between the two pools are brought to the same value. In other words, with swap rerouting, the exchange-rate imbalance can be eliminated and never be created.</p>
+<p>In general, how to split a swap can be modeled as a constraint-solving problem:</p>
+<p>$$
+\begin{eqnarray}
+dxU+dxV&amp;=&amp;dx \
+xU*yU&amp;=&amp;(xU+dxU)(yU-dyU)\
+xV*yV&amp;=&amp;(xV+dxV)(yV-dyV)\
+(xU+dxU)/(yU-dyU)&amp;=&amp;(xV+dxV)/(yV-dyV)\
+\end{eqnarray}
+$$</p>
 <p><img alt="AMM design diagram" src="lab-amm-abitrage-defense.jpg" /></p>
-<p>A defense against arbitrage is the “routing” approach that re-router a user's swap request to multiple AMM pools and balances out the spending so that exchange rates across AMM pools remain the same.</p>
-<p>Suppose an original user request is to swap $dx$ units of <code>TokenX</code> for <code>TokenY</code>, and there are two AMM pools: the first pool of $x1$/$y1$ units of <code>TokenX</code>/<code>TokenY</code> and the second pool of $x2$/$y2$ units of <code>TokenX</code>/<code>TokenY</code>. To make sure the exchange rates remain the same, we can have:</p>
-<p>$$
-\begin{eqnarray}
-dx1+dx2&amp;=&amp;dx \
-x1/y1&amp;=&amp;x2/y2\
-x1*y1&amp;=&amp;(x1+dx1)(y1-dy1)\
-x2*y2&amp;=&amp;(x2+dx2)(y2-dy2)\
-(x1+dx1)/(y1-dy1)&amp;=&amp;(x2+dx2)/(y2-dy2)\
-\end{eqnarray}
-$$</p>
-<p>It derives: </p>
-<p>$$
-\begin{eqnarray}
-dx1&amp;=&amp;\frac{Z(x2+dx)-x1}{Z+1} \
-dx2&amp;=&amp;\frac{x1+dx-Z<em>x2}{Z+1} \
-Z&amp;=&amp;\sqrt{\frac{x1</em>y1}{x2*y2}} \
-\end{eqnarray}
-$$</p>
-<p>In this exercise, you will implement such a smart contract that split the original swap of $dx$ units between Ottoswap and Cuseswap as shown by $dx1$ and $dx2$ above. This ensures that an exchange-rate imbalance is never created. The figure shows the system architecture. </p>
+<p>In this exercise, you will implement a <code>ReRouter</code> SC with the following function signature. The system architecture is depicted in the figure above.</p>
+<pre><code>pragma solidity &gt;=0.7.0 &lt;0.9.0; 
+contract ReRouter {
+  AMMPool poolU; AMMPool poolV;
+  constructor(address _poolU, address _poolV){
+   poolU = AMMPool(_poolU); poolV = AMMPool(_poolV);
+  }
+
+  function rerouteUVXY(uint dxU, uint dxV) public payable {
+   // fill out the following with your code
+  } 
+}
+</code></pre>
+<p>Your code will be tested using the test case and running the instructions below:</p>
 <ul>
 <li>Deploy <code>BaddToken</code> SC twice to create instances of <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Deploy the given <code>CP-AMM</code> SC twice to create instances of <code>Ottoswap</code> and <code>Cuseswap</code>; each instance is against both <code>TokenY</code> and <code>TokenX</code>.</li>
-<li>Make sure <code>Ottoswap</code> initially has 10 <code>TokenY</code> and 5 <code>TokenX</code>. </li>
-<li>Make sure <code>Cuseswap</code> initially has 30 <code>TokenY</code> and 15 <code>TokenX</code>.</li>
-<li>Deploy your router SC.</li>
-<li>Call the router SC to swap 4 <code>TokenX</code> for <code>TokenY</code>. </li>
-<li>In your lab report, include the execution screenshot that shows how much <code>TokenX</code>is involved in <code>Ottoswap</code> and how much in <code>Cuseswap</code>.</li>
+<li>Deploy the given <code>CPMM</code> SC twice to create instances of <code>PU</code> and <code>PV</code>; each instance is linked to both <code>TokenY</code> and <code>TokenX</code>.</li>
+<li>Make sure Pool <code>PU</code> initially has 1 <code>TokenX</code> and 4 <code>TokenY</code>, and Pool <code>PV</code> initially has 1 <code>TokenX</code> and 9 <code>TokenY</code>.</li>
+<li>Deploy your implemented <code>ReRouter</code> SC against Pools <code>PU</code> and <code>PV</code>. The deployed SC is denoted by <code>R</code>.</li>
+<li>Let an EOA <code>A</code> call <code>TokenX</code>'s function <code>transfer(PV,?dxU)</code>.</li>
+<li>Let the EOA <code>A</code> call <code>R</code>'s function <code>rerouteUVXY(?dxU,?dxV)</code>.</li>
+<li>The expected outcome regarding different accounts' balances is in the following test-case table.</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Calls</th>
+<th><code>X.bal(A)</code></th>
+<th><code>Y.bal(A)</code></th>
+<th><code>X.bal(PU)</code></th>
+<th><code>Y.bal(PU)</code></th>
+<th><code>X.bal(PV)</code></th>
+<th><code>Y.bal(PV)</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init state</td>
+<td>3</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>9</td>
+</tr>
+<tr>
+<td><code>[A,X].transfer(R,3)</code></td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>4</td>
+<td>1</td>
+<td>9</td>
+</tr>
+<tr>
+<td><code>[A,R].rerouteUVXY(?dxU,?dxV)</code></td>
+<td>0</td>
+<td>?</td>
+<td>1+?dxU</td>
+<td>?</td>
+<td>1+?dxV</td>
+<td>?</td>
+</tr>
+</tbody>
+</table>
+<p>You will need to figure out what values variables <code>?dxU</code> and <code>?dxV</code> should take, so that the end state after call <code>[A,R].rerouteUVXY(?dxU,?dxV)</code> meets the following two conditions: 
+- The exchange rates of pools <code>PU</code> and <code>PV</code> are the same.
+- EOA <code>A</code> has swapped out all <code>TokenX</code> she has, leaving balance to be <code>X.bal(A)=0</code>.</p>
 <h2 id="deliverable">Deliverable</h2>
 <ol>
-<li>
-<p>For all exercises, you should submit screenshots showing your contract executing the described workflow successfully.</p>
+<li>For all exercises, you should submit screenshots showing your contract executing the described workflow successfully.<ul>
+<li>If you fail to submit smart-contract code (in <code>.sol</code> file), your submission will be subject to up to 70% grade deduction. </li>
+</ul>
 </li>
-<li>
-<p>Submit your solidity smart contracts for each task. </p>
-</li>
+<li>Submit your solidity smart contracts for each task. </li>
+<li>If you fail to submit the screenshots of the program execution, your submission will be subject to up to 50% grade deduction.</li>
+<li>For Exercise 2, report the values you calculate <code>?dxU</code> and <code>?dxV</code>.</li>
 </ol></div>
             </div>
         </div>
